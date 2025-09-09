@@ -362,6 +362,30 @@ class SteamWorksCrawler:
                         continue
             except Exception as e:
                 logging.warning(f"Failed to get Wishlists Outstanding: {str(e)}")
+
+            # Extract Lifetime Total Units
+            logging.info("Extracting Lifetime Total Units...")
+            try:
+                lifetime_units_selectors = [
+                    "//td[contains(text(), 'Lifetime total units')]/following-sibling::td[@align='right']",
+                    "//td[contains(text(), 'Lifetime total units')]/following-sibling::td[2]"
+                ]
+                lifetime_units = None
+                for selector in lifetime_units_selectors:
+                    try:
+                        element = self.driver.find_element(By.XPATH, selector)
+                        if element.text.strip():
+                            lifetime_units = self.parse_numeric_value(element.text)
+                            if lifetime_units is not None:
+                                data['lifetime_total_units'] = int(lifetime_units)
+                                logging.info(f"✓ Found Lifetime Total Units: {lifetime_units}")
+                                break
+                    except Exception:
+                        continue
+                if lifetime_units is None:
+                    logging.warning("Failed to get Lifetime Total Units")
+            except Exception as e:
+                logging.warning(f"Failed to get Lifetime Total Units: {str(e)}")
             
             # Extract Median Time Played
             logging.info("Extracting Median Time Played...")
@@ -392,7 +416,32 @@ class SteamWorksCrawler:
             except Exception as e:
                 logging.warning(f"Failed to get Median Time Played: {str(e)}")
             
-            # Skip legacy lifetime revenue on details page; use Microtxn page instead
+            # Extract Lifetime Steam revenue (gross)
+            logging.info("Extracting Lifetime Steam revenue (gross)...")
+            try:
+                lifetime_gross_selectors = [
+                    "//td[normalize-space(text())='Lifetime Steam revenue (gross)']/following-sibling::td[@align='right']",
+                    "//td[contains(text(), 'Lifetime Steam revenue (gross)')]/following-sibling::td[1]"
+                ]
+                lifetime_gross = None
+                for selector in lifetime_gross_selectors:
+                    try:
+                        el = self.driver.find_element(By.XPATH, selector)
+                        raw = el.text.strip()
+                        if raw:
+                            # raw like "$56,289,662" → 56289662
+                            parsed = self.parse_numeric_value(raw)
+                            if parsed is not None:
+                                lifetime_gross = int(float(parsed))
+                                data['lifetime_total_revenue'] = lifetime_gross
+                                logging.info(f"✓ Found Lifetime Steam revenue (gross): {lifetime_gross}")
+                                break
+                    except Exception:
+                        continue
+                if lifetime_gross is None:
+                    logging.warning("Failed to get Lifetime Steam revenue (gross)")
+            except Exception as e:
+                logging.warning(f"Failed to get Lifetime Steam revenue (gross): {str(e)}")
             
             return data
             
@@ -746,13 +795,57 @@ class SteamWorksCrawler:
         try:
             # Set time filter to yesterday
             self.set_yesterday_filter()
+
+            # Extract World table daily revenue and daily units
+            try:
+                # Find the header row for World section
+                header_world = self.driver.find_elements(By.XPATH, "//th[normalize-space()='World']/ancestor::tr")
+                if header_world:
+                    rows = header_world[0].find_elements(By.XPATH, "following-sibling::tr")
+                    daily_units_val = None
+                    daily_rev_val = None
+                    for row in rows:
+                        ths = row.find_elements(By.XPATH, ".//th")
+                        if ths:
+                            # Stop when we reach next section
+                            break
+                        tds = row.find_elements(By.XPATH, ".//td")
+                        if len(tds) < 9:
+                            continue
+                        label = (tds[3].text or '').strip().lower()
+                        if label == 'revenue' and daily_rev_val is None:
+                            r = self.parse_numeric_value(tds[4].text.strip())
+                            if r is not None:
+                                try:
+                                    daily_rev_val = float(r)
+                                except Exception:
+                                    pass
+                        if label == 'units':
+                            val = self.parse_numeric_value(tds[4].text.strip())
+                            if val is None:
+                                val = 0
+                            try:
+                                daily_units_val = int(val)
+                            except Exception:
+                                daily_units_val = 0
+                    if daily_rev_val is not None:
+                        data['daily_total_revenue'] = daily_rev_val
+                        logging.info(f"Extracted World daily revenue: {daily_rev_val}")
+                    if daily_units_val is not None:
+                        data['daily_units'] = daily_units_val
+                        logging.info(f"Extracted World daily units: {daily_units_val}")
+                else:
+                    logging.warning("World header not found for daily units")
+            except Exception as e:
+                logging.warning(f"Error extracting World daily units: {str(e)}")
             
             # Extract Top 10 Regions by revenue (parse rows under 'Regions' header)
             try:
                 header_regions = self.driver.find_elements(By.XPATH, "//th[normalize-space()='Regions']/ancestor::tr")
                 if header_regions:
                     rows = header_regions[0].find_elements(By.XPATH, "following-sibling::tr")
-                    region_entries = []
+                    region_to_metrics = {}
+                    region_current_name = None
                     for row in rows:
                         # stop when we reach the Countries header
                         ths = row.find_elements(By.XPATH, ".//th")
@@ -763,11 +856,8 @@ class SteamWorksCrawler:
                         tds = row.find_elements(By.XPATH, ".//td")
                         if len(tds) < 9:
                             continue
-                        # Only take the 'Revenue' line
-                        if (tds[3].text or '').strip().lower() != 'revenue':
-                            continue
-                        # Columns: [0]=expander, [1]=name, [2]=share(% of world), [3]=Revenue label, [4]=yesterday revenue, [6]=change vs prior
                         try:
+                            label = (tds[3].text or '').strip().lower()
                             name_cell = tds[1]
                             name = name_cell.text.strip()
                             try:
@@ -776,27 +866,48 @@ class SteamWorksCrawler:
                                     name = link.text.strip()
                             except Exception:
                                 pass
-                            share_val = None
+                            # When on a units row, name cell may be empty; fallback to last revenue name
+                            if not name and 'unit' in label and region_current_name:
+                                name = region_current_name
+                            if not name:
+                                continue
+                            entry = region_to_metrics.get(name, {'region': name})
+                            # Share column applies for both rows
                             share_raw = tds[2].text.strip() or tds[2].get_attribute('innerText') or ''
                             share_val = self.parse_numeric_value(share_raw)
-                            revenue_val = self.parse_numeric_value(tds[4].text.strip())
-                            change_raw = tds[6].text.strip()
-                            change_num = self.parse_numeric_value(change_raw)
-                            sign = '-' if '-' in change_raw else '+' if '+' in change_raw else ''
-                            change_txt = f"{sign}{abs(float(change_num)):.2f}%" if change_num is not None else None
-                            if name and revenue_val is not None and share_val is not None:
-                                region_entries.append({
-                                    'region': name,
-                                    'revenue': float(revenue_val),
-                                    'share': f"{float(share_val):.2f}%",
-                                    'change_vs_prior': change_txt or "0.00%",
-                                })
+                            if share_val is not None:
+                                entry['share'] = f"{float(share_val):.2f}%"
+                            # Change column is on revenue row
+                            if label == 'revenue':
+                                revenue_val = self.parse_numeric_value(tds[4].text.strip())
+                                entry['revenue'] = float(revenue_val) if revenue_val is not None else None
+                                change_raw = tds[6].text.strip()
+                                change_num = self.parse_numeric_value(change_raw)
+                                sign = '-' if '-' in change_raw else '+' if '+' in change_raw else ''
+                                entry['change_vs_prior'] = f"{sign}{abs(float(change_num)):.2f}%" if change_num is not None else "0.00%"
+                                # remember the last seen name from a revenue row
+                                region_current_name = name
+                            elif 'unit' in label:
+                                units_val = self.parse_numeric_value(tds[4].text.strip())
+                                try:
+                                    entry['units'] = int(units_val) if units_val is not None else 0
+                                except Exception:
+                                    entry['units'] = 0
+                            region_to_metrics[name] = entry
                         except Exception:
                             continue
-                    if region_entries:
-                        top_regions = region_entries[:10]
-                        for i, item in enumerate(top_regions, start=1):
-                            item['rank'] = i
+                    # Build list limited to top 10 by revenue
+                    region_entries = [
+                        {**v} for v in region_to_metrics.values()
+                        if isinstance(v.get('revenue'), (int, float))
+                    ]
+                    region_entries.sort(key=lambda x: x.get('revenue', 0), reverse=True)
+                    top_regions = region_entries[:10]
+                    for i, item in enumerate(top_regions, start=1):
+                        item['rank'] = i
+                        if 'units' not in item or not isinstance(item.get('units'), int):
+                            item['units'] = 0
+                    if top_regions:
                         data['top10_region_revenue'] = top_regions
                         logging.info(f"Extracted top10_region_revenue with {len(top_regions)} entries")
                     else:
@@ -811,7 +922,8 @@ class SteamWorksCrawler:
                 header_countries = self.driver.find_elements(By.XPATH, "//th[normalize-space()='Countries']/ancestor::tr")
                 if header_countries:
                     rows = header_countries[0].find_elements(By.XPATH, "following-sibling::tr")
-                    country_entries = []
+                    country_to_metrics = {}
+                    country_current_name = None
                     for row in rows:
                         # stop when the next section begins (another th) or table end
                         ths = row.find_elements(By.XPATH, ".//th")
@@ -820,9 +932,8 @@ class SteamWorksCrawler:
                         tds = row.find_elements(By.XPATH, ".//td")
                         if len(tds) < 9:
                             continue
-                        if (tds[3].text or '').strip().lower() != 'revenue':
-                            continue
                         try:
+                            label = (tds[3].text or '').strip().lower()
                             name_cell = tds[1]
                             name = name_cell.text.strip()
                             try:
@@ -831,26 +942,46 @@ class SteamWorksCrawler:
                                     name = link.text.strip()
                             except Exception:
                                 pass
+                            # units rows may not repeat the name; fallback to last revenue name
+                            if not name and 'unit' in label and country_current_name:
+                                name = country_current_name
+                            if not name:
+                                continue
+                            entry = country_to_metrics.get(name, {'country': name})
                             share_raw = tds[2].text.strip() or tds[2].get_attribute('innerText') or ''
                             share_val = self.parse_numeric_value(share_raw)
-                            revenue_val = self.parse_numeric_value(tds[4].text.strip())
-                            change_raw = tds[6].text.strip()
-                            change_num = self.parse_numeric_value(change_raw)
-                            sign = '-' if '-' in change_raw else '+' if '+' in change_raw else ''
-                            change_txt = f"{sign}{abs(float(change_num)):.2f}%" if change_num is not None else None
-                            if name and revenue_val is not None and share_val is not None:
-                                country_entries.append({
-                                    'country': name,
-                                    'revenue': float(revenue_val),
-                                    'share': f"{float(share_val):.2f}%",
-                                    'change_vs_prior': change_txt or "0.00%",
-                                })
+                            if share_val is not None:
+                                entry['share'] = f"{float(share_val):.2f}%"
+                            if label == 'revenue':
+                                revenue_val = self.parse_numeric_value(tds[4].text.strip())
+                                entry['revenue'] = float(revenue_val) if revenue_val is not None else None
+                                change_raw = tds[6].text.strip()
+                                change_num = self.parse_numeric_value(change_raw)
+                                sign = '-' if '-' in change_raw else '+' if '+' in change_raw else ''
+                                entry['change_vs_prior'] = f"{sign}{abs(float(change_num)):.2f}%" if change_num is not None else "0.00%"
+                                # remember last revenue-name for units rows
+                                country_current_name = name
+                            elif 'unit' in label:
+                                units_val = self.parse_numeric_value(tds[4].text.strip())
+                                try:
+                                    entry['units'] = int(units_val) if units_val is not None else 0
+                                except Exception:
+                                    entry['units'] = 0
+                            country_to_metrics[name] = entry
                         except Exception:
                             continue
-                    if country_entries:
-                        top_countries = country_entries[:10]
-                        for i, item in enumerate(top_countries, start=1):
-                            item['rank'] = i
+                    # Build list limited to top 10 by revenue
+                    country_entries = [
+                        {**v} for v in country_to_metrics.values()
+                        if isinstance(v.get('revenue'), (int, float))
+                    ]
+                    country_entries.sort(key=lambda x: x.get('revenue', 0), reverse=True)
+                    top_countries = country_entries[:10]
+                    for i, item in enumerate(top_countries, start=1):
+                        item['rank'] = i
+                        if 'units' not in item or not isinstance(item.get('units'), int):
+                            item['units'] = 0
+                    if top_countries:
                         data['top10_country_revenue'] = top_countries
                         logging.info(f"Extracted top10_country_revenue with {len(top_countries)} entries")
                     else:
@@ -1034,67 +1165,9 @@ class SteamWorksCrawler:
             
 
             
-            # Extract Revenue Under Period: Yesterday
-            logging.info("Extracting Revenue Under Period: Yesterday...")
-            try:
-                revenue_selectors = [
-                    "//h2[contains(text(), 'Revenue $')]",
-                    "//td[contains(text(), 'Revenue Under Period')]/following-sibling::td",
-                    "//div[contains(text(), 'Revenue Under Period')]/following-sibling::*",
-                    "//span[contains(text(), 'Revenue Under Period')]/following-sibling::*"
-                ]
-                
-                revenue = None
-                for selector in revenue_selectors:
-                    try:
-                        element = self.driver.find_element(By.XPATH, selector)
-                        if element.text.strip():
-                            # Handle "Revenue $49,748" format
-                            text = element.text.strip()
-                            if "Revenue $" in text:
-                                # Extract the number after "Revenue $"
-                                parts = text.split("Revenue $")
-                                if len(parts) > 1:
-                                    revenue = self.parse_numeric_value(parts[1].strip())
-                                else:
-                                    revenue = self.parse_numeric_value(text)
-                            else:
-                                revenue = self.parse_numeric_value(text)
-                            
-                            if revenue:
-                                data['daily_total_revenue'] = revenue
-                                logging.info(f"Found Daily Revenue: {revenue}")
-                                break
-                    except:
-                        continue
-                
-                if not revenue:
-                    logging.warning("Failed to get Daily Revenue")
-                    
-            except Exception as e:
-                logging.warning(f"Failed to get Daily Revenue: {str(e)}")
+            # Do not fetch daily_total_revenue here; it is sourced from Regions World section
             
-            # Extract Lifetime Total Revenue from Lifetime Overview table
-            logging.info("Extracting Lifetime Total Revenue (Lifetime Overview)...")
-            try:
-                lifetime_rev_selectors = [
-                    "//h2[contains(text(),'Lifetime Overview')]/following::table[1]//td[normalize-space(text())='Revenue']/following-sibling::td[1]",
-                    "//table//td[normalize-space(text())='Revenue']/following-sibling::td[1]"
-                ]
-                for selector in lifetime_rev_selectors:
-                    try:
-                        el = self.driver.find_element(By.XPATH, selector)
-                        raw = el.text.strip()
-                        if raw:
-                            lifetime_rev = self.parse_numeric_value(raw)
-                            if lifetime_rev is not None:
-                                data['lifetime_total_revenue'] = lifetime_rev
-                                logging.info(f"Found Lifetime Total Revenue: {lifetime_rev}")
-                                break
-                    except:
-                        continue
-            except Exception as e:
-                logging.warning(f"Failed to get Lifetime Total Revenue: {str(e)}")
+            # Do not fetch lifetime_total_revenue here; it is sourced from Detail page
             
             # Extract IAP breakdown table (Item, ID, Units, Average Price, Revenue)
             try:
@@ -1332,6 +1405,7 @@ class SteamWorksCrawler:
                 'stat_date': stat_date,
                 # Direct fields if present
                 'unique_player': data.get('unique_player'),
+                'lifetime_total_units': data.get('lifetime_total_units'),
                 'new_players': new_players_val,
                 'wishlist': data.get('wishlist'),
                 'dau': data.get('dau'),
@@ -1342,6 +1416,7 @@ class SteamWorksCrawler:
                 'new_vs_returning_ratio': new_vs_returning_ratio_val,
                 'total_downloads': data.get('total_downloads'),
                 'daily_total_revenue': data.get('daily_total_revenue'),
+                'daily_units': data.get('daily_units'),
                 'daily_arpu': daily_arpu_val,
                 'lifetime_total_revenue': data.get('lifetime_total_revenue'),
                 'top10_country_dau': json.dumps(data.get('top10_country_dau')) if data.get('top10_country_dau') is not None else None,
@@ -1508,6 +1583,7 @@ def main():
         games = [
             (2507950, 'Delta Force'),
             (3104410, 'Terminull Brigade'),
+            (3478050, 'Road to Empress'),
         ]
 
     overall_success = True
