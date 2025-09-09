@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<style>
+	svg:not(:root) { overflow: hidden; }
+
+	.background {
+		fill: #444;
+		pointer-events: all;
+	}
+
+	path {
+		fill: #222;
+		stroke: #aaa;
+		stroke-width: .5px;
+	}
+
+	path:hover {
+		fill: #89adba;
+		stroke: #aaa;
+		stroke-width: .5px;
+	}
+
+	.q0-8 { fill:#222222; }
+	.q1-8 { fill:#393124; }
+	.q2-8 { fill:#514026; }
+	.q3-8 { fill:#694f29; }
+	.q4-8 { fill:#815f2b; }
+	.q5-8 { fill:#996e2e; }
+	.q6-8 { fill:#b17d30; }
+	.q7-8 { fill:#c98d33; }
+
+</style>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Game: Delta Force (2507950)</title>
+	<link href="https://partner.steampowered.com/public/shared/css/motiva_sans.css?v=r5pg4q3CrKGd&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/shared_global.css?v=5J-TDqYgBdU7&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/buttons.css?v=ILAw3jKDVNA4&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/../../styles_global.css?v=6855d262-33d6&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_financials.css?v=b10028950&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_flot_charts.css?v=b10028950&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<!--[if lte IE 7]> <style type="text/css"> .iepopupfix{ display: block; } </style> <![endif]-->
+	<script type="text/javascript">VALVE_PUBLIC_PATH = "https:\/\/partner.steampowered.com\/\/public\/";</script>
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/prototype-1.6.0.2.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jquery-1.8.3.min.js?v=NXam5zydzNu8&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/shared_global.js?v=m3dNaWDVC2YM&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.min.js?v=mSfqk1QKKgiz&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.stack.min.js?v=Nu_CW9IREurT&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.pie.min.js?v=TF3RhDRO9bS4&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.resize.min.js?v=MeIf0YViALgL&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.navigate.min.js?v=3ro41c7Sb4Gw&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.time.min.js?v=CIECDYHJjBgN&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/excanvas.min.js?v=7p4_7hQnC3sn&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/d3.v3.min.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/flot.charthelper.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/global.js?v=DBONYgnI60Gj&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript">$J = jQuery.noConflict();</script></head>
+<body>
+
+<div id="header"><img src="https://partner.steampowered.com/img/logo_steamworks_sales.png" height="76" width="600" border="0" /></div>
+<div id="header_menu">
+<span id="header_left">
+		<div style="float:right;padding-right:46px;"><span style="color: #acacac;">Signed in as <strong>jimhanzhangsw777</strong></span>
+	
+
+	<span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/login/logout">Logout</a><span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/dir.php">Mega Site Map</a><span style="color:#414141;">|</span>
+
+			<form>
+		<input name="runasGoto" type="hidden" autocomplete="off">
+		View as: <select style="width: 10em;" onchange="this.form.submit();" name="runasPubid">
+		<option value="-1">Default</option>
+<option value=67095>TCH Scarlet Limited</option>
+<option selected value=182910>Proxima Beta Europe B.V.</option>
+</select>
+		</form>
+		
+	<form method="get" action="https://partner.steampowered.com/dir.php" >Search
+	<input type="text" name="filter" size=9 value=""/>
+	</form>
+	</div>
+	<div style="text-align:left;float:left;padding-left:46px;">
+	<a href="https://partner.steampowered.com/">Home</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/app/top/">Products</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/package/steam/">Packages</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/bundles/">Bundles</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/region/">Regions</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/wishlist/daily/">Wishlists</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/players.php">Players</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/deckplayers.php">Steam Deck</a> <span style="color:#414141;">|</span>
+
+	<a href="https://partner.steampowered.com/coupons.php">Coupons</a> <span style="color:#2C2C2C;">|</span> <a href="https://partner.steampowered.com/partner_report2.php?partnerid=182910">Reports</a> <span style="color:#2C2C2C;">|</span>	</div>
+	</span>
+</div>
+<center>
+
+<div class="ContentWrapper">
+
+<h1>Game: Delta Force (2507950)</h1>
+<div class="hr-color"><hr></div>
+<br>
+<br>
+<div id="gameDataLeft">
+
+<div style="float:left;width:832px" class="lifetimeSummaryCtn">
+<table>
+			<tr>
+			<td width=250>Lifetime Steam revenue (gross)</td>
+			<td align=right width=130>$56,289,662</td>
+			<td>(gross revenue, includes VAT, DLC, bundles, in-game sales)</td>
+		</tr>
+		<tr>
+			<td>Lifetime Steam revenue (net)</td>
+			<td align=right>$51,590,736</td>
+			<td colspan="3">(gross revenues less returns, chargebacks, and taxes)</td>
+		</tr>
+
+                    <tr>
+                <td>Qualified App Revenue<a href="#" class="tooltip"> (?)<span>This app qualified for 5% additional revenue share starting 2025-01-20<br>This app qualified for 10% additional revenue share  starting 2025-08-24<br></span></a></td>
+                <td align=right>$51,602,541</td>
+                <td nowrap>(net sales as of October 1st, 2018)</td>
+            </tr>
+                    <tr>
+            <td colspan="3" style="height: 0px !important; background-color:#333538"></td>
+        </tr>
+
+					<tr>
+				<td>Lifetime retail units <a href="#" class="tooltip">(?)<span>The number of units activated via key</span></a></td>
+				<td align=right>2</td>
+				<td>(Steamworks retail activations)</td>
+			</tr>
+						<tr>
+				<td>Lifetime free licenses <a href="#" class="tooltip">(?)<span>A free license is a grant of a product to a user, but does not necessarily mean the user has downloaded the product</span></a></td>
+				<td align=right>25,430,417</td>
+			</tr>
+					<tr>
+			<td>Lifetime total units <a href="#" class="tooltip">(?)<span>Lifetime Steam units + Lifetime retail units + Lifetime free licenses</span></a></td>
+			<td align=right>25,430,419</td>
+		</tr>
+						<tr>
+			<td>Lifetime units returned</td>
+			<td align=right>0</td>
+			<td colspan="3">(0.0% of Steam units)</td>
+		</tr>
+					<tr>
+				<td>Lifetime total items <a href="#" class="tooltip">(?)<span>Number of in-game items granted or sold</span></a></td>
+				<td align=right>4,024,241</td>
+			</tr>
+			        <tr>
+            <td colspan="3" style="height: 0px !important; background-color:#333538"></td>
+        </tr>
+		<tr>
+			<td>Current players <a href="#" class="tooltip">(?)<span>The number of users running this app right now</span></a></td>
+			<td align=right>157,008</td>
+			<td><a href="https://partner.steampowered.com//app/players/2507950/">(view detailed player breakdown)</a> </td>
+		</tr>
+		<tr>
+			<td>Daily active users</td>
+			<td align="right">570,374</td>
+			<td>(average, past 7 days) </td>
+		</tr>
+		<tr>
+			<td>Lifetime unique users <a href="#" class="tooltip">(?)<span>The number of users that have launched the app</span></a></td>
+			<td align=right>14,863,260</td>
+			<td></td>
+		</tr>
+				<tr>
+			<td>Median time played</td>
+			<td align=right><a href="https://partner.steampowered.com//app/playtime/2507950/">3 hours 9 minutes</a></td>
+		</tr>    <tr>
+        <td colspan="3" style="height: 0px !important; background-color:#333538"></td>
+    </tr>
+<tr>
+	<td>Wishlists</td>
+	<td align="right" title="Outstanding wishes - does not include owners of the game. Click the '+' for stats on owners who had previously wished for this game.">
+	696,921			<a href="#" onclick="$('extended_wishlist_stats').toggle(); $('extended_wishlist_stats2').toggle(); return false;">+</a>
+		</td>
+	<td><a href="https://partner.steampowered.com/app/wishlist/2507950/">(view detailed wishlist breakdown)</a></td>
+</tr>
+<tr id="extended_wishlist_stats" style="display: none;">
+	<td>&nbsp;</td>
+	<td align="right">+ 1,937,699</td>
+	<td>Had this game on their wishlist but have since bought or activated it on Steam.</td>
+</tr>
+<tr id="extended_wishlist_stats2" style="display: none;">
+	<td>&nbsp;</td>
+	<td align="right">+ 0</td>
+	<td>Had this game on their wishlist but have since received it as a gift or trade.</td>
+</tr>
+	<tr>
+		<td>Demo version</td>
+		<td align=right><a href="https://partner.steampowered.com/app/details/2951290/?dateStart=2025-09-02&amp;dateEnd=2025-09-02">Delta Force Demo</a></td>
+	</tr>
+</table>
+</div>
+<div style="text-align:left; float: right; margin-left:16px;" >
+	<a href="http://store.steampowered.com/app/2507950/">Store page</a><br>
+			<a href="https://partner.steampowered.com/region/?appID=2507950 ">Regional sales report</a><br>
+				<a href="https://partner.steampowered.com/cdkeyreport.php?appID=2507950">Regional key activations report</a><br>
+			    <a href="https://partner.steampowered.com/survey2.php?appID=2507950">Hardware survey</a><br>
+	        <a href="https://partner.steampowered.com/app/controllerstats/2507950/">Controller stats</a> <br>
+    		<a href="https://partner.steampowered.com/app/remoteplay/2507950/">Remote Play stats</a> <br>
+			<a href="https://partner.steampowered.com/nav_regions.php?downloads=1&appID=2507950">Downloads by Region</a><br>
+			<a href="https://partner.steampowered.com/app/microtxn/2507950/">In-Game purchases</a><br>
+			<a href="https://partner.steampowered.com//app/players/2507950/">Concurrent User & Daily Active User Stats</a><br>
+	
+<br><br><br>
+	</div>
+<br clear="all">
+<br>
+<div><div class="PeriodLinks">View most recent: &nbsp; <a href="https://partner.steampowered.com/app/details/2507950/?specialPeriod=today">today</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2025-09-01&amp;dateEnd=2025-09-01&amp;priorDateStart=2025-08-31&amp;priorDateEnd=2025-08-31">yesterday</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2025-08-26&amp;dateEnd=2025-09-01&amp;priorDateStart=2025-08-19&amp;priorDateEnd=2025-08-25">1 week</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2025-08-19&amp;dateEnd=2025-09-01&amp;priorDateStart=2025-08-05&amp;priorDateEnd=2025-08-18">2 weeks</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2025-08-02&amp;dateEnd=2025-09-01&amp;priorDateStart=2025-07-02&amp;priorDateEnd=2025-08-01">1 month</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2025-06-03&amp;dateEnd=2025-09-01&amp;priorDateStart=2025-03-04&amp;priorDateEnd=2025-06-02">3 months</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2024-09-03&amp;dateEnd=2025-09-01&amp;priorDateStart=2023-09-05&amp;priorDateEnd=2024-09-02">1 year</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2025-01-01&amp;dateEnd=2025-09-02&amp;priorDateStart=2024-05-01&amp;priorDateEnd=2024-12-31">ytd</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2000-01-01&amp;dateEnd=2025-09-02&amp;priorDateStart=1974-04-30&amp;priorDateEnd=1999-12-31">all history</a> <span style="color:#424242;">|</span> <a href="javascript:toggleThing('DateRangeSelector')">custom</a> <span style="color:#424242;">|</span> <em>(9/2/2025)</em> &nbsp;&nbsp;&nbsp; <div style="float:right;"><a href="javascript:toggleThing('Preferences')">Preferences</a> </div></div>	<script language="javascript">
+	function toggleThing( thingID )
+	{
+		el = document.getElementById( thingID );
+		if ( el.style.display != 'block' )
+		{
+			el.style.display = 'block';
+		}
+		else
+		{
+			el.style.display = 'none';
+		}
+	}
+
+	function toggleThingVis( thingID )
+	{
+		el = document.getElementById( thingID );
+		if ( el.style.visibility != 'visible' )
+		{
+			el.style.visibility = 'visible';
+		}
+		else
+		{
+			el.style.visibility = 'hidden';
+		}
+	}
+	</script>
+	<style type="text/css">
+
+	.initHidden {
+		display:none;
+	}
+
+	.initInvisible {
+		visibility:hidden;
+	}
+	</style>
+	<script language="JavaScript" src="https://partner.steampowered.com//controls/calendar/calendar.js"></script>
+	<script language=javascript>
+	<!--
+		var cal1 = new CalendarPopup();
+		var tomorrow = new Date() ; with (tomorrow) setDate(getDate()+1)
+		var cal1 = new CalendarPopup();
+		cal1.addDisabledDates(formatDate(tomorrow,"yyyy-MM-dd"), null);
+	-->
+
+		// Check whether or not we should be displaying date selection
+		function showPriorDateSelect(elem)
+		{
+			if ( elem.value == 'Custom' )
+			{
+				document.getElementById('DateRangeSelector2').style.display = "block";
+			}
+			else
+			{
+				document.getElementById('DateRangeSelector2').style.display = "none";
+			}
+		}
+	</script>
+
+	
+	<div id="DateRangeSelector" class="initHidden" style="background:#2C2C2C;padding:16px 0px 0px 0px;vertical-align:middle;">
+
+		<form method="get" name="cal_form" >
+						<INPUT TYPE="hidden" NAME="alignPriorAnnual" VALUE="Immediate" />
+			<INPUT TYPE="hidden" NAME="priorDateStart" VALUE="2025-09-01" />
+			<INPUT TYPE="hidden" NAME="priorDateEnd" VALUE="2025-09-01" />
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Start Date:
+				<INPUT TYPE="text" NAME="dateStart" SIZE=9 VALUE="2025-09-02" />
+				<A HREF="javascript:cal1.select(document.forms['cal_form'].dateStart,'anchor1','yyyy-MM-dd');" NAME="anchor1" ID="anchor1"><IMG style="vertical-align:middle;" src="https://partner.steampowered.com//controls/calendar/cal.jpg"></A>
+				12:00 AM			</div>
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				End Date:
+				<INPUT TYPE="text" NAME="dateEnd" SIZE=9 VALUE="2025-09-02" />
+				<A HREF="javascript:cal1.select(document.forms['cal_form'].dateEnd,'anchor2','yyyy-MM-dd');" NAME="anchor2" ID="anchor2"><IMG style="vertical-align:middle;" src="https://partner.steampowered.com//controls/calendar/cal.jpg"></A>
+				11:59 PM			</div>
+							<input type="submit" value="Update" name="submit">
+		</form>
+	</div>
+
+	<div id="Preferences" class="initHidden" style="background:#2C2C2C;padding:16px 0px 16px 0px;vertical-align:middle;">
+
+		<form method="get" name="pref_form" >
+						<INPUT TYPE="hidden" NAME="dateStart" VALUE="2025-09-02" />
+			<INPUT TYPE="hidden" NAME="dateEnd" VALUE="2025-09-02" />
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Date Link Style:
+								<select style="width: 8em;" name="dateLinkStyle">
+					<option selected  value="Standard">Standard</option>
+					<option value="Financial">Financial</option>
+				</select>
+			</div>
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Prior period:
+								<select id = "PriorPeriodSelect" style="width: 13em;" name="alignPriorAnnual" onchange= "showPriorDateSelect(this)" >
+					<option selected	value="Immediate" title="Prior period will immediately precede selected date range">Immediate prior</option>
+					<option	value="One Year"   title="Prior period will align with date range one year earlier">Year-over-year, comp</option>
+					<option		value="Custom"   title="Prior period can be any range">Custom period</option>
+				</select>
+			</div>
+			<div id="DateRangeSelector2" class="initHidden" style="background:#2C2C2C;">
+				<div style="float:left; margin:0px 32px 0px 0px;">
+					Prior Start:
+					<INPUT TYPE="text" NAME="priorDateStart" SIZE=9 VALUE="2025-09-01" />
+				</div>
+				<div style="float:left; margin:0px 32px 0px 0px;">
+					Prior End:
+					<INPUT TYPE="text" NAME="priorDateEnd" SIZE=9 VALUE="2025-09-01" />
+				</div>
+				<script>
+					// check if we should be showing date values initially
+					document.addEventListener("load", showPriorDateSelect( document.getElementById('PriorPeriodSelect') ) );
+				</script>
+			</div>
+
+						<div style="float:right;">
+				<input type="submit" value="Update" name="submit">
+			</div>
+		</form>
+	</div>
+	</div>
+	<div style="text-align:left;">
+<table>
+	<tr>
+				<td><b></b></td>
+		<td></td>
+		<td align=right title='2025-09-02 to 2025-09-02'><b>Today</b></td>
+		</tr>
+		<tr >
+	
+	<td><b>Free Licenses Granted</b> <a href="#" class="tooltip">(?)<span>A free license is a grant of a product to a user, but does not necessarily mean the user has downloaded the product</span></a> 		</td>
+	<td></td>
+	<td align=right><b>18,811</b></td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>- <em><a href="https://partner.steampowered.com/package/details/1105919/?dateStart=2025-09-02&amp;dateEnd=2025-09-02">Delta Force (CN) (no cost)</a></em> 		</td>
+	<td></td>
+	<td align=right>14,398</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>- <em><a href="https://partner.steampowered.com/package/details/901879/?dateStart=2025-09-02&amp;dateEnd=2025-09-02">Delta Force (no cost)</a></em> 		</td>
+	<td></td>
+	<td align=right>4,413</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr style="height: 10px;"><td></td></tr>
+				<tr style="border-bottom-style:solid; border-bottom-width:1px;" >
+	
+	<td><b>Total units</b> 		</td>
+	<td></td>
+	<td align=right><b>18,811</b></td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+	<tr style="height: 10px;"><td></td></tr>
+		<tr >
+	
+	<td><b>In-game revenue</b> <a href=https://partner.steampowered.com//app/microtxn/2507950/>(details)</a> 		</td>
+	<td></td>
+	<td align=right><b>$26,431</b></td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+	<tr style="height: 10px;"><td></td></tr>
+			<tr style="border-bottom-style:solid; border-bottom-width:1px;" >
+	
+	<td><b>Total revenue</b> 		</td>
+	<td></td>
+	<td align=right><b>$26,431</b></td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+	<tr style="height: 10px;"><td></td></tr>
+	<tr>
+		<td><b>Wishlists</b></td>
+	</tr>
+			<tr style="border-bottom-style:solid; border-bottom-width:1px;" >
+	
+	<td><a href="https://partner.steampowered.com/app/wishlist/2507950/">Balance</a> 		</td>
+	<td></td>
+	<td align=right>-150</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+	<tr style="height: 10px;"><td></td></tr>
+			<tr >
+	
+	<td><b>Total first-time downloads</b> <a href="#" class="tooltip">(?)<span>First-time downloads encompass users who have downloaded, and recorded playtime in, an app</span></a> 		</td>
+	<td></td>
+	<td align=right><b>13,557</b></td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+</table>
+
+<br><br>
+<div style="float: left;" >
+
+	<br><b>Delta Force downloads, today	 ( <form action="https://partner.steampowered.com/report_csv.php" method="post"><input type="hidden" name="file" value="downloads"><input type="hidden" name="params" value="query=QueryDownloadsHistory^appID=2507950^dateStart=2025-09-02^dateEnd=2025-09-02"><input style="background: none!important;border: none;padding: 0!important; text-decoration: underline; cursor: pointer;" type="submit" value="view as .csv"/></form> )	</b><br>
+			<div class="graphControls">
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().shiftRange(100, true)">&lt;&lt;</a>&nbsp;
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().shiftRange(33, true)">&lt;</a>
+			&nbsp;&nbsp;
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().shiftRange(33, false)">&gt;</a>&nbsp;
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().shiftRange(100, false)">&gt;&gt;</a>&nbsp;
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().updateRange(0,'now')">&gt;|</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().zoom(50);">[ + ]</a>
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().zoom(200);">[ - ]</a>
+			&nbsp;&nbsp;
+		<span id="ChartGamesDownloadsHistory_ranges" style="">
+					<a href="javascript:jsChartGamesDownloadsHistory.getOptions().updateRange(1,'year')">1y</a>
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().updateRange(3,'month')">3m</a>
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().updateRange(1,'month')">1m</a>
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().updateRange(2,'week')">2w</a>
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().updateRange(1,'week')">1w</a>
+			<a href="javascript:jsChartGamesDownloadsHistory.getOptions().updateRange(3,'day')">3d</a>
+			&nbsp;&nbsp;&nbsp;
+		</span>
+			<a href="#" id="ChartGamesDownloadsHistory_embiggen"
+			   onclick="EnlargeFlotChart( 'ChartGamesDownloadsHistory', jsChartGamesDownloadsHistory, 1100, 312 ); return false">enhance</a>
+			<a href="#" id="ChartGamesDownloadsHistory_restore" style="display:none;"
+			   onclick="RestoreFlotChart( 'ChartGamesDownloadsHistory', jsChartGamesDownloadsHistory, 700, 160 );;return false">unenhance</a>
+			<div style="clear: both;"></div>
+		</div>
+		<div><div id="ChartGamesDownloadsHistory" class="JSGraph" style="width: 700px;height: 160px; margin-bottom:40px;" align="center"; >
+	</div><div class="LoadingBox" >Loading ...</div></div><script type="text/javascript">
+		var jsChartGamesDownloadsHistory;
+		jsonpFetch( "https://partner.steampowered.com//report_xml.php?query=QueryDownloadsHistory&appID=2507950&json=1&jsid=jsChartGamesDownloadsHistory&full_timestamps=1&width=700&height=160&dateStart=2025-09-02&dateEnd=2025-09-02&func=onJsonData0", "onJsonData0", onJsonData0 );
+		//console.log( "https://partner.steampowered.com//report_xml.php?query=QueryDownloadsHistory&appID=2507950&json=1&jsid=jsChartGamesDownloadsHistory&full_timestamps=1&width=700&height=160&dateStart=2025-09-02&dateEnd=2025-09-02&func=onJsonData0" );
+	function onJsonData0( data )
+	{
+		var font_desc =  {
+				size: 11,
+				lineHeight: 13,
+				style: "normal",
+				weight: "normal",
+				family: "Verdana, Arial, Helvetica, sans-serif",
+				variant: "normal",
+				color: "#a3a3a3"
+			};
+
+
+	jsChartGamesDownloadsHistory = jQuery.plot( jQuery( "#ChartGamesDownloadsHistory" ), data, {
+		series: {
+			
+			lines: {
+				show: true,
+				
+			},
+			bars: {
+				show: false,
+			},
+			pie: {
+				show: false,
+				stroke: {
+					color: "#424242",
+					width: 0,
+				}
+			},
+		},
+		legend: {
+			show: false,
+			margin: 0,
+			labelBoxBorderColor: "none",
+			backgroundColor: "#545454",
+			position:"ne",
+
+		},
+		yaxis: {
+			show: true,
+			tickFormatter: (function (d) {
+				return d.toLocaleString();
+			}),
+			tickColor: "#424242",
+			autoscaleMargin: 0.15,
+			font: font_desc,
+			
+		},
+		xaxis: {
+			font: font_desc,
+			labelWidth: 100,
+			reserveSpace: 80,
+			show: true,
+			
+			
+		mode: "time",
+		minTickSize: [1, "hour"],
+		tickFormatter:
+		(function (val, axis) {
+			var currentRange = axis.max - axis.min;
+			var	axisVal = new Date(val);
+			if ( currentRange > 1000*60*60*24*365 )
+				return axisVal.toLocaleDateString("en-US", { year: '2-digit', month: 'short' });
+			else if ( currentRange > 1000*60*60*24*2 )
+				return axisVal.toLocaleDateString("en-US", {month: 'short', day:'2-digit' });
+			else
+				return axisVal.toLocaleDateString("en-US", {month: 'short', day:'2-digit' }) + '<br>'
+					   + axisVal.toLocaleTimeString("en-US", { hour: '2-digit', minute:'2-digit'});
+			}),
+		
+		},
+		grid: {
+			hoverable: true,
+			clickable: false,
+			margin: 0,
+			borderWidth: 0,
+			axisMargin: 0,
+			minBorderMargin: 0,
+			mouseActiveRadius: 1000,
+			backgroundColor: '#222222'
+		},
+		dateStart:1756796400000,
+UnitLabel:'Downloads',
+dateEnd:1756810800000,
+minDate:'2003-08-01',
+id:'ChartGamesDownloadsHistory',
+query_params:{"query":"QueryDownloadsHistory","appID":2507950,"json":1,"jsid":"jsChartGamesDownloadsHistory","full_timestamps":true,"width":700,"height":160,"dateStart":"2025-09-02","dateEnd":"2025-09-02","func":"onJsonData0"},
+
+	});
+
+	jsChartGamesDownloadsHistory.getOptions().query_params["func"] = "onJsonDataGraphReload0";
+
+	jQuery( "#ChartGamesDownloadsHistory" ).addClass( "line" );
+	AddFunctionsToPlot( jsChartGamesDownloadsHistory, "https://partner.steampowered.com//report_xml.php?", "ChartGamesDownloadsHistory", onJsonDataGraphReload0, false, false );
+}
+
+function onJsonDataGraphReload0( data )
+{
+	jsChartGamesDownloadsHistory.setData( data );
+	jsChartGamesDownloadsHistory.getOptions().updatePlotAxis( jsChartGamesDownloadsHistory );
+
+	jQuery( "#ChartGamesDownloadsHistory" ).parent().removeClass( "loading" );
+}
+</script>
+		<br>
+<span><a href="https://partner.steampowered.com//app/players/2507950/">Concurrent User & Daily Active User Stats</a> </span>
+<br><br>
+	<br><br>
+	<div class="hr-grey"><hr></div>
+	<br>
+	<h2 id="sitelicense">Steam Site License Program</h2>
+	<br>
+	Usage of this game within cyber cafes participating in the Steam Site License Program
+	<br>
+	<table>
+
+		<tr>
+			<td>&nbsp;</td>
+			<td></td>
+			<td align=right><b>Today</b></td>
+					</tr>
+
+			<tr>
+		<td><b>Personal License Usage</b><a href="#" class="tooltip"> (?)<span>Playtime stats for users that have run their own personal copy at a participating site</span></td>
+		<td width="20"></td>
+		<td>&nbsp;</td>
+			</tr>
+		<tr>
+		<td>- Number of Sites</td>
+		<td></td>
+		<td align="right">23</td>
+			</tr>
+		<tr>
+		<td>- Games Launches</td>
+		<td></td>
+		<td align="right">38</td>
+			</tr>
+		<tr>
+		<td>- Total Users</td>
+		<td></td>
+		<td align="right">31</td>
+			</tr>
+		<tr>
+		<td>- Total Playtime (H:M:S)</td>
+		<td></td>
+		<td align="right">52:35:32</td>
+			</tr>
+		<tr>
+		<td>- Avg Playtime (H:M:S)</td>
+		<td></td>
+		<td align="right">01:23:02</td>
+			</tr>
+		<tr>
+		<td><b></b></td>
+		<td width="20"></td>
+		<td>&nbsp;</td>
+			</tr>
+		<tr>
+		<td><b>Revenue</b><a href="#" class="tooltip"> (?)<span>Purchases for this game (including any DLC) made by users while visiting participating cyber cafe sites</span></td>
+		<td width="20"></td>
+		<td>&nbsp;</td>
+			</tr>
+		<tr>
+		<td>- Steam store</td>
+		<td></td>
+		<td align="right">$0</td>
+			</tr>
+		<tr>
+		<td>- In game</td>
+		<td></td>
+		<td align="right">$0</td>
+			</tr>
+		<tr>
+		<td><b></b></td>
+		<td width="20"></td>
+		<td>&nbsp;</td>
+			</tr>
+		<tr>
+		<td><b>Conversions</b><a href="#" class="tooltip"> (?)<span>Users that have acquired this game within 14 days of using a site license</span></td>
+		<td width="20"></td>
+		<td>&nbsp;</td>
+			</tr>
+		<tr>
+		<td>- Key Activations</td>
+		<td></td>
+		<td align="right">0</td>
+			</tr>
+		<tr>
+		<td>- Steam Purchases</td>
+		<td></td>
+		<td align="right">0</td>
+			</tr>
+		<tr>
+		<td>- Purchase Revenue</td>
+		<td></td>
+		<td align="right">$0</td>
+			</tr>
+		</table>
+	<br>
+	<a href="https://partner.steampowered.com//sitelicense/regions/2507950/">Site License Regional Report</a><br>
+
+	
+<br><br>
+&nbsp;
+</div>
+</div>
+</center>
+</body>
+</html>

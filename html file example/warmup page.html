@@ -1,0 +1,814 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Steam Stats for jimhanzhangsw777</title>
+		<link href="https://partner.steampowered.com/public/shared/css/motiva_sans.css?v=r5pg4q3CrKGd&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/shared_global.css?v=5J-TDqYgBdU7&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/buttons.css?v=ILAw3jKDVNA4&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/../../styles_global.css?v=6855d262-33d6&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_financials.css?v=b10035116&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_flot_charts.css?v=b10035116&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<!--[if lte IE 7]> <style type="text/css"> .iepopupfix{ display: block; } </style> <![endif]-->
+		<script type="text/javascript">VALVE_PUBLIC_PATH = "https:\/\/partner.steampowered.com\/\/public\/";</script>
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/prototype-1.6.0.2.js?v=b10035116&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jquery-1.8.3.min.js?v=NXam5zydzNu8&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/shared_global.js?v=m3dNaWDVC2YM&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.min.js?v=mSfqk1QKKgiz&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.stack.min.js?v=Nu_CW9IREurT&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.pie.min.js?v=TF3RhDRO9bS4&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.resize.min.js?v=MeIf0YViALgL&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.navigate.min.js?v=3ro41c7Sb4Gw&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.time.min.js?v=CIECDYHJjBgN&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/excanvas.min.js?v=7p4_7hQnC3sn&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/d3.v3.min.js?v=b10035116&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/flot.charthelper.js?v=b10035116&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/global.js?v=DBONYgnI60Gj&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript">$J = jQuery.noConflict();</script>		<style>
+			span.update_notice {
+				background-color: #8AC007;
+				color: white;
+				padding: 2;
+			}
+			span.update_title {
+				color: #8AC007;
+			}
+			span.update_text {
+				font-size: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header"><img src="https://partner.steampowered.com/img/logo_steamworks_sales.png" height="76" width="600" border="0" /></div>
+		<div id="header_menu">
+			<span id="header_left">
+					<div style="float:right;padding-right:46px;"><span style="color: #acacac;">Signed in as <strong>jimhanzhangsw777</strong></span>
+	
+
+	<span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/login/logout">Logout</a><span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/dir.php">Mega Site Map</a><span style="color:#414141;">|</span>
+
+			<form>
+		<input name="runasGoto" type="hidden" autocomplete="off">
+		View as: <select style="width: 10em;" onchange="this.form.submit();" name="runasPubid">
+		<option value="-1">Default</option>
+<option selected value=67095>TCH Scarlet Limited</option>
+<option value=182910>Proxima Beta Europe B.V.</option>
+</select>
+		</form>
+		
+	<form method="get" action="https://partner.steampowered.com/dir.php" >Search
+	<input type="text" name="filter" size=9 value=""/>
+	</form>
+	</div>
+	<div style="text-align:left;float:left;padding-left:46px;">
+	<a href="https://partner.steampowered.com/">Home</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/app/top/">Products</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/package/steam/">Packages</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/bundles/">Bundles</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/region/">Regions</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/wishlist/daily/">Wishlists</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/players.php">Players</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/deckplayers.php">Steam Deck</a> <span style="color:#414141;">|</span>
+
+	<a href="https://partner.steampowered.com/coupons.php">Coupons</a> <span style="color:#2C2C2C;">|</span> <a href="https://partner.steampowered.com/partner_report2.php?partnerid=67095">Reports</a> <span style="color:#2C2C2C;">|</span>	</div>
+				</span>
+		</div>
+		<center>
+			<div class="ContentWrapper">
+								<h1>Steam Stats - TCH Scarlet Limited</h1>
+				<span style="color:#999999">Sales data is up to date as of: 2025-09-03 05:10:00 AM PDT <a href="#" class="tooltip">(?)<span>Sales data typically updates within one to two hours, except during high volume periods (eg. annual sale events) where updates may be further delayed.</span></a></span>
+				<div class="hr-color"><hr></div><br>
+								<table width="100%">
+					<tr>
+						<td valign="top">
+														<div style="float:left;width:640px">
+								<table cellspacing="0">
+									<tr>
+										<td><b>TCH Scarlet Limited Lifetime Numbers</b></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td style="width: 198px;"><nobr>TCH Scarlet Limited lifetime revenue</nobr></td>
+										<td align=right>$40,083,296</td>
+									</tr>
+									<tr>
+										<td><nobr>TCH Scarlet Limited lifetime Steam units</nobr></td>
+										<td align=right>5,434,236</td>
+									</tr>
+																			<tr>
+											<td><nobr>TCH Scarlet Limited lifetime retail activations</nobr></td>
+											<td align=right>900,553</td>
+										</tr>
+										<tr>
+											<td><nobr>TCH Scarlet Limited lifetime units total</nobr></td>
+											<td align=right>6,334,789</td>
+										</tr>
+																		</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<br>
+								<div><div class="PeriodLinks">View most recent: &nbsp; <a href="https://partner.steampowered.com/publisher.php?partnerid=67095&specialPeriod=today">today</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/publisher.php?partnerid=67095&dateStart=2025-09-02&amp;dateEnd=2025-09-02&amp;priorDateStart=2025-09-01&amp;priorDateEnd=2025-09-01">yesterday</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/publisher.php?partnerid=67095&dateStart=2025-08-27&amp;dateEnd=2025-09-02&amp;priorDateStart=2025-08-20&amp;priorDateEnd=2025-08-26">1 week</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/publisher.php?partnerid=67095&dateStart=2025-08-20&amp;dateEnd=2025-09-02&amp;priorDateStart=2025-08-06&amp;priorDateEnd=2025-08-19">2 weeks</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/publisher.php?partnerid=67095&dateStart=2025-08-03&amp;dateEnd=2025-09-02&amp;priorDateStart=2025-07-03&amp;priorDateEnd=2025-08-02">1 month</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/publisher.php?partnerid=67095&dateStart=2025-06-04&amp;dateEnd=2025-09-02&amp;priorDateStart=2025-03-05&amp;priorDateEnd=2025-06-03">3 months</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/publisher.php?partnerid=67095&dateStart=2024-09-04&amp;dateEnd=2025-09-02&amp;priorDateStart=2023-09-06&amp;priorDateEnd=2024-09-03">1 year</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/publisher.php?partnerid=67095&dateStart=2025-01-01&amp;dateEnd=2025-09-03&amp;priorDateStart=2024-04-30&amp;priorDateEnd=2024-12-31">ytd</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/publisher.php?partnerid=67095&dateStart=2000-01-01&amp;dateEnd=2025-09-03&amp;priorDateStart=1974-04-29&amp;priorDateEnd=1999-12-31">all history</a> <span style="color:#424242;">|</span> <a href="javascript:toggleThing('DateRangeSelector')">custom</a> <span style="color:#424242;">|</span> <em>(9/3/2025)</em> &nbsp;&nbsp;&nbsp; <div style="float:right;"><a href="javascript:toggleThing('Preferences')">Preferences</a> </div></div>	<script language="javascript">
+	function toggleThing( thingID )
+	{
+		el = document.getElementById( thingID );
+		if ( el.style.display != 'block' )
+		{
+			el.style.display = 'block';
+		}
+		else
+		{
+			el.style.display = 'none';
+		}
+	}
+
+	function toggleThingVis( thingID )
+	{
+		el = document.getElementById( thingID );
+		if ( el.style.visibility != 'visible' )
+		{
+			el.style.visibility = 'visible';
+		}
+		else
+		{
+			el.style.visibility = 'hidden';
+		}
+	}
+	</script>
+	<style type="text/css">
+
+	.initHidden {
+		display:none;
+	}
+
+	.initInvisible {
+		visibility:hidden;
+	}
+	</style>
+	<script language="JavaScript" src="https://partner.steampowered.com//controls/calendar/calendar.js"></script>
+	<script language=javascript>
+	<!--
+		var cal1 = new CalendarPopup();
+		var tomorrow = new Date() ; with (tomorrow) setDate(getDate()+1)
+		var cal1 = new CalendarPopup();
+		cal1.addDisabledDates(formatDate(tomorrow,"yyyy-MM-dd"), null);
+	-->
+
+		// Check whether or not we should be displaying date selection
+		function showPriorDateSelect(elem)
+		{
+			if ( elem.value == 'Custom' )
+			{
+				document.getElementById('DateRangeSelector2').style.display = "block";
+			}
+			else
+			{
+				document.getElementById('DateRangeSelector2').style.display = "none";
+			}
+		}
+	</script>
+
+	
+	<div id="DateRangeSelector" class="initHidden" style="background:#2C2C2C;padding:16px 0px 0px 0px;vertical-align:middle;">
+
+		<form method="get" name="cal_form" >
+						<INPUT TYPE="hidden" NAME="alignPriorAnnual" VALUE="Immediate" />
+			<INPUT TYPE="hidden" NAME="priorDateStart" VALUE="2025-09-02" />
+			<INPUT TYPE="hidden" NAME="priorDateEnd" VALUE="2025-09-02" />
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Start Date:
+				<INPUT TYPE="text" NAME="dateStart" SIZE=9 VALUE="2025-09-03" />
+				<A HREF="javascript:cal1.select(document.forms['cal_form'].dateStart,'anchor1','yyyy-MM-dd');" NAME="anchor1" ID="anchor1"><IMG style="vertical-align:middle;" src="https://partner.steampowered.com//controls/calendar/cal.jpg"></A>
+				12:00 AM			</div>
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				End Date:
+				<INPUT TYPE="text" NAME="dateEnd" SIZE=9 VALUE="2025-09-03" />
+				<A HREF="javascript:cal1.select(document.forms['cal_form'].dateEnd,'anchor2','yyyy-MM-dd');" NAME="anchor2" ID="anchor2"><IMG style="vertical-align:middle;" src="https://partner.steampowered.com//controls/calendar/cal.jpg"></A>
+				11:59 PM			</div>
+				<input type="hidden" name="partnerid" value="67095" />			<input type="submit" value="Update" name="submit">
+		</form>
+	</div>
+
+	<div id="Preferences" class="initHidden" style="background:#2C2C2C;padding:16px 0px 16px 0px;vertical-align:middle;">
+
+		<form method="get" name="pref_form" >
+						<INPUT TYPE="hidden" NAME="dateStart" VALUE="2025-09-03" />
+			<INPUT TYPE="hidden" NAME="dateEnd" VALUE="2025-09-03" />
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Date Link Style:
+								<select style="width: 8em;" name="dateLinkStyle">
+					<option selected  value="Standard">Standard</option>
+					<option value="Financial">Financial</option>
+				</select>
+			</div>
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Prior period:
+								<select id = "PriorPeriodSelect" style="width: 13em;" name="alignPriorAnnual" onchange= "showPriorDateSelect(this)" >
+					<option selected	value="Immediate" title="Prior period will immediately precede selected date range">Immediate prior</option>
+					<option	value="One Year"   title="Prior period will align with date range one year earlier">Year-over-year, comp</option>
+					<option		value="Custom"   title="Prior period can be any range">Custom period</option>
+				</select>
+			</div>
+			<div id="DateRangeSelector2" class="initHidden" style="background:#2C2C2C;">
+				<div style="float:left; margin:0px 32px 0px 0px;">
+					Prior Start:
+					<INPUT TYPE="text" NAME="priorDateStart" SIZE=9 VALUE="2025-09-02" />
+				</div>
+				<div style="float:left; margin:0px 32px 0px 0px;">
+					Prior End:
+					<INPUT TYPE="text" NAME="priorDateEnd" SIZE=9 VALUE="2025-09-02" />
+				</div>
+				<script>
+					// check if we should be showing date values initially
+					document.addEventListener("load", showPriorDateSelect( document.getElementById('PriorPeriodSelect') ) );
+				</script>
+			</div>
+
+			<input type="hidden" name="partnerid" value="67095" />			<div style="float:right;">
+				<input type="submit" value="Update" name="submit">
+			</div>
+		</form>
+	</div>
+	</div>
+					<div style="text-align:left;">
+					<br>
+						<h2>Sales during today  (<a href="https://partner.steampowered.com//report_csv.php?file=SteamSales_2025-09-03_to_2025-09-03&params=query=QueryPackageSalesForCSV^dateStart=2025-09-03^dateEnd=2025-09-03^HasDivisions=0^interpreter=PartnerSalesReportInterpreter">view as .csv</a>)</h2>
+					<br>
+					<table>
+	<tr style="border-bottom-style:solid; border-bottom-width:1px;">
+				<td></td>
+		<td></td>
+		<td align=right title='2025-09-03 to 2025-09-03'><b>Today</b></td>
+		</tr>
+		<tr >
+	
+	<td><a href="https://partner.steampowered.com/package/steam/">Total revenue</a> 		</td>
+	<td></td>
+	<td align=right>$1,341</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/steam/">Steam revenue</a> 	<a href="#" onclick="$('extended_PeriodRemainingRevenue').toggle();$('extended_PeriodMacRevenue').toggle();$('extended_PeriodLinuxRevenue').toggle();return false;">+</a>	</td>
+	<td></td>
+	<td align=right>$1,341</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodRemainingRevenue style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Windows revenue 		</td>
+	<td></td>
+	<td align=right>$1,285</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodMacRevenue style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/mac/">Mac revenue</a> 		</td>
+	<td></td>
+	<td align=right>$16</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodLinuxRevenue style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/linux/">Linux revenue</a> 		</td>
+	<td></td>
+	<td align=right>$40</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodSoundtrackRevenue style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/music/">Soundtrack revenue</a> 		</td>
+	<td></td>
+	<td align=right>$0</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodSoftwareRevenue style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/software/">Software revenue</a> 		</td>
+	<td></td>
+	<td align=right>$0</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodVideoRevenue style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/video/">Video revenue</a> 		</td>
+	<td></td>
+	<td align=right>$0</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodVRRevenue style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title="Some titles may also support non-VR play" href="https://partner.steampowered.com/package/vr/">VR revenue</a> 		</td>
+	<td></td>
+	<td align=right>$0</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodBundleRevenue style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bundle revenue 		</td>
+	<td></td>
+	<td align=right>$0</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/ingamesales.php">In-game sales</a> 		</td>
+	<td></td>
+	<td align=right>$0</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr style="border-top-style:solid; border-top-width:1px;" >
+	
+	<td><a href="https://partner.steampowered.com/package/steam/">Total units</a> 		</td>
+	<td></td>
+	<td align=right>414</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/steam/">Steam units</a> 	<a href="#" onclick="$('extended_PeriodRemainingUnits').toggle();$('extended_PeriodMacUnits').toggle();$('extended_PeriodLinuxUnits').toggle();return false;">+</a>	</td>
+	<td></td>
+	<td align=right>133</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodRemainingUnits style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Windows units 		</td>
+	<td></td>
+	<td align=right>128</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodMacUnits style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/mac/">Mac units</a> 		</td>
+	<td></td>
+	<td align=right>2</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodLinuxUnits style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/linux/">Linux units</a> 		</td>
+	<td></td>
+	<td align=right>3</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodSoundtrackUnits style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/music/">Soundtrack units</a> 		</td>
+	<td></td>
+	<td align=right>0</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodSoftwareUnits style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/software/">Software units</a> 		</td>
+	<td></td>
+	<td align=right>0</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr id=extended_PeriodVideoUnits style="display: none;">
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/video/">Video units</a> 		</td>
+	<td></td>
+	<td align=right>0</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr style="border-bottom-style:solid; border-bottom-width:1px;" >
+	
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://partner.steampowered.com/package/retail/">Retail activations</a> 		</td>
+	<td></td>
+	<td align=right>281</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+		<tr style="border-bottom-style:solid; border-bottom-width:1px;" >
+	
+	<td><a href="https://partner.steampowered.com/wishlist/daily/">Wishlists</a> 		</td>
+	<td></td>
+	<td align=right>763</td>
+	<td align=right></td>
+		<td></td>
+	</tr>
+</table>
+					<br><br>
+					<div style="float: left;">
+						TCH Scarlet Limited Steam revenue - today<br>
+						<br>
+								<div class="graphControls">
+			<a href="javascript:jsUnitsGraph.getOptions().shiftRange(100, true)">&lt;&lt;</a>&nbsp;
+			<a href="javascript:jsUnitsGraph.getOptions().shiftRange(33, true)">&lt;</a>
+			&nbsp;&nbsp;
+			<a href="javascript:jsUnitsGraph.getOptions().shiftRange(33, false)">&gt;</a>&nbsp;
+			<a href="javascript:jsUnitsGraph.getOptions().shiftRange(100, false)">&gt;&gt;</a>&nbsp;
+			<a href="javascript:jsUnitsGraph.getOptions().updateRange(0,'now')">&gt;|</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="javascript:jsUnitsGraph.getOptions().zoom(50);">[ + ]</a>
+			<a href="javascript:jsUnitsGraph.getOptions().zoom(200);">[ - ]</a>
+			&nbsp;&nbsp;
+		<span id="UnitsGraph_ranges" style="">
+					<a href="javascript:jsUnitsGraph.getOptions().updateRange(1,'year')">1y</a>
+			<a href="javascript:jsUnitsGraph.getOptions().updateRange(3,'month')">3m</a>
+			<a href="javascript:jsUnitsGraph.getOptions().updateRange(1,'month')">1m</a>
+			<a href="javascript:jsUnitsGraph.getOptions().updateRange(2,'week')">2w</a>
+			<a href="javascript:jsUnitsGraph.getOptions().updateRange(1,'week')">1w</a>
+			<a href="javascript:jsUnitsGraph.getOptions().updateRange(3,'day')">3d</a>
+			&nbsp;&nbsp;&nbsp;
+		</span>
+			<a href="#" id="UnitsGraph_embiggen"
+			   onclick="EnlargeFlotChart( 'UnitsGraph', jsUnitsGraph, 1100, 312 ); return false">enhance</a>
+			<a href="#" id="UnitsGraph_restore" style="display:none;"
+			   onclick="RestoreFlotChart( 'UnitsGraph', jsUnitsGraph, 540, 160 );;return false">unenhance</a>
+			<div style="clear: both;"></div>
+		</div>
+		<div><div id="UnitsGraph" class="JSGraph" style="width: 540px;height: 160px; margin-bottom:40px;" align="center"; >
+	</div><div class="LoadingBox" >Loading ...</div></div><script type="text/javascript">
+		var jsUnitsGraph;
+		jsonpFetch( "https://partner.steampowered.com//report_xml.php?query=QuerySteamHistory&ingame=1&json=1&jsid=jsUnitsGraph&full_timestamps=1&width=540&height=160&dateStart=2025-09-03&dateEnd=2025-09-03&func=onJsonData0", "onJsonData0", onJsonData0 );
+		//console.log( "https://partner.steampowered.com//report_xml.php?query=QuerySteamHistory&ingame=1&json=1&jsid=jsUnitsGraph&full_timestamps=1&width=540&height=160&dateStart=2025-09-03&dateEnd=2025-09-03&func=onJsonData0" );
+	function onJsonData0( data )
+	{
+		var font_desc =  {
+				size: 11,
+				lineHeight: 13,
+				style: "normal",
+				weight: "normal",
+				family: "Verdana, Arial, Helvetica, sans-serif",
+				variant: "normal",
+				color: "#a3a3a3"
+			};
+
+
+	jsUnitsGraph = jQuery.plot( jQuery( "#UnitsGraph" ), data, {
+		series: {
+			
+			lines: {
+				show: true,
+				
+			},
+			bars: {
+				show: false,
+			},
+			pie: {
+				show: false,
+				stroke: {
+					color: "#424242",
+					width: 0,
+				}
+			},
+		},
+		legend: {
+			show: false,
+			margin: 0,
+			labelBoxBorderColor: "none",
+			backgroundColor: "#545454",
+			position:"ne",
+
+		},
+		yaxis: {
+			show: true,
+			tickFormatter: (function (d) {
+				return d.toLocaleString();
+			}),
+			tickColor: "#424242",
+			autoscaleMargin: 0.15,
+			font: font_desc,
+			
+		},
+		xaxis: {
+			font: font_desc,
+			labelWidth: 100,
+			reserveSpace: 80,
+			show: true,
+			
+			
+		mode: "time",
+		minTickSize: [1, "hour"],
+		tickFormatter:
+		(function (val, axis) {
+			var currentRange = axis.max - axis.min;
+			var	axisVal = new Date(val);
+			if ( currentRange > 1000*60*60*24*365 )
+				return axisVal.toLocaleDateString("en-US", { year: '2-digit', month: 'short' });
+			else if ( currentRange > 1000*60*60*24*2 )
+				return axisVal.toLocaleDateString("en-US", {month: 'short', day:'2-digit' });
+			else
+				return axisVal.toLocaleDateString("en-US", {month: 'short', day:'2-digit' }) + '<br>'
+					   + axisVal.toLocaleTimeString("en-US", { hour: '2-digit', minute:'2-digit'});
+			}),
+		
+		},
+		grid: {
+			hoverable: true,
+			clickable: false,
+			margin: 0,
+			borderWidth: 0,
+			axisMargin: 0,
+			minBorderMargin: 0,
+			mouseActiveRadius: 1000,
+			backgroundColor: '#222222'
+		},
+		dateStart:1756882800000,
+minDate:'2017-08-01',
+UnitFormat:'c',
+dateEnd:1756900800000,
+id:'UnitsGraph',
+query_params:{"query":"QuerySteamHistory","ingame":true,"json":1,"jsid":"jsUnitsGraph","full_timestamps":true,"width":540,"height":160,"dateStart":"2025-09-03","dateEnd":"2025-09-03","func":"onJsonData0"},
+
+	});
+
+	jsUnitsGraph.getOptions().query_params["func"] = "onJsonDataGraphReload0";
+
+	jQuery( "#UnitsGraph" ).addClass( "line" );
+	AddFunctionsToPlot( jsUnitsGraph, "https://partner.steampowered.com//report_xml.php?", "UnitsGraph", onJsonDataGraphReload0, false, false );
+}
+
+function onJsonDataGraphReload0( data )
+{
+	jsUnitsGraph.setData( data );
+	jsUnitsGraph.getOptions().updatePlotAxis( jsUnitsGraph );
+
+	jQuery( "#UnitsGraph" ).parent().removeClass( "loading" );
+}
+</script>
+	<br>
+					</div>
+											<div style="float: left;">
+							TCH Scarlet Limited units - today<br>
+							<br>
+									<div class="graphControls">
+			<a href="javascript:jsRevenueGraph.getOptions().shiftRange(100, true)">&lt;&lt;</a>&nbsp;
+			<a href="javascript:jsRevenueGraph.getOptions().shiftRange(33, true)">&lt;</a>
+			&nbsp;&nbsp;
+			<a href="javascript:jsRevenueGraph.getOptions().shiftRange(33, false)">&gt;</a>&nbsp;
+			<a href="javascript:jsRevenueGraph.getOptions().shiftRange(100, false)">&gt;&gt;</a>&nbsp;
+			<a href="javascript:jsRevenueGraph.getOptions().updateRange(0,'now')">&gt;|</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="javascript:jsRevenueGraph.getOptions().zoom(50);">[ + ]</a>
+			<a href="javascript:jsRevenueGraph.getOptions().zoom(200);">[ - ]</a>
+			&nbsp;&nbsp;
+		<span id="RevenueGraph_ranges" style="">
+					<a href="javascript:jsRevenueGraph.getOptions().updateRange(1,'year')">1y</a>
+			<a href="javascript:jsRevenueGraph.getOptions().updateRange(3,'month')">3m</a>
+			<a href="javascript:jsRevenueGraph.getOptions().updateRange(1,'month')">1m</a>
+			<a href="javascript:jsRevenueGraph.getOptions().updateRange(2,'week')">2w</a>
+			<a href="javascript:jsRevenueGraph.getOptions().updateRange(1,'week')">1w</a>
+			<a href="javascript:jsRevenueGraph.getOptions().updateRange(3,'day')">3d</a>
+			&nbsp;&nbsp;&nbsp;
+		</span>
+			<a href="#" id="RevenueGraph_embiggen"
+			   onclick="EnlargeFlotChart( 'RevenueGraph', jsRevenueGraph, 1100, 312 ); return false">enhance</a>
+			<a href="#" id="RevenueGraph_restore" style="display:none;"
+			   onclick="RestoreFlotChart( 'RevenueGraph', jsRevenueGraph, 540, 160 );;return false">unenhance</a>
+			<div style="clear: both;"></div>
+		</div>
+		<div><div id="RevenueGraph" class="JSGraph" style="width: 540px;height: 160px; margin-bottom:40px;" align="center"; >
+	</div><div class="LoadingBox" >Loading ...</div></div><script type="text/javascript">
+		var jsRevenueGraph;
+		jsonpFetch( "https://partner.steampowered.com//report_xml.php?query=QuerySteamHistory&type=units&json=1&jsid=jsRevenueGraph&full_timestamps=1&width=540&height=160&dateStart=2025-09-03&dateEnd=2025-09-03&func=onJsonData1", "onJsonData1", onJsonData1 );
+		//console.log( "https://partner.steampowered.com//report_xml.php?query=QuerySteamHistory&type=units&json=1&jsid=jsRevenueGraph&full_timestamps=1&width=540&height=160&dateStart=2025-09-03&dateEnd=2025-09-03&func=onJsonData1" );
+	function onJsonData1( data )
+	{
+		var font_desc =  {
+				size: 11,
+				lineHeight: 13,
+				style: "normal",
+				weight: "normal",
+				family: "Verdana, Arial, Helvetica, sans-serif",
+				variant: "normal",
+				color: "#a3a3a3"
+			};
+
+
+	jsRevenueGraph = jQuery.plot( jQuery( "#RevenueGraph" ), data, {
+		series: {
+			
+			lines: {
+				show: true,
+				
+			},
+			bars: {
+				show: false,
+			},
+			pie: {
+				show: false,
+				stroke: {
+					color: "#424242",
+					width: 0,
+				}
+			},
+		},
+		legend: {
+			show: false,
+			margin: 0,
+			labelBoxBorderColor: "none",
+			backgroundColor: "#545454",
+			position:"ne",
+
+		},
+		yaxis: {
+			show: true,
+			tickFormatter: (function (d) {
+				return d.toLocaleString();
+			}),
+			tickColor: "#424242",
+			autoscaleMargin: 0.15,
+			font: font_desc,
+			
+		},
+		xaxis: {
+			font: font_desc,
+			labelWidth: 100,
+			reserveSpace: 80,
+			show: true,
+			
+			
+		mode: "time",
+		minTickSize: [1, "hour"],
+		tickFormatter:
+		(function (val, axis) {
+			var currentRange = axis.max - axis.min;
+			var	axisVal = new Date(val);
+			if ( currentRange > 1000*60*60*24*365 )
+				return axisVal.toLocaleDateString("en-US", { year: '2-digit', month: 'short' });
+			else if ( currentRange > 1000*60*60*24*2 )
+				return axisVal.toLocaleDateString("en-US", {month: 'short', day:'2-digit' });
+			else
+				return axisVal.toLocaleDateString("en-US", {month: 'short', day:'2-digit' }) + '<br>'
+					   + axisVal.toLocaleTimeString("en-US", { hour: '2-digit', minute:'2-digit'});
+			}),
+		
+		},
+		grid: {
+			hoverable: true,
+			clickable: false,
+			margin: 0,
+			borderWidth: 0,
+			axisMargin: 0,
+			minBorderMargin: 0,
+			mouseActiveRadius: 1000,
+			backgroundColor: '#222222'
+		},
+		dateStart:1756882800000,
+minDate:'2017-08-01',
+dateEnd:1756900800000,
+id:'RevenueGraph',
+query_params:{"query":"QuerySteamHistory","type":"units","json":1,"jsid":"jsRevenueGraph","full_timestamps":true,"width":540,"height":160,"dateStart":"2025-09-03","dateEnd":"2025-09-03","func":"onJsonData1"},
+
+	});
+
+	jsRevenueGraph.getOptions().query_params["func"] = "onJsonDataGraphReload1";
+
+	jQuery( "#RevenueGraph" ).addClass( "line" );
+	AddFunctionsToPlot( jsRevenueGraph, "https://partner.steampowered.com//report_xml.php?", "RevenueGraph", onJsonDataGraphReload1, false, false );
+}
+
+function onJsonDataGraphReload1( data )
+{
+	jsRevenueGraph.setData( data );
+	jsRevenueGraph.getOptions().updatePlotAxis( jsRevenueGraph );
+
+	jQuery( "#RevenueGraph" ).parent().removeClass( "loading" );
+}
+</script>
+								<br>
+						</div>
+										<div style="clear: both;"></div>
+					<div class="hr-grey"><hr></div>
+										<br><br>
+						<div style="float:left; margin-right:32px;">
+		<table>
+			<tr>
+				<td valign=bottom colspan=2><b>Top Steam packages - revenue (all platforms)</b></td>
+				<td valign=bottom width=80 align=right>today</td>
+			</tr>
+			<tr>
+				<td colspan=3><hr></td>
+			</tr>
+			<tr><td align=right>1</td><td><a href="https://partner.steampowered.com/package/details/564750/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Little Witch in the Woods</a></td><td align=right>$967</td></tr><tr><td align=right>2</td><td><a href="https://partner.steampowered.com/package/details/871779/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Biped</a></td><td align=right>$185</td></tr><tr><td align=right>3</td><td><a href="https://partner.steampowered.com/package/details/306444/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard</a></td><td align=right>$79</td></tr><tr><td align=right>4</td><td><a href="https://partner.steampowered.com/package/details/653188/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">江湖十一</a></td><td align=right>$48</td></tr><tr><td align=right>5</td><td><a href="https://partner.steampowered.com/package/details/416343/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard-Dark Fortune Teller</a></td><td align=right>$30</td></tr><tr><td align=right>6</td><td><a href="https://partner.steampowered.com/package/details/330376/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Crown Trick</a></td><td align=right>$13</td></tr><tr><td align=right>7</td><td><a href="https://partner.steampowered.com/package/details/489712/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Reshaping Mars</a></td><td align=right>$11</td></tr><tr><td align=right>8</td><td><a href="https://partner.steampowered.com/package/details/203470/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">DeathComing</a></td><td align=right>$9</td></tr><tr><td align=right>9</td><td><a href="https://partner.steampowered.com/package/details/450914/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Biped (Key-Only Everywhere except CN) (retail)</a></td><td align=right>$0</td></tr><tr><td align=right>10</td><td><a href="https://partner.steampowered.com/package/details/508288/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Crown Trick (Asia) (retail)</a></td><td align=right>$0</td></tr>		</table>
+	</div>
+	<div style="float:left; margin-right:32px;">
+		<table>
+			<tr>
+				<td valign=bottom colspan=2><b>Top Steam packages - units (all platforms)</b></td>
+				<td valign=bottom width=80 align=right>today</td>
+			</tr>
+			<tr>
+				<td colspan=3><hr></td>
+			</tr>
+			<tr><td align=right>1</td><td><a href="https://partner.steampowered.com/package/details/564750/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Little Witch in the Woods</a></td><td align=right>80</td></tr><tr><td align=right>2</td><td><a href="https://partner.steampowered.com/package/details/871779/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Biped</a></td><td align=right>20</td></tr><tr><td align=right>3</td><td><a href="https://partner.steampowered.com/package/details/306444/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard</a></td><td align=right>15</td></tr><tr><td align=right>4</td><td><a href="https://partner.steampowered.com/package/details/416343/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard-Dark Fortune Teller</a></td><td align=right>9</td></tr><tr><td align=right>5</td><td><a href="https://partner.steampowered.com/package/details/653188/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">江湖十一</a></td><td align=right>4</td></tr><tr><td align=right>6</td><td><a href="https://partner.steampowered.com/package/details/203470/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">DeathComing</a></td><td align=right>2</td></tr><tr><td align=right>7</td><td><a href="https://partner.steampowered.com/package/details/489712/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Reshaping Mars</a></td><td align=right>2</td></tr><tr><td align=right>8</td><td><a href="https://partner.steampowered.com/package/details/330376/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Crown Trick</a></td><td align=right>1</td></tr><tr><td align=right>9</td><td><a href="https://partner.steampowered.com/package/details/450914/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Biped (Key-Only Everywhere except CN) (retail)</a></td><td align=right>0</td></tr><tr><td align=right>10</td><td><a href="https://partner.steampowered.com/package/details/508288/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Crown Trick (Asia) (retail)</a></td><td align=right>0</td></tr>		</table>
+	</div>
+						<br clear="all" />
+					<br><br><br><br>
+						<div style="float:left; margin-right:32px;">
+		<table>
+			<tr>
+				<td valign=bottom colspan=2><b>Top Mac packages - revenue</b></td>
+				<td valign=bottom width=80 align=right>today</td>
+			</tr>
+			<tr>
+				<td colspan=3><hr></td>
+			</tr>
+			<tr><td align=right>1</td><td><a href="https://partner.steampowered.com/package/details/564750/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Little Witch in the Woods</a></td><td align=right>$13</td></tr><tr><td align=right>2</td><td><a href="https://partner.steampowered.com/package/details/416343/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard-Dark Fortune Teller</a></td><td align=right>$3</td></tr>		</table>
+	</div>
+	<div style="float:left; margin-right:32px;">
+		<table>
+			<tr>
+				<td valign=bottom colspan=2><b>Top Mac packages - units</b></td>
+				<td valign=bottom width=80 align=right>today</td>
+			</tr>
+			<tr>
+				<td colspan=3><hr></td>
+			</tr>
+			<tr><td align=right>1</td><td><a href="https://partner.steampowered.com/package/details/416343/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard-Dark Fortune Teller</a></td><td align=right>1</td></tr><tr><td align=right>2</td><td><a href="https://partner.steampowered.com/package/details/564750/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Little Witch in the Woods</a></td><td align=right>1</td></tr>		</table>
+	</div>
+
+						<br clear="all" />
+					<br>
+					(note: Mac sales are based on platform of purchase; or after 7 days, the platform with the most minutes played)
+					<br><br><br><br>
+											<div style="float:left; margin-right:32px;">
+		<table>
+			<tr>
+				<td valign=bottom colspan=2><b>Top Linux packages - revenue</b></td>
+				<td valign=bottom width=80 align=right>today</td>
+			</tr>
+			<tr>
+				<td colspan=3><hr></td>
+			</tr>
+					</table>
+	</div>
+	<div style="float:left; margin-right:32px;">
+		<table>
+			<tr>
+				<td valign=bottom colspan=2><b>Top Linux packages - units</b></td>
+				<td valign=bottom width=80 align=right>today</td>
+			</tr>
+			<tr>
+				<td colspan=3><hr></td>
+			</tr>
+					</table>
+	</div>
+
+						<br clear="all" />
+					<br>
+					(note: Linux sales are based on platform of purchase; or after 7 days, the platform with the most minutes played)
+					<br><br><br><br>&nbsp;
+										<div style="float:left; margin-right:32px;">
+						
+	<table>
+		<tr>
+			<td valign=bottom colspan=2><b>Top TCH Scarlet Limited Products (All Platforms) - units</b></td>
+			<td valign=bottom width=120 align=right>today</td>
+		</tr>
+		<tr>
+			<td colspan=3><hr></td>
+		</tr>
+		<tr><td align=right>1</td><td><a href="https://partner.steampowered.com/app/details/1594940/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Little Witch in the Woods</a></td><td align=right>80</td></tr><tr><td align=right>2</td><td><a href="https://partner.steampowered.com/app/details/1071870/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Biped</a></td><td align=right>20</td></tr><tr><td align=right>3</td><td><a href="https://partner.steampowered.com/app/details/942970/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard</a></td><td align=right>15</td></tr><tr><td align=right>4</td><td><a href="https://partner.steampowered.com/app/details/1205600/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard-Dark Fortune Teller</a></td><td align=right>9</td></tr><tr><td align=right>5</td><td><a href="https://partner.steampowered.com/app/details/1816570/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">江湖十一</a></td><td align=right>4</td></tr><tr><td align=right>6</td><td><a href="https://partner.steampowered.com/app/details/705120/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">DeathComing</a></td><td align=right>2</td></tr><tr><td align=right>7</td><td><a href="https://partner.steampowered.com/app/details/1395760/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Reshaping Mars</a></td><td align=right>2</td></tr><tr><td align=right>8</td><td><a href="https://partner.steampowered.com/app/details/1000010/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Crown Trick</a></td><td align=right>1</td></tr><tr><td align=right>9</td><td><a href="https://partner.steampowered.com/app/details/755790/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Ring of Elysium</a></td><td align=right>0</td></tr><tr><td align=right>10</td><td><a href="https://partner.steampowered.com/app/details/760160/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Vampire: The Masquerade - Bloodhunt</a></td><td align=right>0</td></tr><tr><td align=right>11</td><td><a href="https://partner.steampowered.com/app/details/766640/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Death Sentence</a></td><td align=right>0</td></tr><tr><td align=right>12</td><td><a href="https://partner.steampowered.com/app/details/769720/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Island of Deception</a></td><td align=right>0</td></tr><tr><td align=right>13</td><td><a href="https://partner.steampowered.com/app/details/771880/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">风暴岛-试玩</a></td><td align=right>0</td></tr><tr><td align=right>14</td><td><a href="https://partner.steampowered.com/app/details/853920/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">ROE</a></td><td align=right>0</td></tr><tr><td align=right>15</td><td><a href="https://partner.steampowered.com/app/details/907470/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Iris.Fall</a></td><td align=right>0</td></tr><tr><td align=right>16</td><td><a href="https://partner.steampowered.com/app/details/915500/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Nishan Shaman</a></td><td align=right>0</td></tr><tr><td align=right>17</td><td><a href="https://partner.steampowered.com/app/details/927250/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Bladed Fury</a></td><td align=right>0</td></tr><tr><td align=right>18</td><td><a href="https://partner.steampowered.com/app/details/938460/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Ring of Elysium – Founder's Pack</a></td><td align=right>0</td></tr><tr><td align=right>19</td><td><a href="https://partner.steampowered.com/app/details/952320/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Ring of Elysium-Gratitude of Dione</a></td><td align=right>0</td></tr><tr><td align=right>20</td><td><a href="https://partner.steampowered.com/app/details/955100/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Ring of Elysium-Test Server</a></td><td align=right>0</td></tr><tr><td align=right>21</td><td><a href="https://partner.steampowered.com/app/details/981820/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">LAND NEXT</a></td><td align=right>0</td></tr><tr><td align=right>22</td><td><a href="https://partner.steampowered.com/app/details/984670/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard Demo</a></td><td align=right>0</td></tr><tr><td align=right>23</td><td><a href="https://partner.steampowered.com/app/details/994560/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Metal Revolution</a></td><td align=right>0</td></tr><tr><td align=right>24</td><td><a href="https://partner.steampowered.com/app/details/997610/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard-testdlc</a></td><td align=right>0</td></tr><tr><td align=right>25</td><td><a href="https://partner.steampowered.com/app/details/1008080/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">SYNCED</a></td><td align=right>0</td></tr><tr><td align=right>26</td><td><a href="https://partner.steampowered.com/app/details/1008090/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">ARk</a></td><td align=right>0</td></tr><tr><td align=right>27</td><td><a href="https://partner.steampowered.com/app/details/1008100/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">ARK</a></td><td align=right>0</td></tr><tr><td align=right>28</td><td><a href="https://partner.steampowered.com/app/details/1008130/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Godsend Arena</a></td><td align=right>0</td></tr><tr><td align=right>29</td><td><a href="https://partner.steampowered.com/app/details/1020880/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Bladed Fury Original Soundtrack</a></td><td align=right>0</td></tr><tr><td align=right>30</td><td><a href="https://partner.steampowered.com/app/details/1025040/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Iris.Fall Original Soundtrack 彩虹坠入原声音乐</a></td><td align=right>0</td></tr><tr><td align=right>31</td><td><a href="https://partner.steampowered.com/app/details/1047050/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Test</a></td><td align=right>0</td></tr><tr><td align=right>32</td><td><a href="https://partner.steampowered.com/app/details/1065280/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard-FirstDLC-FREE</a></td><td align=right>0</td></tr><tr><td align=right>33</td><td><a href="https://partner.steampowered.com/app/details/1088670/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">SYNCED Demo</a></td><td align=right>0</td></tr><tr><td align=right>34</td><td><a href="https://partner.steampowered.com/app/details/1096300/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">九霄缳神记</a></td><td align=right>0</td></tr><tr><td align=right>35</td><td><a href="https://partner.steampowered.com/app/details/1108290/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Crown Trick Demo</a></td><td align=right>0</td></tr><tr><td align=right>36</td><td><a href="https://partner.steampowered.com/app/details/1123960/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Unheard - 2ndDLC-FREE</a></td><td align=right>0</td></tr><tr><td align=right>37</td><td><a href="https://partner.steampowered.com/app/details/1158790/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Ring of Elysium-One Year Anniversary Pack</a></td><td align=right>0</td></tr><tr><td align=right>38</td><td><a href="https://partner.steampowered.com/app/details/1167100/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Metal Mind</a></td><td align=right>0</td></tr><tr><td align=right>39</td><td><a href="https://partner.steampowered.com/app/details/1169250/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Bonfire1</a></td><td align=right>0</td></tr><tr><td align=right>40</td><td><a href="https://partner.steampowered.com/app/details/1169260/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Bonfire test</a></td><td align=right>0</td></tr><tr><td align=right>41</td><td><a href="https://partner.steampowered.com/app/details/1169270/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Test1</a></td><td align=right>0</td></tr><tr><td align=right>42</td><td><a href="https://partner.steampowered.com/app/details/1169280/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">bonfireone</a></td><td align=right>0</td></tr><tr><td align=right>43</td><td><a href="https://partner.steampowered.com/app/details/1169290/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Bonfire1</a></td><td align=right>0</td></tr><tr><td align=right>44</td><td><a href="https://partner.steampowered.com/app/details/1172250/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">NExT Studios Developer Advertising App</a></td><td align=right>0</td></tr><tr><td align=right>45</td><td><a href="https://partner.steampowered.com/app/details/1222210/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Extremely Realistic Siege Warfare Simulator</a></td><td align=right>0</td></tr><tr><td align=right>46</td><td><a href="https://partner.steampowered.com/app/details/1224610/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">风暴岛</a></td><td align=right>0</td></tr><tr><td align=right>47</td><td><a href="https://partner.steampowered.com/app/details/1226370/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">风暴岛</a></td><td align=right>0</td></tr><tr><td align=right>48</td><td><a href="https://partner.steampowered.com/app/details/1247880/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">听见我的心</a></td><td align=right>0</td></tr><tr><td align=right>49</td><td><a href="https://partner.steampowered.com/app/details/1249790/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">天使帝國二</a></td><td align=right>0</td></tr><tr><td align=right>50</td><td><a href="https://partner.steampowered.com/app/details/1249800/?dateStart=2025-09-03&amp;dateEnd=2025-09-03">Xuan-Yuan Sword VII</a></td><td align=right>0</td></tr>
+	</table>
+
+						</div>
+					<br clear="all" />
+				</div>
+			</div>
+		</center>
+	</body>
+</html>
+

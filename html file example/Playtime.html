@@ -1,0 +1,253 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Lifetime play time stats: Delta Force</title>
+	<link href="https://partner.steampowered.com/public/shared/css/motiva_sans.css?v=r5pg4q3CrKGd&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/shared_global.css?v=5J-TDqYgBdU7&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/buttons.css?v=ILAw3jKDVNA4&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/../../styles_global.css?v=6855d262-33d6&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_financials.css?v=b10028950&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_flot_charts.css?v=b10028950&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<!--[if lte IE 7]> <style type="text/css"> .iepopupfix{ display: block; } </style> <![endif]-->
+	<script type="text/javascript">VALVE_PUBLIC_PATH = "https:\/\/partner.steampowered.com\/\/public\/";</script>
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/prototype-1.6.0.2.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jquery-1.8.3.min.js?v=NXam5zydzNu8&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/shared_global.js?v=m3dNaWDVC2YM&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.min.js?v=mSfqk1QKKgiz&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.stack.min.js?v=Nu_CW9IREurT&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.pie.min.js?v=TF3RhDRO9bS4&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.resize.min.js?v=MeIf0YViALgL&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.navigate.min.js?v=3ro41c7Sb4Gw&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.time.min.js?v=CIECDYHJjBgN&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/excanvas.min.js?v=7p4_7hQnC3sn&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/d3.v3.min.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/flot.charthelper.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/global.js?v=DBONYgnI60Gj&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript">$J = jQuery.noConflict();</script></head>
+<body>
+	<div id="header"><img src="https://partner.steampowered.com/img/logo_steamworks_sales.png" height="76" width="600" border="0" /></div>
+	<div id="header_menu">
+		<span id="header_left">
+				<div style="float:right;padding-right:46px;"><span style="color: #acacac;">Signed in as <strong>jimhanzhangsw777</strong></span>
+	
+
+	<span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/login/logout">Logout</a><span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/dir.php">Mega Site Map</a><span style="color:#414141;">|</span>
+
+			<form>
+		<input name="runasGoto" type="hidden" autocomplete="off">
+		View as: <select style="width: 10em;" onchange="this.form.submit();" name="runasPubid">
+		<option value="-1">Default</option>
+<option value=67095>TCH Scarlet Limited</option>
+<option selected value=182910>Proxima Beta Europe B.V.</option>
+</select>
+		</form>
+		
+	<form method="get" action="https://partner.steampowered.com/dir.php" >Search
+	<input type="text" name="filter" size=9 value=""/>
+	</form>
+	</div>
+	<div style="text-align:left;float:left;padding-left:46px;">
+	<a href="https://partner.steampowered.com/">Home</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/app/top/">Products</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/package/steam/">Packages</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/bundles/">Bundles</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/region/">Regions</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/wishlist/daily/">Wishlists</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/players.php">Players</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/deckplayers.php">Steam Deck</a> <span style="color:#414141;">|</span>
+
+	<a href="https://partner.steampowered.com/coupons.php">Coupons</a> <span style="color:#2C2C2C;">|</span> <a href="https://partner.steampowered.com/partner_report2.php?partnerid=182910">Reports</a> <span style="color:#2C2C2C;">|</span>	</div>
+			</span>
+	</div>
+		<center>
+		<div class="ContentWrapper">
+			<h1>Lifetime play time stats: Delta Force</h1>
+			<< back to <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2025-09-01&amp;dateEnd=2025-09-01">Delta Force</a><br>
+			<div class="hr-color"><hr></div>
+			<br>
+			<div id="gameDataLeft">
+										<table>
+							<tr>
+								<td><b>Lifetime users measured</b></td>
+								<td align=right>14,820,949</td>
+							</tr>
+							<tr>
+								<td><b>Average time played</b></td>
+								<td align=right>34 hours 46 minutes</td>
+							</tr>
+							<tr>
+								<td><b>Median time played</b></td>
+								<td align=right>3 hours 9 minutes</td>
+								<td>(<a href="https://partner.steampowered.com/game_playtimes.php">compare to other games on your partner account</a>)</td>
+							</tr>
+							<tr>
+								<td><b>Time played range</b></td>
+								<td align=right>20 minutes -</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align=right>33 hours 6 minutes</td>
+								<td>(one standard deviation of playing time)</td>
+							</tr>
+							<tr>
+						</table>
+						<br><br>
+						<table>
+							<thead>
+								<tr>
+									<th>Minimum time played</th>
+									<th>Percentage of users</th>
+								</tr>
+							</thead>
+							<tbody>
+																	<tr>
+										<td align=right>10 minutes</td>
+										<td align=right>89%</td>
+																			</tr>
+																	<tr>
+										<td align=right>30 minutes</td>
+										<td align=right>79%</td>
+																			</tr>
+																	<tr>
+										<td align=right>1 hour 0 minutes</td>
+										<td align=right>69%</td>
+																					<td>(<a href="https://partner.steampowered.com//game_playtimes.php">average</a> as compared to other Steam games)</td>
+																				</tr>
+																	<tr>
+										<td align=right>2 hours 0 minutes</td>
+										<td align=right>57%</td>
+																			</tr>
+																	<tr>
+										<td align=right>5 hours 0 minutes</td>
+										<td align=right>43%</td>
+																			</tr>
+																	<tr>
+										<td align=right>10 hours 0 minutes</td>
+										<td align=right>32%</td>
+																			</tr>
+																	<tr>
+										<td align=right>20 hours 0 minutes</td>
+										<td align=right>22%</td>
+																			</tr>
+																	<tr>
+										<td align=right>50 hours 0 minutes</td>
+										<td align=right>11%</td>
+																			</tr>
+																	<tr>
+										<td align=right>100 hours 0 minutes</td>
+										<td align=right>6%</td>
+																			</tr>
+															</tbody>
+						</table>
+						<br><br>
+						<b>Users bucketed by time played</b>
+						<div><div id="chartdiv0" class="JSGraph" style="width: 700px;height: 160px; margin-bottom:40px;" align="center"; >
+	</div><div class="LoadingBox" >Loading ...</div></div><script type="text/javascript">
+		var jsgraph0;
+		jsonpFetch( "https://partner.steampowered.com//report_xml.php?query=QueryGameTimePlayedGraph&appID=2507950&units=users&bargraph=1&width=700&height=160&json=1&func=onJsonData0", "onJsonData0", onJsonData0 );
+		//console.log( "https://partner.steampowered.com//report_xml.php?query=QueryGameTimePlayedGraph&appID=2507950&units=users&bargraph=1&width=700&height=160&json=1&func=onJsonData0" );
+	function onJsonData0( data )
+	{
+		var font_desc =  {
+				size: 11,
+				lineHeight: 13,
+				style: "normal",
+				weight: "normal",
+				family: "Verdana, Arial, Helvetica, sans-serif",
+				variant: "normal",
+				color: "#a3a3a3"
+			};
+
+
+	jsgraph0 = jQuery.plot( jQuery( "#chartdiv0" ), data, {
+		series: {
+			
+			lines: {
+				show: false,
+				
+			},
+			bars: {
+				show: true,
+			},
+			pie: {
+				show: false,
+				stroke: {
+					color: "#424242",
+					width: 0,
+				}
+			},
+		},
+		legend: {
+			show: false,
+			margin: 0,
+			labelBoxBorderColor: "none",
+			backgroundColor: "#545454",
+			position:"ne",
+
+		},
+		yaxis: {
+			show: true,
+			tickFormatter: (function (d) {
+				return d.toLocaleString();
+			}),
+			tickColor: "#424242",
+			autoscaleMargin: 0.15,
+			font: font_desc,
+			
+		},
+		xaxis: {
+			font: font_desc,
+			labelWidth: 100,
+			reserveSpace: 80,
+			show: true,
+			ticks: data[0]['ticks'],
+			
+		},
+		grid: {
+			hoverable: true,
+			clickable: false,
+			margin: 0,
+			borderWidth: 0,
+			axisMargin: 0,
+			minBorderMargin: 0,
+			mouseActiveRadius: 1000,
+			backgroundColor: '#222222'
+		},
+		query_params:{"query":"QueryGameTimePlayedGraph","appID":2507950,"units":"users","bargraph":1,"width":700,"height":160,"json":1,"func":"onJsonData0"},
+
+	});
+
+	jsgraph0.getOptions().query_params["func"] = "onJsonDataGraphReload0";
+
+	jQuery( "#chartdiv0" ).addClass( "bar" );
+	AddFunctionsToPlot( jsgraph0, "https://partner.steampowered.com//report_xml.php?", "chartdiv0", onJsonDataGraphReload0, true, false );
+}
+
+function onJsonDataGraphReload0( data )
+{
+	jsgraph0.setData( data );
+	jsgraph0.getOptions().updatePlotAxis( jsgraph0 );
+
+	jQuery( "#chartdiv0" ).parent().removeClass( "loading" );
+}
+</script>
+				</div>
+		</div>
+	</center>
+</body>
+</html>

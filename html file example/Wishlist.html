@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link type="image/x-icon" href="https://partner.steampowered.com//public/favicon.ico" rel="shortcut icon"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Wishlist Actions - Delta Force (2507950)</title>
+	<link href="https://partner.steampowered.com/public/shared/css/motiva_sans.css?v=r5pg4q3CrKGd&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/shared_global.css?v=5J-TDqYgBdU7&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/buttons.css?v=ILAw3jKDVNA4&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/../../styles_global.css?v=6855d262-33d6&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_financials.css?v=b10028950&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_flot_charts.css?v=b10028950&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+<!--[if lte IE 7]> <style type="text/css"> .iepopupfix{ display: block; } </style> <![endif]-->
+	<link href="https://partner.steampowered.com/public/shared/css/jquery.jqplot.min.css?v=_HASKGQ7zEan&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+	<link href="https://partner.steampowered.com/public/css/styles_wishlists.css?v=b10028950&amp;l=english&amp;_cdn=fastly" rel="stylesheet" type="text/css">
+	<script type="text/javascript">VALVE_PUBLIC_PATH = "https:\/\/partner.steampowered.com\/\/public\/";</script>
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/prototype-1.6.0.2.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jquery-1.8.3.min.js?v=NXam5zydzNu8&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/shared_global.js?v=m3dNaWDVC2YM&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.min.js?v=mSfqk1QKKgiz&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.stack.min.js?v=Nu_CW9IREurT&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.pie.min.js?v=TF3RhDRO9bS4&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.resize.min.js?v=MeIf0YViALgL&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.navigate.min.js?v=3ro41c7Sb4Gw&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.time.min.js?v=CIECDYHJjBgN&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/excanvas.min.js?v=7p4_7hQnC3sn&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/d3.v3.min.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/flot.charthelper.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/global.js?v=DBONYgnI60Gj&amp;l=english&amp;_cdn=fastly"></script>
+
+<script type="text/javascript">$J = jQuery.noConflict();</script>	<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/jquery-ui-1.9.2.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/jquery-ui-addons.js?v=b10028950&amp;l=english&amp;_cdn=fastly"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/jquery.jqplot.min.js?v=13NeEISFolcO&amp;l=english&amp;_cdn=fastly"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.dateAxisRenderer.js?v=rUOdzvyHh4e7&amp;l=english&amp;_cdn=fastly"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.enhancedLegendRenderer.js?v=nyWjSTfz1M0X&amp;l=english&amp;_cdn=fastly"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.pointLabels.js?v=58eDVAvZgPnZ&amp;l=english&amp;_cdn=fastly"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.cursor.js?v=NsIu-HB0p50G&amp;l=english&amp;_cdn=fastly"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.highlighter.js?v=85sA3L62MDkD&amp;l=english&amp;_cdn=fastly"></script>
+</head>
+<body>
+<div id="header"><img src="https://partner.steampowered.com/img/logo_steamworks_sales.png" height="76" width="600" border="0" /></div>
+<div id="header_menu"><span id="header_left">	<div style="float:right;padding-right:46px;"><span style="color: #acacac;">Signed in as <strong>jimhanzhangsw777</strong></span>
+	
+
+	<span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/login/logout">Logout</a><span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/dir.php">Mega Site Map</a><span style="color:#414141;">|</span>
+
+			<form>
+		<input name="runasGoto" type="hidden" autocomplete="off">
+		View as: <select style="width: 10em;" onchange="this.form.submit();" name="runasPubid">
+		<option value="-1">Default</option>
+<option value=67095>TCH Scarlet Limited</option>
+<option selected value=182910>Proxima Beta Europe B.V.</option>
+</select>
+		</form>
+		
+	<form method="get" action="https://partner.steampowered.com/dir.php" >Search
+	<input type="text" name="filter" size=9 value=""/>
+	</form>
+	</div>
+	<div style="text-align:left;float:left;padding-left:46px;">
+	<a href="https://partner.steampowered.com/">Home</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/app/top/">Products</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/package/steam/">Packages</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/bundles/">Bundles</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/region/">Regions</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/wishlist/daily/">Wishlists</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/players.php">Players</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/deckplayers.php">Steam Deck</a> <span style="color:#414141;">|</span>
+
+	<a href="https://partner.steampowered.com/coupons.php">Coupons</a> <span style="color:#2C2C2C;">|</span> <a href="https://partner.steampowered.com/partner_report2.php?partnerid=182910">Reports</a> <span style="color:#2C2C2C;">|</span>	</div>
+	</span></div>
+<center>
+	<div class="ContentWrapper">
+		<h1>Wishlist Actions - Delta Force (2507950)</h1>
+
+        <div class="breadcrumbsCtn">
+            <div><< back to <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2025-09-01&amp;dateEnd=2025-09-01">Delta Force</a></div>
+            <a href="https://partner.steamgames.com/doc/marketing/wishlist/reporting" target="_blank" class="btnv6_white_transparent btn_small btn_uppercase"><span>Learn more</span></a>
+        </div>
+
+		<div class="hr-color"><hr></div>
+		<br>
+		<br>
+        <span>*Wishlist data is updated for all dates <b>prior</b> to the current date.</span>
+        <h2>Lifetime Overview</h2>
+        <div class="lifetimeSummaryCtn">
+            <div id="leftParent" style="float:left; width: 665px;";>
+                <div id="leftUpperChild" class="lifetimeSummaryCtn">
+                    <table>
+                        <tr>
+                            <td>Wishlist Additions</td>
+                            <td align=right>3,332,169</td>
+                        </tr>
+                        <tr>
+                            <td>Wishlist Deletions</td>
+                            <td align=right>(697,549)</td>
+                        </tr>
+                        <tr>
+                            <td>Wishlist Purchases & Activations</td>
+                            <td align=right>(1,937,699)</td>
+                        </tr>
+                        <tr>
+                            <td>Wishlist Gifts</td>
+                            <td align=right>0</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><b>Current Outstanding Wishes</b></td>
+                            <td align=right><b>696,921</b></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><b>Lifetime Conversion Rate</b></td>
+                            <td align=right><b>58.2%</b></td>
+                            <td> - Wishlist conversion rate is <span style=color:#4BDB6E;><b>above</b></span> the Steam average <a href="#" class="tooltip">(?)<span>Compared to 0.0%, the average conversion rate for other "Game" type applications on Steam during their first </span></a>                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="rightParent" style="float:right; width:340px; text-align-all: right; table">
+                <div align="right">
+                    <span align="right">
+                        <b>Platform-specific wishlisting</b> <a href="#" class="tooltip">(?)<span>Accounts that have opted to browse for games for a specific OS.</span></a><br>
+                                            </span>
+                    <br>
+                    <table>
+                        <tr>
+                            <td align="right">&nbsp;&nbsp;&nbsp;&nbsp;Windows</td>
+                            <td align="right">1,092,445</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="right">&nbsp;&nbsp;&nbsp;&nbsp;Mac</td>
+                            <td align="right">9,005</td>
+                            <td align="right"><a href="#" class="tooltip">(!)<span>Your game is not available on Mac</span></a></td>
+                        </tr>
+                        <tr>
+                            <td align="right">&nbsp;&nbsp;&nbsp;&nbsp;Linux</td>
+                            <td align="right">4,355</td>
+                            <td align="right"><a href="#" class="tooltip">(!)<span>Your game is not available on Linux</span></a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br clear="all">
+        </div>
+
+		<br><br>
+				<div><div class="PeriodLinks">View most recent: &nbsp; <a href="https://partner.steampowered.com/app/wishlist/2507950/?specialPeriod=today">today</a> <span style="color:#424242;">|</span> <em>yesterday </em> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/wishlist/2507950/?dateStart=2025-08-26&amp;dateEnd=2025-09-01&amp;priorDateStart=2025-08-19&amp;priorDateEnd=2025-08-25">1 week</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/wishlist/2507950/?dateStart=2025-08-19&amp;dateEnd=2025-09-01&amp;priorDateStart=2025-08-05&amp;priorDateEnd=2025-08-18">2 weeks</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/wishlist/2507950/?dateStart=2025-08-02&amp;dateEnd=2025-09-01&amp;priorDateStart=2025-07-02&amp;priorDateEnd=2025-08-01">1 month</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/wishlist/2507950/?dateStart=2025-06-03&amp;dateEnd=2025-09-01&amp;priorDateStart=2025-03-04&amp;priorDateEnd=2025-06-02">3 months</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/wishlist/2507950/?dateStart=2024-09-03&amp;dateEnd=2025-09-01&amp;priorDateStart=2023-09-05&amp;priorDateEnd=2024-09-02">1 year</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/wishlist/2507950/?dateStart=2025-01-01&amp;dateEnd=2025-09-02&amp;priorDateStart=2024-05-01&amp;priorDateEnd=2024-12-31">ytd</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/wishlist/2507950/?dateStart=2025/07/02&amp;dateEnd=2025/09/02&amp;priorDateStart=2024-09-28&amp;priorDateEnd=2024-11-29">all history</a> <span style="color:#424242;">|</span> <a href="javascript:toggleThing('DateRangeSelector')">custom</a> <span style="color:#424242;">|</span> <em>(9/1/2025)</em> &nbsp;&nbsp;&nbsp; <div style="float:right;"><a href="javascript:toggleThing('Preferences')">Preferences</a> </div></div>	<script language="javascript">
+	function toggleThing( thingID )
+	{
+		el = document.getElementById( thingID );
+		if ( el.style.display != 'block' )
+		{
+			el.style.display = 'block';
+		}
+		else
+		{
+			el.style.display = 'none';
+		}
+	}
+
+	function toggleThingVis( thingID )
+	{
+		el = document.getElementById( thingID );
+		if ( el.style.visibility != 'visible' )
+		{
+			el.style.visibility = 'visible';
+		}
+		else
+		{
+			el.style.visibility = 'hidden';
+		}
+	}
+	</script>
+	<style type="text/css">
+
+	.initHidden {
+		display:none;
+	}
+
+	.initInvisible {
+		visibility:hidden;
+	}
+	</style>
+	<script language="JavaScript" src="https://partner.steampowered.com//controls/calendar/calendar.js"></script>
+	<script language=javascript>
+	<!--
+		var cal1 = new CalendarPopup();
+		var tomorrow = new Date() ; with (tomorrow) setDate(getDate()+1)
+		var cal1 = new CalendarPopup();
+		cal1.addDisabledDates(formatDate(tomorrow,"yyyy-MM-dd"), null);
+	-->
+
+		// Check whether or not we should be displaying date selection
+		function showPriorDateSelect(elem)
+		{
+			if ( elem.value == 'Custom' )
+			{
+				document.getElementById('DateRangeSelector2').style.display = "block";
+			}
+			else
+			{
+				document.getElementById('DateRangeSelector2').style.display = "none";
+			}
+		}
+	</script>
+
+	
+	<div id="DateRangeSelector" class="initHidden" style="background:#2C2C2C;padding:16px 0px 0px 0px;vertical-align:middle;">
+
+		<form method="get" name="cal_form" >
+						<INPUT TYPE="hidden" NAME="alignPriorAnnual" VALUE="Immediate" />
+			<INPUT TYPE="hidden" NAME="priorDateStart" VALUE="2025-08-31" />
+			<INPUT TYPE="hidden" NAME="priorDateEnd" VALUE="2025-08-31" />
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Start Date:
+				<INPUT TYPE="text" NAME="dateStart" SIZE=9 VALUE="2025-09-01" />
+				<A HREF="javascript:cal1.select(document.forms['cal_form'].dateStart,'anchor1','yyyy-MM-dd');" NAME="anchor1" ID="anchor1"><IMG style="vertical-align:middle;" src="https://partner.steampowered.com//controls/calendar/cal.jpg"></A>
+				12:00 AM			</div>
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				End Date:
+				<INPUT TYPE="text" NAME="dateEnd" SIZE=9 VALUE="2025-09-01" />
+				<A HREF="javascript:cal1.select(document.forms['cal_form'].dateEnd,'anchor2','yyyy-MM-dd');" NAME="anchor2" ID="anchor2"><IMG style="vertical-align:middle;" src="https://partner.steampowered.com//controls/calendar/cal.jpg"></A>
+				11:59 PM			</div>
+							<input type="submit" value="Update" name="submit">
+		</form>
+	</div>
+
+	<div id="Preferences" class="initHidden" style="background:#2C2C2C;padding:16px 0px 16px 0px;vertical-align:middle;">
+
+		<form method="get" name="pref_form" >
+						<INPUT TYPE="hidden" NAME="dateStart" VALUE="2025-09-01" />
+			<INPUT TYPE="hidden" NAME="dateEnd" VALUE="2025-09-01" />
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Date Link Style:
+								<select style="width: 8em;" name="dateLinkStyle">
+					<option selected  value="Standard">Standard</option>
+					<option value="Financial">Financial</option>
+				</select>
+			</div>
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Prior period:
+								<select id = "PriorPeriodSelect" style="width: 13em;" name="alignPriorAnnual" onchange= "showPriorDateSelect(this)" >
+					<option selected	value="Immediate" title="Prior period will immediately precede selected date range">Immediate prior</option>
+					<option	value="One Year"   title="Prior period will align with date range one year earlier">Year-over-year, comp</option>
+					<option		value="Custom"   title="Prior period can be any range">Custom period</option>
+				</select>
+			</div>
+			<div id="DateRangeSelector2" class="initHidden" style="background:#2C2C2C;">
+				<div style="float:left; margin:0px 32px 0px 0px;">
+					Prior Start:
+					<INPUT TYPE="text" NAME="priorDateStart" SIZE=9 VALUE="2025-08-31" />
+				</div>
+				<div style="float:left; margin:0px 32px 0px 0px;">
+					Prior End:
+					<INPUT TYPE="text" NAME="priorDateEnd" SIZE=9 VALUE="2025-08-31" />
+				</div>
+				<script>
+					// check if we should be showing date values initially
+					document.addEventListener("load", showPriorDateSelect( document.getElementById('PriorPeriodSelect') ) );
+				</script>
+			</div>
+
+						<div style="float:right;">
+				<input type="submit" value="Update" name="submit">
+			</div>
+		</form>
+	</div>
+	</div>
+			<div style="text-align:left;">
+							<h2>Wishlist Action Summary, yesterday </h2><b>(<a href="https://partner.steampowered.com/report_csv.php?file=SteamWishlists_2507950_2025-09-01_to_2025-09-01&params=query=QueryWishlistActionsForCSV^appID=2507950^dateStart=2025-09-01^dateEnd=2025-09-01^interpreter=WishlistReportInterpreter">view as .csv</a>)</b>
+				<table>
+						<tr>
+				<td></td>
+		<td></td>
+		<td align=right title='2025-09-01 to 2025-09-01'><b>Yesterday</b></td>
+			<td></td>										<!--Expandable percentage column-->
+					<td align=right><b>Daily average during period<b></td>
+				<td align=right><b>Change vs. previous period</b></td>
+		<td align=right></td>
+		<td class="dim" align=right  title='2025-08-31 to 2025-08-31'><b>8/31/2025</b></td>
+		<td></td>										<!--Expandable percentage column-->
+					<td class="dim" align=right><b>Previous daily average<b></td>
+			</tr>
+		<tr >
+	
+	<td>Wishlist additions 		</td>
+	<td></td>
+	<td align=right>1,432</td>
+	<td align=right></td>
+				<td align=right>1,432</td>
+		
+				<td align=right><span style="color:#BD4D18;">-9%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>1,569</td>
+		<td class="dim" align=right></td>
+				<td class="dim" align=right width=100>1,569</td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Wishlist deletions 		</td>
+	<td></td>
+	<td align=right>(741)</td>
+	<td align=right></td>
+				<td align=right>(741)</td>
+		
+				<td align=right><span style="color:#BD4D18;">-9%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>(808)</td>
+		<td class="dim" align=right></td>
+				<td class="dim" align=right width=100>(808)</td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Wishlist purchases & activations 		</td>
+	<td></td>
+	<td align=right>(1,378)</td>
+	<td align=right></td>
+				<td align=right>(1,378)</td>
+		
+				<td align=right><span style="color:#BD4D18;">-6%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>(1,465)</td>
+		<td class="dim" align=right></td>
+				<td class="dim" align=right width=100>(1,465)</td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Wishlist gifts 		</td>
+	<td></td>
+	<td align=right>0</td>
+	<td align=right></td>
+				<td align=right>0</td>
+		
+				<td align=right><span style="color:#BD4D18;"></span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>0</td>
+		<td class="dim" align=right></td>
+				<td class="dim" align=right width=100>0</td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td><b>Wishlist balance for period</b> 		</td>
+	<td></td>
+	<td align=right>(<b>687</b>)</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#BD4D18;">-3%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>(<b>704</b>)</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+				</table>
+				<br><br>
+				<h2>Wishlist Conversions by Cohort, yesterday </h2>
+				<a href="#" class="tooltip">(?)<span>Cohorts refer to the month/year that a user has added a game to their wishlist. Wishlist Conversion by Cohort data is currently only available from 2017-02-13 onwards.</span></a>
+				<b>(<a href="https://partner.steampowered.com/report_csv.php?file=SteamWishlistCohorts_2507950_2025-09-01_to_2025-09-01&params=query=QueryWishlistCohortForCSV^appID=2507950^dateStart=2025-09-01^dateEnd=2025-09-01^interpreter=WishlistCohortReportInterpreter">view as .csv</a>)</b>
+				<table>
+						<tr>
+				<td></td>
+		<td></td>
+		<td align=right title='2025-09-01 to 2025-09-01'><b>Yesterday</b></td>
+			<td></td>										<!--Expandable percentage column-->
+					<td align=right><b>Daily average during period<b></td>
+				<td align=right><b>Change vs. previous period</b></td>
+		<td align=right></td>
+		<td class="dim" align=right  title='2025-08-31 to 2025-08-31'><b>8/31/2025</b></td>
+		<td></td>										<!--Expandable percentage column-->
+					<td class="dim" align=right><b>Previous daily average<b></td>
+			</tr>
+		<tr >
+	
+	<td>Most recent month 		</td>
+	<td></td>
+	<td align=right>0</td>
+	<td align=right></td>
+				<td align=right>0</td>
+		
+				<td align=right><span style="color:#BD4D18;"></span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>0</td>
+		<td class="dim" align=right></td>
+				<td class="dim" align=right width=100>0</td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>1-3 month cohort 		</td>
+	<td></td>
+	<td align=right>0</td>
+	<td align=right></td>
+				<td align=right>0</td>
+		
+				<td align=right><span style="color:#BD4D18;"></span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>0</td>
+		<td class="dim" align=right></td>
+				<td class="dim" align=right width=100>0</td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>>3 months cohort 		</td>
+	<td></td>
+	<td align=right>0</td>
+	<td align=right></td>
+				<td align=right>0</td>
+		
+				<td align=right><span style="color:#BD4D18;"></span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>0</td>
+		<td class="dim" align=right></td>
+				<td class="dim" align=right width=100>0</td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td><b>Total conversions</b> 		</td>
+	<td></td>
+	<td align=right><b>0</b></td>
+	<td align=right></td>
+				<td align=right><b>0</b></td>
+		
+				<td align=right><span style="color:#BD4D18;"></span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right><b>0</b></td>
+		<td class="dim" align=right></td>
+				<td class="dim" align=right width=100><b>0</b></td>
+		
+		<td></td>
+	</tr>
+				</table>
+									<br>
+					Only one date in range, graphs not displayed.
+					<br><br>
+					
+				<h2>Wishlist By Region/Country</h2>
+				<div class="info_section">
+					<p>You can find regional wishlist data by visiting your <a href=" https://partner.steampowered.com/region/?appID=2507950">Regional sales report</a>.</p>
+					<p>Expand countries or regions to see the change of wishlists during the selected time period</p>
+				</div>
+
+								<h2>Wishlist Notifications for Period </h2>
+				<p>
+					Wishlist Release Notification reporting below does not include any notifications sent the followers of your Creator Homes (aka Developer Pages/Publisher Pages/Franchise Pages).
+					<a href="https://partner.steamgames.com/doc/store/creator_homepage" target="_blank">See Creator Home Documentation</a>
+				</p>
+								<br>
+										</div>
+	</div>
+</center>
+</body>
+</html>
