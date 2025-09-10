@@ -1254,8 +1254,17 @@ class SteamWorksCrawler:
                 # Return None if can't parse
                 return None
     
+    def get_game_table_name(self):
+        """Get the game-specific table name based on steam_app_id"""
+        game_tables = {
+            2507950: 'delta_force_daily_metrics',
+            3104410: 'terminull_brigade_daily_metrics', 
+            3478050: 'road_to_empress_daily_metrics'
+        }
+        return game_tables.get(self.steam_app_id)
+
     def save_to_database(self, data):
-        """Save extracted data to MySQL game_daily_metrics"""
+        """Save extracted data to both main table and game-specific table"""
         if not data:
             logging.warning("No data to save")
             return False
@@ -1399,6 +1408,7 @@ class SteamWorksCrawler:
             except Exception:
                 pass
 
+            # Prepare insert payload (same for both tables)
             insert_payload = {
                 'steam_app_id': int(self.steam_app_id),
                 'game_name': self.game_name,
@@ -1440,24 +1450,50 @@ class SteamWorksCrawler:
             placeholders = ', '.join([f'%({col})s' for col in columns])
             column_names = ', '.join(columns)
             
-            insert_query = f"""
+            # Save to main table (game_daily_metrics)
+            main_insert_query = f"""
             INSERT INTO game_daily_metrics ({column_names})
             VALUES ({placeholders})
             ON DUPLICATE KEY UPDATE
             """
             
-            # Add update clauses for each column
-            update_clauses = []
+            # Add update clauses for main table (exclude PK columns)
+            main_update_clauses = []
             for col in columns:
                 if col not in ('stat_date', 'steam_app_id'):  # Do not update PK
-                    update_clauses.append(f"{col} = VALUES({col})")
+                    main_update_clauses.append(f"{col} = VALUES({col})")
             
-            insert_query += ', '.join(update_clauses)
+            main_insert_query += ', '.join(main_update_clauses)
             
-            cursor.execute(insert_query, insert_payload)
+            logging.info("Saving data to main table (game_daily_metrics)...")
+            cursor.execute(main_insert_query, insert_payload)
+            
+            # Save to game-specific table
+            game_table_name = self.get_game_table_name()
+            if game_table_name:
+                # For game-specific table, exclude steam_app_id from PK update clauses
+                game_insert_query = f"""
+                INSERT INTO {game_table_name} ({column_names})
+                VALUES ({placeholders})
+                ON DUPLICATE KEY UPDATE
+                """
+                
+                # Add update clauses for game table (exclude stat_date from updates)
+                game_update_clauses = []
+                for col in columns:
+                    if col != 'stat_date':  # Only exclude stat_date (PK for game tables)
+                        game_update_clauses.append(f"{col} = VALUES({col})")
+                
+                game_insert_query += ', '.join(game_update_clauses)
+                
+                logging.info(f"Saving data to game-specific table ({game_table_name})...")
+                cursor.execute(game_insert_query, insert_payload)
+            else:
+                logging.warning(f"No game-specific table found for steam_app_id: {self.steam_app_id}")
+            
             connection.commit()
             
-            logging.info(f"Data saved to database successfully")
+            logging.info(f"Data saved to database successfully (main table + game-specific table)")
             return True
             
         except Error as e:
