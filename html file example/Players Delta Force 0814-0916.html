@@ -1,0 +1,1518 @@
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Players: Delta Force</title>
+	<link href="https://partner.steampowered.com/public/shared/css/motiva_sans.css?v=r5pg4q3CrKGd&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/shared_global.css?v=r1UOiHT62oQ0&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/buttons.css?v=ILAw3jKDVNA4&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/../../styles_global.css?v=6855d262-33d6&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_financials.css?v=b10074820&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_flot_charts.css?v=b10074820&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<!--[if lte IE 7]> <style type="text/css"> .iepopupfix{ display: block; } </style> <![endif]-->
+	<script type="text/javascript">VALVE_PUBLIC_PATH = "https:\/\/partner.steampowered.com\/\/public\/";</script>
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/prototype-1.6.0.2.js?v=b10074820&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jquery-1.8.3.min.js?v=NXam5zydzNu8&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/shared_global.js?v=yJGtNz8wf36p&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.min.js?v=mSfqk1QKKgiz&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.stack.min.js?v=Nu_CW9IREurT&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.pie.min.js?v=TF3RhDRO9bS4&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.resize.min.js?v=MeIf0YViALgL&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.navigate.min.js?v=3ro41c7Sb4Gw&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.time.min.js?v=CIECDYHJjBgN&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/excanvas.min.js?v=7p4_7hQnC3sn&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/d3.v3.min.js?v=b10074820&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/flot.charthelper.js?v=b10074820&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/global.js?v=DBONYgnI60Gj&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript">$J = jQuery.noConflict();</script>	<link href="https://partner.steampowered.com/public/shared/css/jquery.jqplot.min.css?v=_HASKGQ7zEan&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+	<link href="https://partner.steampowered.com/public/css/styles_wishlists.css?v=b10074820&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/jquery.jqplot.min.js?v=13NeEISFolcO&amp;l=english&amp;_cdn=akamai"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.dateAxisRenderer.js?v=rUOdzvyHh4e7&amp;l=english&amp;_cdn=akamai"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.enhancedLegendRenderer.js?v=nyWjSTfz1M0X&amp;l=english&amp;_cdn=akamai"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.pointLabels.js?v=58eDVAvZgPnZ&amp;l=english&amp;_cdn=akamai"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.cursor.js?v=NsIu-HB0p50G&amp;l=english&amp;_cdn=akamai"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.highlighter.js?v=85sA3L62MDkD&amp;l=english&amp;_cdn=akamai"></script>
+</head>
+
+<body>
+	<div id="header"><img src="https://partner.steampowered.com/img/logo_steamworks_sales.png" height="76" width="600" border="0" /></div>
+	<div id="header_menu">
+		<span id="header_left">
+				<div style="float:right;padding-right:46px;"><span style="color: #acacac;">Signed in as <strong>jimhanzhangsw777</strong></span>
+	
+
+	<span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/login/logout">Logout</a><span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/dir.php">Mega Site Map</a><span style="color:#414141;">|</span>
+
+			<form>
+		<input name="runasGoto" type="hidden" autocomplete="off">
+		View as: <select style="width: 10em;" onchange="this.form.submit();" name="runasPubid">
+		<option value="-1">Default</option>
+<option value=67095>TCH Scarlet Limited</option>
+<option selected value=182910>Proxima Beta Europe B.V.</option>
+</select>
+		</form>
+		
+	<form method="get" action="https://partner.steampowered.com/dir.php" >Search
+	<input type="text" name="filter" size=9 value=""/>
+	</form>
+	</div>
+	<div style="text-align:left;float:left;padding-left:46px;">
+	<a href="https://partner.steampowered.com/">Home</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/app/top/">Products</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/package/steam/">Packages</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/bundles/">Bundles</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/region/">Regions</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/wishlist/daily/">Wishlists</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/players.php">Players</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/deckplayers.php">Steam Deck</a> <span style="color:#414141;">|</span>
+
+	<a href="https://partner.steampowered.com/coupons.php">Coupons</a> <span style="color:#2C2C2C;">|</span> <a href="https://partner.steampowered.com/partner_report2.php?partnerid=182910">Reports</a> <span style="color:#2C2C2C;">|</span>	</div>
+			</span>
+	</div>
+	<center>
+		<div class="ContentWrapper">
+			<h1>Players: Delta Force</h1>
+			<< back to <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2025-08-14&amp;dateEnd=2025-09-16">Delta Force</a><br>			<br>
+			<div class="hr-color">
+				<hr>
+			</div>
+			<table>
+				<tbody>
+					<tr>
+						<h2>Summary statistics</h2>
+						</th>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Current players</td>
+						<td align=right>109,383</td>
+					</tr>
+					<tr>
+						<td>Lifetime avg daily active users <a href="#" class="tooltip">(?)<span>Average since the products Steam release date</span></a></td>
+						<td align="right">507,190</td>
+					</tr>
+					<tr>
+						<td>Recent avg daily active users</td>
+						<td align="right">633,346</td>
+					</tr>
+									</tbody>
+			</table>
+			<br>
+			<div class="hr-color">
+				<hr>
+			</div>
+			<br clear="all">
+			<div><div class="PeriodLinks">View most recent: &nbsp; <a href="https://partner.steampowered.com/app/players/2507950/?specialPeriod=today">today</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-09-16&amp;dateEnd=2025-09-16&amp;priorDateStart=2025-09-15&amp;priorDateEnd=2025-09-15">yesterday</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-09-10&amp;dateEnd=2025-09-16&amp;priorDateStart=2025-09-03&amp;priorDateEnd=2025-09-09">1 week</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-09-03&amp;dateEnd=2025-09-16&amp;priorDateStart=2025-08-20&amp;priorDateEnd=2025-09-02">2 weeks</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-08-17&amp;dateEnd=2025-09-16&amp;priorDateStart=2025-07-17&amp;priorDateEnd=2025-08-16">1 month</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-06-18&amp;dateEnd=2025-09-16&amp;priorDateStart=2025-03-19&amp;priorDateEnd=2025-06-17">3 months</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2024-09-18&amp;dateEnd=2025-09-16&amp;priorDateStart=2023-09-20&amp;priorDateEnd=2024-09-17">1 year</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-01-01&amp;dateEnd=2025-09-17&amp;priorDateStart=2024-04-16&amp;priorDateEnd=2024-12-31">ytd</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2000-01-01&amp;dateEnd=2025-09-17&amp;priorDateStart=1974-04-15&amp;priorDateEnd=1999-12-31">all history</a> <span style="color:#424242;">|</span> <a href="javascript:toggleThing('DateRangeSelector')">custom</a> <span style="color:#424242;">|</span> (<em>8/14/2025 - 9/16/2025)</em> &nbsp;&nbsp;&nbsp; <div style="float:right;"><a href="javascript:toggleThing('Preferences')">Preferences</a> </div></div>	<script language="javascript">
+	function toggleThing( thingID )
+	{
+		el = document.getElementById( thingID );
+		if ( el.style.display != 'block' )
+		{
+			el.style.display = 'block';
+		}
+		else
+		{
+			el.style.display = 'none';
+		}
+	}
+
+	function toggleThingVis( thingID )
+	{
+		el = document.getElementById( thingID );
+		if ( el.style.visibility != 'visible' )
+		{
+			el.style.visibility = 'visible';
+		}
+		else
+		{
+			el.style.visibility = 'hidden';
+		}
+	}
+	</script>
+	<style type="text/css">
+
+	.initHidden {
+		display:none;
+	}
+
+	.initInvisible {
+		visibility:hidden;
+	}
+	</style>
+	<script language="JavaScript" src="https://partner.steampowered.com//controls/calendar/calendar.js"></script>
+	<script language=javascript>
+	<!--
+		var cal1 = new CalendarPopup();
+		var tomorrow = new Date() ; with (tomorrow) setDate(getDate()+1)
+		var cal1 = new CalendarPopup();
+		cal1.addDisabledDates(formatDate(tomorrow,"yyyy-MM-dd"), null);
+	-->
+
+		// Check whether or not we should be displaying date selection
+		function showPriorDateSelect(elem)
+		{
+			if ( elem.value == 'Custom' )
+			{
+				document.getElementById('DateRangeSelector2').style.display = "block";
+			}
+			else
+			{
+				document.getElementById('DateRangeSelector2').style.display = "none";
+			}
+		}
+	</script>
+
+	
+	<div id="DateRangeSelector" class="initHidden" style="background:#2C2C2C;padding:16px 0px 0px 0px;vertical-align:middle;">
+
+		<form method="get" name="cal_form" >
+						<INPUT TYPE="hidden" NAME="alignPriorAnnual" VALUE="Immediate" />
+			<INPUT TYPE="hidden" NAME="priorDateStart" VALUE="2025-07-11" />
+			<INPUT TYPE="hidden" NAME="priorDateEnd" VALUE="2025-08-13" />
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Start Date:
+				<INPUT TYPE="text" NAME="dateStart" SIZE=9 VALUE="2025-08-14" />
+				<A HREF="javascript:cal1.select(document.forms['cal_form'].dateStart,'anchor1','yyyy-MM-dd');" NAME="anchor1" ID="anchor1"><IMG style="vertical-align:middle;" src="https://partner.steampowered.com//controls/calendar/cal.jpg"></A>
+				12:00 AM			</div>
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				End Date:
+				<INPUT TYPE="text" NAME="dateEnd" SIZE=9 VALUE="2025-09-16" />
+				<A HREF="javascript:cal1.select(document.forms['cal_form'].dateEnd,'anchor2','yyyy-MM-dd');" NAME="anchor2" ID="anchor2"><IMG style="vertical-align:middle;" src="https://partner.steampowered.com//controls/calendar/cal.jpg"></A>
+				11:59 PM			</div>
+							<input type="submit" value="Update" name="submit">
+		</form>
+	</div>
+
+	<div id="Preferences" class="initHidden" style="background:#2C2C2C;padding:16px 0px 16px 0px;vertical-align:middle;">
+
+		<form method="get" name="pref_form" >
+						<INPUT TYPE="hidden" NAME="dateStart" VALUE="2025-08-14" />
+			<INPUT TYPE="hidden" NAME="dateEnd" VALUE="2025-09-16" />
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Date Link Style:
+								<select style="width: 8em;" name="dateLinkStyle">
+					<option selected  value="Standard">Standard</option>
+					<option value="Financial">Financial</option>
+				</select>
+			</div>
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Prior period:
+								<select id = "PriorPeriodSelect" style="width: 13em;" name="alignPriorAnnual" onchange= "showPriorDateSelect(this)" >
+					<option selected	value="Immediate" title="Prior period will immediately precede selected date range">Immediate prior</option>
+					<option	value="One Year"   title="Prior period will align with date range one year earlier">Year-over-year, comp</option>
+					<option		value="Custom"   title="Prior period can be any range">Custom period</option>
+				</select>
+			</div>
+			<div id="DateRangeSelector2" class="initHidden" style="background:#2C2C2C;">
+				<div style="float:left; margin:0px 32px 0px 0px;">
+					Prior Start:
+					<INPUT TYPE="text" NAME="priorDateStart" SIZE=9 VALUE="2025-07-11" />
+				</div>
+				<div style="float:left; margin:0px 32px 0px 0px;">
+					Prior End:
+					<INPUT TYPE="text" NAME="priorDateEnd" SIZE=9 VALUE="2025-08-13" />
+				</div>
+				<script>
+					// check if we should be showing date values initially
+					document.addEventListener("load", showPriorDateSelect( document.getElementById('PriorPeriodSelect') ) );
+				</script>
+			</div>
+
+						<div style="float:right;">
+				<input type="submit" value="Update" name="submit">
+			</div>
+		</form>
+	</div>
+	</div>
+				<br>
+			<div>
+				<table>
+						<tr>
+				<td></td>
+		<td></td>
+		<td align=right title='2025-08-14 to 2025-09-16'><b>Most recent 34 days</b></td>
+			<td></td>										<!--Expandable percentage column-->
+					<td></td>
+				<td align=right><b>Change vs. previous period</b></td>
+		<td align=right></td>
+		<td class="dim" align=right  title='2025-07-11 to 2025-08-13'><b>Previous 34 days</b></td>
+		<td></td>										<!--Expandable percentage column-->
+					<td></td>
+			</tr>
+		<tr >
+	
+	<td>Average daily peak concurrent users 		</td>
+	<td></td>
+	<td align=right>202,214</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+5%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>191,541</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Maximum daily peak concurrent users 		</td>
+	<td></td>
+	<td align=right>218,360</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+9%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>198,809</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Average daily active users 		</td>
+	<td></td>
+	<td align=right>645,006</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+6%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>606,768</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Maximum daily active users 		</td>
+	<td></td>
+	<td align=right>717,533</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+9%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>654,705</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Average daily Steam Deck users 		</td>
+	<td></td>
+	<td align=right>265</td>
+	<td align=right>(0%)</td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+14%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>231</td>
+		<td class="dim" align=right>(0%)</td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Maximum daily Steam Deck users 		</td>
+	<td></td>
+	<td align=right>419</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+51%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>276</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+				</table>
+			</div>
+			<br><br>
+			<div style="text-align:left;">
+				<div style="float: left;">
+											<b>Delta Force player counts - </b>
+						<br>
+						<div>
+							 ( <form action="https://partner.steampowered.com/report_csv.php" method="post"><input type="hidden" name="file" value="SteamUserStats_2507950_2025-08-14to2025-09-16"><input type="hidden" name="params" value="query=QueryDailyActiveUserHistory^appID=2507950^dateStart=2025-08-14^dateEnd=2025-09-16^interpreter=PlayerCountInterpreter"><input style="background: none!important;border: none;padding: 0!important; text-decoration: underline; cursor: pointer;" type="submit" value="view active and concurrent player .csv"/></form> )  ( <form action="https://partner.steampowered.com/report_csv.php" method="post"><input type="hidden" name="file" value="SteamHourlyConcurrents_2507950_2025-08-14to2025-09-16"><input type="hidden" name="params" value="query=QueryGamesPlayedHistory^appID=2507950^sample_period=hourly_new^dateStart=2025-08-14^dateEnd=2025-09-16^interpreter=HourlyPlayerCountInterpreter"><input style="background: none!important;border: none;padding: 0!important; text-decoration: underline; cursor: pointer;" type="submit" value="hourly"/></form> )
+	<script>
+
+		var plotActions = null;
+
+		$J(document).ready( function() {
+
+		$J.jqplot.config.enablePlugins = true;
+
+		plotActions = $J.jqplot(
+			'user_graph'
+			, [ [['2025-08-14',187713],['2025-08-15',191814],['2025-08-16',193745],['2025-08-17',197970],['2025-08-18',195554],['2025-08-19',200070],['2025-08-20',198598],['2025-08-21',199029],['2025-08-22',201930],['2025-08-23',205479],['2025-08-24',210413],['2025-08-25',203928],['2025-08-26',202756],['2025-08-27',199575],['2025-08-28',193868],['2025-08-29',194672],['2025-08-30',202195],['2025-08-31',201613],['2025-09-01',199021],['2025-09-02',200094],['2025-09-03',197871],['2025-09-04',197185],['2025-09-05',206036],['2025-09-06',213519],['2025-09-07',209372],['2025-09-08',205433],['2025-09-09',205874],['2025-09-10',204626],['2025-09-11',205210],['2025-09-12',215280],['2025-09-13',218360],['2025-09-14',211318],['2025-09-15',204281],['2025-09-16',200869]],[['2025-08-14',595477],['2025-08-15',596293],['2025-08-16',624853],['2025-08-17',628174],['2025-08-18',612934],['2025-08-19',641861],['2025-08-20',679191],['2025-08-21',678114],['2025-08-22',683344],['2025-08-23',705221],['2025-08-24',717533],['2025-08-25',671708],['2025-08-26',661320],['2025-08-27',654883],['2025-08-28',634574],['2025-08-29',640513],['2025-08-30',666334],['2025-08-31',676613],['2025-09-01',628756],['2025-09-02',622789],['2025-09-03',615526],['2025-09-04',609038],['2025-09-05',636685],['2025-09-06',678515],['2025-09-07',683397],['2025-09-08',619795],['2025-09-09',612079],['2025-09-10',615841],['2025-09-11',613853],['2025-09-12',644188],['2025-09-13',679901],['2025-09-14',681027],['2025-09-15',610556],['2025-09-16',609321]] ]
+			, {
+			animate: true,
+			animateReplot: true,
+			stackSeries: false,
+			cursor: {
+			show: true,
+			zoom: true,
+			looseZoom: true,
+			clickReset: true,
+			showTooltip: false,
+			showTooltipUnitPosition: false
+			},
+			series:[ { label: 'Peak Concurrent Users'
+, color: '#038080'
+, highlighter: { formatString: 'Peak Concurrent Users: %s, %s'} , pointLabels: {
+  show: false,
+markerOptions: { style: 'diamond' },  ypadding: 1,
+}
+, yaxis: 'yaxis'
+, renderer: $J.jqplot.LineRenderer
+, showHighlight: true
+, fill: false
+, disableStack: true, rendererOptions: { 
+animation: { speed: 2000 }
+, highlightMouseOver: true
+ } 
+}, 
+{ label: 'Daily Active Users'
+, color: '#8a5706'
+, highlighter: { formatString: 'Daily Active Users: %s, %s'} , pointLabels: {
+  show: false,
+markerOptions: { style: 'diamond' },  ypadding: 1,
+}
+, yaxis: 'yaxis'
+, renderer: $J.jqplot.LineRenderer
+, showHighlight: true
+, fill: false
+, disableStack: true, rendererOptions: { 
+animation: { speed: 2000 }
+, highlightMouseOver: true
+ } 
+}, 
+ ],
+			seriesDefaults:	{
+				showMarker: false,
+				lineWidth: 2.5			},
+			grid:   {
+				backgroundColor: '#242424',
+				gridLineColor: '#424242',
+				borderColor: '#424242'
+			},
+			rendererOptions:    {
+			showDataLabels: true
+			},
+			AxesDefaults: { pad: 0 },
+			axes: {
+				xaxis: {
+					renderer: $J.jqplot.DateAxisRenderer,
+					rendererOptions:{ tickRenderer: $J.jqplot.CanvasAxisTickRenderer },
+					numberTicks: 5,
+					tickOptions: {
+						formatString: '%b-%d-%Y', 						fontSize: '10pt'
+					},
+					min: '2025-08-12',					max: '2025-09-19',					drawMajorGridlines: true,
+					drawMinorGridlines: true,
+					drawMajorTickMarks: true,
+					rendererOptions: {
+						tickInset: 0.5,
+						minorTicks: 1,
+						sortMergedLabels: true
+					}
+				},
+				yaxis:  { renderer: $J.jqplot.LinearAxisRenderer, rendererOptions: { forceTickAt0: true },labelRenderer: $J.jqplot.CanvasAxisLabelRenderer, label: '',min: 0, tickRenderer: $J.jqplot.CanvasAxisTickRenderer, tickOptions: { formatString: "%'i",fontSize: '10pt', showGridline: true }, pad: 1.01 }							},
+			highlighter: {
+				show: true,
+				showLabel: true,
+				tooltipAxes: 'xy',
+				sizeAdjust: 2 ,
+				tooltipLocation : 'n',
+				tooltipOffset: 10,
+				lineWidthAdjust: 3,
+				useAxesFormatters:  true
+			},
+			legend: {
+				renderer: $J.jqplot.EnhancedLegendRenderer
+				, show: true
+				, placement: 'outsideGrid'
+				, location: 's'
+				, fontSize: '10pt'
+				, marginBottom: '10px'
+				, rendererOptions: {
+					numberColumns: null,
+					numberRows: 1
+				}
+			},
+					});
+
+	});
+	</script>
+<div id="user_graph" style = "height:350px;width:1000px"></div>						</div>
+												<br><br>
+						<div>
+							<b>Delta Force per platform player counts </b>
+							
+	<script>
+
+		var plotActions = null;
+
+		$J(document).ready( function() {
+
+		$J.jqplot.config.enablePlugins = true;
+
+		plotActions = $J.jqplot(
+			'platform_user_graph'
+			, [ [['2025-08-14',25],['2025-08-15',29],['2025-08-16',125],['2025-08-17',132],['2025-08-18',127],['2025-08-19',130],['2025-08-20',133],['2025-08-21',136],['2025-08-22',133],['2025-08-23',145],['2025-08-24',137],['2025-08-25',132],['2025-08-26',129],['2025-08-27',126],['2025-08-28',132],['2025-08-29',129],['2025-08-30',134],['2025-08-31',128],['2025-09-01',23],['2025-09-02',26],['2025-09-03',20],['2025-09-04',23],['2025-09-05',31],['2025-09-06',32],['2025-09-07',30],['2025-09-08',28],['2025-09-09',28],['2025-09-10',28],['2025-09-11',26],['2025-09-12',28],['2025-09-13',29],['2025-09-14',28],['2025-09-15',30],['2025-09-16',30]] ]
+			, {
+			animate: true,
+			animateReplot: true,
+			stackSeries: false,
+			cursor: {
+			show: true,
+			zoom: true,
+			looseZoom: true,
+			clickReset: true,
+			showTooltip: false,
+			showTooltipUnitPosition: false
+			},
+			series:[ { label: 'Peak Concurrent Linux Users'
+, color: '#038080'
+, highlighter: { formatString: 'Peak Concurrent Linux Users: %s, %s'} , pointLabels: {
+  show: false,
+markerOptions: { style: 'diamond' },  ypadding: 1,
+}
+, yaxis: 'yaxis'
+, renderer: $J.jqplot.LineRenderer
+, showHighlight: true
+, fill: false
+, disableStack: true, rendererOptions: { 
+animation: { speed: 2000 }
+, highlightMouseOver: true
+ } 
+}, 
+ ],
+			seriesDefaults:	{
+				showMarker: false,
+				lineWidth: 2.5			},
+			grid:   {
+				backgroundColor: '#242424',
+				gridLineColor: '#424242',
+				borderColor: '#424242'
+			},
+			rendererOptions:    {
+			showDataLabels: true
+			},
+			AxesDefaults: { pad: 0 },
+			axes: {
+				xaxis: {
+					renderer: $J.jqplot.DateAxisRenderer,
+					rendererOptions:{ tickRenderer: $J.jqplot.CanvasAxisTickRenderer },
+					numberTicks: 5,
+					tickOptions: {
+						formatString: '%b-%d-%Y', 						fontSize: '10pt'
+					},
+					min: '2025-08-12',					max: '2025-09-19',					drawMajorGridlines: true,
+					drawMinorGridlines: true,
+					drawMajorTickMarks: true,
+					rendererOptions: {
+						tickInset: 0.5,
+						minorTicks: 1,
+						sortMergedLabels: true
+					}
+				},
+				yaxis:  { renderer: $J.jqplot.LinearAxisRenderer, rendererOptions: { forceTickAt0: true },labelRenderer: $J.jqplot.CanvasAxisLabelRenderer, label: '',min: 0, tickRenderer: $J.jqplot.CanvasAxisTickRenderer, tickOptions: { formatString: "%'i",fontSize: '10pt', showGridline: true }, pad: 1.01 }							},
+			highlighter: {
+				show: true,
+				showLabel: true,
+				tooltipAxes: 'xy',
+				sizeAdjust: 2 ,
+				tooltipLocation : 'n',
+				tooltipOffset: 10,
+				lineWidthAdjust: 3,
+				useAxesFormatters:  true
+			},
+			legend: {
+				renderer: $J.jqplot.EnhancedLegendRenderer
+				, show: true
+				, placement: 'outsideGrid'
+				, location: 's'
+				, fontSize: '10pt'
+				, marginBottom: '10px'
+				, rendererOptions: {
+					numberColumns: null,
+					numberRows: 1
+				}
+			},
+					});
+
+	});
+	</script>
+<div id="platform_user_graph" style = "height:350px;width:1000px"></div>						</div>
+									</div>
+				<br clear="all">
+				<br><br>
+				<div>
+					<b>Players by region - Yesterday (2025-09-16)</b><br>
+					<div style="float:left;text-align:left; margin-right:40px">
+						<div><div id="chartdiv0" class="JSGraph" style="width: 400px;height: 260px; margin-bottom:40px;" align="center"; >
+	</div><div class="LoadingBox" >Loading ...</div></div><script type="text/javascript">
+		var jsgraph0;
+		jsonpFetch( "https://partner.steampowered.com//report_xml.php?query=QueryPlayersByRegionPct&appID=2507950&dateStart=2025-08-14&dateEnd=2025-09-16&piechart=1&width=400&height=260&json=1&func=onJsonData0", "onJsonData0", onJsonData0 );
+		//console.log( "https://partner.steampowered.com//report_xml.php?query=QueryPlayersByRegionPct&appID=2507950&dateStart=2025-08-14&dateEnd=2025-09-16&piechart=1&width=400&height=260&json=1&func=onJsonData0" );
+	function onJsonData0( data )
+	{
+		var font_desc =  {
+				size: 11,
+				lineHeight: 13,
+				style: "normal",
+				weight: "normal",
+				family: "Verdana, Arial, Helvetica, sans-serif",
+				variant: "normal",
+				color: "#a3a3a3"
+			};
+
+
+	jsgraph0 = jQuery.plot( jQuery( "#chartdiv0" ), data, {
+		series: {
+			
+			lines: {
+				show: false,
+				
+			},
+			bars: {
+				show: false,
+			},
+			pie: {
+				show: true,
+				stroke: {
+					color: "#424242",
+					width: 0,
+				}
+			},
+		},
+		legend: {
+			show: true,
+			margin: 0,
+			labelBoxBorderColor: "none",
+			backgroundColor: "#545454",
+			position:"ne",
+
+		},
+		yaxis: {
+			show: true,
+			tickFormatter: (function (d) {
+				return d.toLocaleString();
+			}),
+			tickColor: "#424242",
+			autoscaleMargin: 0.15,
+			font: font_desc,
+			
+		},
+		xaxis: {
+			font: font_desc,
+			labelWidth: 100,
+			reserveSpace: 80,
+			show: true,
+			ticks: data[0]['ticks'],
+			
+		},
+		grid: {
+			hoverable: true,
+			clickable: false,
+			margin: 0,
+			borderWidth: 0,
+			axisMargin: 0,
+			minBorderMargin: 0,
+			mouseActiveRadius: 1000,
+			backgroundColor: '#222222'
+		},
+		query_params:{"query":"QueryPlayersByRegionPct","appID":2507950,"dateStart":"2025-08-14","dateEnd":"2025-09-16","piechart":1,"width":400,"height":260,"json":1,"func":"onJsonData0"},
+
+	});
+
+	jsgraph0.getOptions().query_params["func"] = "onJsonDataGraphReload0";
+
+	jQuery( "#chartdiv0" ).addClass( "pie" );
+	AddFunctionsToPlot( jsgraph0, "https://partner.steampowered.com//report_xml.php?", "chartdiv0", onJsonDataGraphReload0, false, true );
+}
+
+function onJsonDataGraphReload0( data )
+{
+	jsgraph0.setData( data );
+	jsgraph0.getOptions().updatePlotAxis( jsgraph0 );
+
+	jQuery( "#chartdiv0" ).parent().removeClass( "loading" );
+}
+</script>
+						</div>
+					<div style="float:left;text-align:right;">
+						<table>
+							<tr>
+								<td><b>Country</b></td>
+								<td align=right><b>% of Players</b></td>
+							</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CN&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">China</a></td>
+									<td align=right>70.34%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=US&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">United States</a></td>
+									<td align=right>3.92%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TH&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Thailand</a></td>
+									<td align=right>2.94%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=JP&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Japan</a></td>
+									<td align=right>1.78%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Brazil</a></td>
+									<td align=right>1.49%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ID&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Indonesia</a></td>
+									<td align=right>1.49%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=HK&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Hong Kong</a></td>
+									<td align=right>1.37%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Germany</a></td>
+									<td align=right>1.31%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MY&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Malaysia</a></td>
+									<td align=right>1.15%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Korea, Republic of</a></td>
+									<td align=right>1.05%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=FR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">France</a></td>
+									<td align=right>0.75%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Canada</a></td>
+									<td align=right>0.71%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Turkey</a></td>
+									<td align=right>0.63%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GB&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">United Kingdom</a></td>
+									<td align=right>0.63%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ES&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Spain</a></td>
+									<td align=right>0.59%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AU&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Australia</a></td>
+									<td align=right>0.58%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PH&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Philippines</a></td>
+									<td align=right>0.57%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=RU&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Russian Federation</a></td>
+									<td align=right>0.50%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Argentina</a></td>
+									<td align=right>0.49%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Singapore</a></td>
+									<td align=right>0.41%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Iran (Islamic Republic of)</a></td>
+									<td align=right>0.40%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Saudi Arabia</a></td>
+									<td align=right>0.40%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IN&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">India</a></td>
+									<td align=right>0.38%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IQ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Iraq</a></td>
+									<td align=right>0.36%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IT&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Italy</a></td>
+									<td align=right>0.33%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=UA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Ukraine</a></td>
+									<td align=right>0.30%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CL&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Chile</a></td>
+									<td align=right>0.28%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PL&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Poland</a></td>
+									<td align=right>0.27%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MX&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Mexico</a></td>
+									<td align=right>0.24%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ZA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">South Africa</a></td>
+									<td align=right>0.19%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=RO&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Romania</a></td>
+									<td align=right>0.17%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NL&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Netherlands</a></td>
+									<td align=right>0.17%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Sweden</a></td>
+									<td align=right>0.15%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TW&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Taiwan</a></td>
+									<td align=right>0.15%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Peru</a></td>
+									<td align=right>0.14%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BY&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Belarus</a></td>
+									<td align=right>0.13%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PT&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Portugal</a></td>
+									<td align=right>0.13%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CZ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Czech Republic</a></td>
+									<td align=right>0.11%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=HU&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Hungary</a></td>
+									<td align=right>0.11%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">United Arab Emirates</a></td>
+									<td align=right>0.11%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CO&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Colombia</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NZ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">New Zealand</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DK&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Denmark</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AT&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Austria</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KZ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Kazakhstan</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BD&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Bangladesh</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KH&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Cambodia</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CH&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Switzerland</a></td>
+									<td align=right>0.09%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=FI&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Finland</a></td>
+									<td align=right>0.08%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IL&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Israel</a></td>
+									<td align=right>0.08%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PK&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Pakistan</a></td>
+									<td align=right>0.08%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MO&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Macau</a></td>
+									<td align=right>0.07%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NO&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Norway</a></td>
+									<td align=right>0.07%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KW&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Kuwait</a></td>
+									<td align=right>0.07%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=EG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Egypt</a></td>
+									<td align=right>0.07%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DZ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Algeria</a></td>
+									<td align=right>0.07%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Greece</a></td>
+									<td align=right>0.06%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=JO&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Jordan</a></td>
+									<td align=right>0.06%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=VN&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Viet Nam</a></td>
+									<td align=right>0.06%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LK&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Sri Lanka</a></td>
+									<td align=right>0.05%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=VE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Venezuela</a></td>
+									<td align=right>0.05%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PS&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Palestine, State of</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SK&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Slovakia (Slovak Republic)</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=UY&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Uruguay</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Bulgaria</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LB&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Lebanon</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=RS&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Serbia</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Ireland</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=HR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Croatia</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LT&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Lithuania</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BO&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Bolivia</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=UZ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Uzbekistan</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=OM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Oman</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=EC&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Ecuador</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=QA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Qatar</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Georgia</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=EE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Estonia</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Morocco</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TN&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Tunisia</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Laos</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LV&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Latvia</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BN&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Brunei Darussalam</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SI&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Slovenia</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Puerto Rico</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Costa Rica</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Myanmar (Burma)</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AZ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Azerbaijan</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PY&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Paraguay</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MD&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Moldova, Republic of</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MN&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Mongolia</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NP&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Nepal</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Panama</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DO&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Dominican Republic</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BH&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Bahrain</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LY&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Libya</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GT&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Guatemala</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Bosnia And Herzegowina</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=RE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Reunion</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Kyrgyzstan</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CY&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Cyprus</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SV&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">El Salvador</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Belgium</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=HN&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Honduras</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AL&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Albania</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LU&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Luxembourg</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Armenia</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CU&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Cuba</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MK&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">North Macedonia</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Nigeria</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MU&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Mauritius</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SY&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Syria</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Kenya</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TT&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Trinidad And Tobago</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Namibia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IS&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Iceland</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Madagascar</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CD&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Congo, The DRC</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NI&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Nicaragua</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AO&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Angola</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GU&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Guam</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SC&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Seychelles</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MV&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Maldives</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CI&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Cote D'Ivoire</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MT&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Malta</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GH&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Ghana</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=YE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Yemen</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MZ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Mozambique</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ZW&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Zimbabwe</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=JM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Jamaica</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GP&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Guadeloupe</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=UG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Uganda</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ME&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Montenegro</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GY&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Guyana</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ZM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Zambia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NC&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">New Caledonia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MQ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Martinique</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ET&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Ethiopia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TZ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Tanzania, United Republic of</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=JE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Jersey</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Cameroon</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TJ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Tajikistan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GF&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">French Guiana</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AD&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Andorra</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BB&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Barbados</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BJ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Benin</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CW&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Curacao</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BZ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Belize</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Turkmenistan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SN&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Senegal</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Suriname</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BS&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Bahamas</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AF&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Afghanistan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Isle of Man</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GN&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Guinea</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AW&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Aruba</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SL&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Sierra Leone</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KN&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Saint Kitts And Nevis</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Congo</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Togo</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=FO&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Faroe Islands</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GL&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Greenland</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MW&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Malawi</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SD&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Sudan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Papua New Guinea</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">San Marino</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PF&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">French Polynesia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BW&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Botswana</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KY&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Cayman Islands</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MP&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Northern Mariana Islands</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ML&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Mali</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=RW&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Rwanda</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=FM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Micronesia, Federated States of</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GA&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Gabon</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BT&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Bhutan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TD&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Chad</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SX&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Sint Maarten, Dutch Part</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=  &amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">  </a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SO&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Somalia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Bermuda</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AX&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Aland Islands</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BF&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Burkina Faso</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=FJ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Fiji</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LC&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Saint Lucia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Mauritania</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=VI&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Virgin Islands (U.S.)</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Liberia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GD&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Grenada</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LI&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Liechtenstein</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GI&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Gibraltar</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Antigua And Barbuda</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AS&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">American Samoa</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MC&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Monaco</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=VU&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Vanuatu</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SZ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Eswatini</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GG&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Guernsey</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SS&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">South Sudan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TL&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">East Timor</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode= Z&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16"> Z</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CV&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Cabo Verde</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NR&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Nauru</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Dominica</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DJ&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Djibouti</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=WS&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Samoa</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GM&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Gambia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NE&amp;dateStart=2025-08-14&amp;dateEnd=2025-09-16">Niger</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+													</table>
+					</div>
+				</div>
+				<br clear="all">
+			</div>
+		</div>
+		</div>
+	</center>
+</body>
+
+</html>

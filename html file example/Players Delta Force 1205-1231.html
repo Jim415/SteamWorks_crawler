@@ -1,0 +1,1518 @@
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Players: Delta Force</title>
+	<link href="https://partner.steampowered.com/public/shared/css/motiva_sans.css?v=r5pg4q3CrKGd&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/shared_global.css?v=r1UOiHT62oQ0&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/shared/css/buttons.css?v=ILAw3jKDVNA4&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/../../styles_global.css?v=6855d262-33d6&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_financials.css?v=b10074820&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://partner.steampowered.com/public/css/styles_flot_charts.css?v=b10074820&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<!--[if lte IE 7]> <style type="text/css"> .iepopupfix{ display: block; } </style> <![endif]-->
+	<script type="text/javascript">VALVE_PUBLIC_PATH = "https:\/\/partner.steampowered.com\/\/public\/";</script>
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/prototype-1.6.0.2.js?v=b10074820&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jquery-1.8.3.min.js?v=NXam5zydzNu8&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/shared_global.js?v=yJGtNz8wf36p&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.min.js?v=mSfqk1QKKgiz&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.stack.min.js?v=Nu_CW9IREurT&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.pie.min.js?v=TF3RhDRO9bS4&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.resize.min.js?v=MeIf0YViALgL&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.navigate.min.js?v=3ro41c7Sb4Gw&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/jquery.flot.time.min.js?v=CIECDYHJjBgN&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/flot-0.8/excanvas.min.js?v=7p4_7hQnC3sn&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/d3.v3.min.js?v=b10074820&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/flot.charthelper.js?v=b10074820&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript" src="https://partner.steampowered.com/public/javascript/global.js?v=DBONYgnI60Gj&amp;l=english&amp;_cdn=akamai"></script>
+
+<script type="text/javascript">$J = jQuery.noConflict();</script>	<link href="https://partner.steampowered.com/public/shared/css/jquery.jqplot.min.css?v=_HASKGQ7zEan&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+	<link href="https://partner.steampowered.com/public/css/styles_wishlists.css?v=b10074820&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/jquery.jqplot.min.js?v=13NeEISFolcO&amp;l=english&amp;_cdn=akamai"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.dateAxisRenderer.js?v=rUOdzvyHh4e7&amp;l=english&amp;_cdn=akamai"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.enhancedLegendRenderer.js?v=nyWjSTfz1M0X&amp;l=english&amp;_cdn=akamai"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.pointLabels.js?v=58eDVAvZgPnZ&amp;l=english&amp;_cdn=akamai"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.cursor.js?v=NsIu-HB0p50G&amp;l=english&amp;_cdn=akamai"></script>
+	<script type="text/javascript" src="https://partner.steampowered.com/public/shared/javascript/jqplot/plugins/jqplot.highlighter.js?v=85sA3L62MDkD&amp;l=english&amp;_cdn=akamai"></script>
+</head>
+
+<body>
+	<div id="header"><img src="https://partner.steampowered.com/img/logo_steamworks_sales.png" height="76" width="600" border="0" /></div>
+	<div id="header_menu">
+		<span id="header_left">
+				<div style="float:right;padding-right:46px;"><span style="color: #acacac;">Signed in as <strong>jimhanzhangsw777</strong></span>
+	
+
+	<span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/login/logout">Logout</a><span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/dir.php">Mega Site Map</a><span style="color:#414141;">|</span>
+
+			<form>
+		<input name="runasGoto" type="hidden" autocomplete="off">
+		View as: <select style="width: 10em;" onchange="this.form.submit();" name="runasPubid">
+		<option value="-1">Default</option>
+<option value=67095>TCH Scarlet Limited</option>
+<option selected value=182910>Proxima Beta Europe B.V.</option>
+</select>
+		</form>
+		
+	<form method="get" action="https://partner.steampowered.com/dir.php" >Search
+	<input type="text" name="filter" size=9 value=""/>
+	</form>
+	</div>
+	<div style="text-align:left;float:left;padding-left:46px;">
+	<a href="https://partner.steampowered.com/">Home</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/app/top/">Products</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/package/steam/">Packages</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/bundles/">Bundles</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/region/">Regions</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/wishlist/daily/">Wishlists</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/players.php">Players</a> <span style="color:#414141;">|</span>
+	<a href="https://partner.steampowered.com/deckplayers.php">Steam Deck</a> <span style="color:#414141;">|</span>
+
+	<a href="https://partner.steampowered.com/coupons.php">Coupons</a> <span style="color:#2C2C2C;">|</span> <a href="https://partner.steampowered.com/partner_report2.php?partnerid=182910">Reports</a> <span style="color:#2C2C2C;">|</span>	</div>
+			</span>
+	</div>
+	<center>
+		<div class="ContentWrapper">
+			<h1>Players: Delta Force</h1>
+			<< back to <a href="https://partner.steampowered.com/app/details/2507950/?dateStart=2024-12-05&amp;dateEnd=2024-12-31">Delta Force</a><br>			<br>
+			<div class="hr-color">
+				<hr>
+			</div>
+			<table>
+				<tbody>
+					<tr>
+						<h2>Summary statistics</h2>
+						</th>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Current players</td>
+						<td align=right>107,605</td>
+					</tr>
+					<tr>
+						<td>Lifetime avg daily active users <a href="#" class="tooltip">(?)<span>Average since the products Steam release date</span></a></td>
+						<td align="right">507,190</td>
+					</tr>
+					<tr>
+						<td>Recent avg daily active users</td>
+						<td align="right">633,346</td>
+					</tr>
+									</tbody>
+			</table>
+			<br>
+			<div class="hr-color">
+				<hr>
+			</div>
+			<br clear="all">
+			<div><div class="PeriodLinks">View most recent: &nbsp; <a href="https://partner.steampowered.com/app/players/2507950/?specialPeriod=today">today</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-09-16&amp;dateEnd=2025-09-16&amp;priorDateStart=2025-09-15&amp;priorDateEnd=2025-09-15">yesterday</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-09-10&amp;dateEnd=2025-09-16&amp;priorDateStart=2025-09-03&amp;priorDateEnd=2025-09-09">1 week</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-09-03&amp;dateEnd=2025-09-16&amp;priorDateStart=2025-08-20&amp;priorDateEnd=2025-09-02">2 weeks</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-08-17&amp;dateEnd=2025-09-16&amp;priorDateStart=2025-07-17&amp;priorDateEnd=2025-08-16">1 month</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-06-18&amp;dateEnd=2025-09-16&amp;priorDateStart=2025-03-19&amp;priorDateEnd=2025-06-17">3 months</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2024-09-18&amp;dateEnd=2025-09-16&amp;priorDateStart=2023-09-20&amp;priorDateEnd=2024-09-17">1 year</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2025-01-01&amp;dateEnd=2025-09-17&amp;priorDateStart=2024-04-16&amp;priorDateEnd=2024-12-31">ytd</a> <span style="color:#424242;">|</span> <a href="https://partner.steampowered.com/app/players/2507950/?dateStart=2000-01-01&amp;dateEnd=2025-09-17&amp;priorDateStart=1974-04-15&amp;priorDateEnd=1999-12-31">all history</a> <span style="color:#424242;">|</span> <a href="javascript:toggleThing('DateRangeSelector')">custom</a> <span style="color:#424242;">|</span> (<em>12/5/2024 - 12/31/2024)</em> &nbsp;&nbsp;&nbsp; <div style="float:right;"><a href="javascript:toggleThing('Preferences')">Preferences</a> </div></div>	<script language="javascript">
+	function toggleThing( thingID )
+	{
+		el = document.getElementById( thingID );
+		if ( el.style.display != 'block' )
+		{
+			el.style.display = 'block';
+		}
+		else
+		{
+			el.style.display = 'none';
+		}
+	}
+
+	function toggleThingVis( thingID )
+	{
+		el = document.getElementById( thingID );
+		if ( el.style.visibility != 'visible' )
+		{
+			el.style.visibility = 'visible';
+		}
+		else
+		{
+			el.style.visibility = 'hidden';
+		}
+	}
+	</script>
+	<style type="text/css">
+
+	.initHidden {
+		display:none;
+	}
+
+	.initInvisible {
+		visibility:hidden;
+	}
+	</style>
+	<script language="JavaScript" src="https://partner.steampowered.com//controls/calendar/calendar.js"></script>
+	<script language=javascript>
+	<!--
+		var cal1 = new CalendarPopup();
+		var tomorrow = new Date() ; with (tomorrow) setDate(getDate()+1)
+		var cal1 = new CalendarPopup();
+		cal1.addDisabledDates(formatDate(tomorrow,"yyyy-MM-dd"), null);
+	-->
+
+		// Check whether or not we should be displaying date selection
+		function showPriorDateSelect(elem)
+		{
+			if ( elem.value == 'Custom' )
+			{
+				document.getElementById('DateRangeSelector2').style.display = "block";
+			}
+			else
+			{
+				document.getElementById('DateRangeSelector2').style.display = "none";
+			}
+		}
+	</script>
+
+	
+	<div id="DateRangeSelector" class="initHidden" style="background:#2C2C2C;padding:16px 0px 0px 0px;vertical-align:middle;">
+
+		<form method="get" name="cal_form" >
+						<INPUT TYPE="hidden" NAME="alignPriorAnnual" VALUE="Immediate" />
+			<INPUT TYPE="hidden" NAME="priorDateStart" VALUE="2024-11-08" />
+			<INPUT TYPE="hidden" NAME="priorDateEnd" VALUE="2024-12-04" />
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Start Date:
+				<INPUT TYPE="text" NAME="dateStart" SIZE=9 VALUE="2024-12-05" />
+				<A HREF="javascript:cal1.select(document.forms['cal_form'].dateStart,'anchor1','yyyy-MM-dd');" NAME="anchor1" ID="anchor1"><IMG style="vertical-align:middle;" src="https://partner.steampowered.com//controls/calendar/cal.jpg"></A>
+				12:00 AM			</div>
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				End Date:
+				<INPUT TYPE="text" NAME="dateEnd" SIZE=9 VALUE="2024-12-31" />
+				<A HREF="javascript:cal1.select(document.forms['cal_form'].dateEnd,'anchor2','yyyy-MM-dd');" NAME="anchor2" ID="anchor2"><IMG style="vertical-align:middle;" src="https://partner.steampowered.com//controls/calendar/cal.jpg"></A>
+				11:59 PM			</div>
+							<input type="submit" value="Update" name="submit">
+		</form>
+	</div>
+
+	<div id="Preferences" class="initHidden" style="background:#2C2C2C;padding:16px 0px 16px 0px;vertical-align:middle;">
+
+		<form method="get" name="pref_form" >
+						<INPUT TYPE="hidden" NAME="dateStart" VALUE="2024-12-05" />
+			<INPUT TYPE="hidden" NAME="dateEnd" VALUE="2024-12-31" />
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Date Link Style:
+								<select style="width: 8em;" name="dateLinkStyle">
+					<option selected  value="Standard">Standard</option>
+					<option value="Financial">Financial</option>
+				</select>
+			</div>
+
+			<div style="float:left; margin:0px 32px 0px 0px;">
+				Prior period:
+								<select id = "PriorPeriodSelect" style="width: 13em;" name="alignPriorAnnual" onchange= "showPriorDateSelect(this)" >
+					<option selected	value="Immediate" title="Prior period will immediately precede selected date range">Immediate prior</option>
+					<option	value="One Year"   title="Prior period will align with date range one year earlier">Year-over-year, comp</option>
+					<option		value="Custom"   title="Prior period can be any range">Custom period</option>
+				</select>
+			</div>
+			<div id="DateRangeSelector2" class="initHidden" style="background:#2C2C2C;">
+				<div style="float:left; margin:0px 32px 0px 0px;">
+					Prior Start:
+					<INPUT TYPE="text" NAME="priorDateStart" SIZE=9 VALUE="2024-11-08" />
+				</div>
+				<div style="float:left; margin:0px 32px 0px 0px;">
+					Prior End:
+					<INPUT TYPE="text" NAME="priorDateEnd" SIZE=9 VALUE="2024-12-04" />
+				</div>
+				<script>
+					// check if we should be showing date values initially
+					document.addEventListener("load", showPriorDateSelect( document.getElementById('PriorPeriodSelect') ) );
+				</script>
+			</div>
+
+						<div style="float:right;">
+				<input type="submit" value="Update" name="submit">
+			</div>
+		</form>
+	</div>
+	</div>
+				<br>
+			<div>
+				<table>
+						<tr>
+				<td></td>
+		<td></td>
+		<td align=right title='2024-12-05 to 2024-12-31'><b>12/5/2024 to 12/31/2024</b></td>
+			<td></td>										<!--Expandable percentage column-->
+					<td></td>
+				<td align=right><b>Change vs. previous period</b></td>
+		<td align=right></td>
+		<td class="dim" align=right  title='2024-11-08 to 2024-12-04'><b>Previous 27 days</b></td>
+		<td></td>										<!--Expandable percentage column-->
+					<td></td>
+			</tr>
+		<tr >
+	
+	<td>Average daily peak concurrent users 		</td>
+	<td></td>
+	<td align=right>99,937</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+4472%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>2,185</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Maximum daily peak concurrent users 		</td>
+	<td></td>
+	<td align=right>118,964</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+102%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>58,712</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Average daily active users 		</td>
+	<td></td>
+	<td align=right>575,940</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+271028%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>212</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Maximum daily active users 		</td>
+	<td></td>
+	<td align=right>710,194</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+16070%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>4,392</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Average daily Steam Deck users 		</td>
+	<td></td>
+	<td align=right>889</td>
+	<td align=right>(0%)</td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;"></span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>0</td>
+		<td class="dim" align=right>(0%)</td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+		<tr >
+	
+	<td>Maximum daily Steam Deck users 		</td>
+	<td></td>
+	<td align=right>1,947</td>
+	<td align=right></td>
+			<td></td>
+		
+				<td align=right><span style="color:#B5DB42;">+194600%</span></td>
+		
+		<td width=16></td>
+		<td class="dim" align=right>1</td>
+		<td class="dim" align=right></td>
+				<td></td>
+		
+		<td></td>
+	</tr>
+				</table>
+			</div>
+			<br><br>
+			<div style="text-align:left;">
+				<div style="float: left;">
+											<b>Delta Force player counts - </b>
+						<br>
+						<div>
+							 ( <form action="https://partner.steampowered.com/report_csv.php" method="post"><input type="hidden" name="file" value="SteamUserStats_2507950_2024-12-05to2024-12-31"><input type="hidden" name="params" value="query=QueryDailyActiveUserHistory^appID=2507950^dateStart=2024-12-05^dateEnd=2024-12-31^interpreter=PlayerCountInterpreter"><input style="background: none!important;border: none;padding: 0!important; text-decoration: underline; cursor: pointer;" type="submit" value="view active and concurrent player .csv"/></form> )  ( <form action="https://partner.steampowered.com/report_csv.php" method="post"><input type="hidden" name="file" value="SteamHourlyConcurrents_2507950_2024-12-05to2024-12-31"><input type="hidden" name="params" value="query=QueryGamesPlayedHistory^appID=2507950^sample_period=hourly_new^dateStart=2024-12-05^dateEnd=2024-12-31^interpreter=HourlyPlayerCountInterpreter"><input style="background: none!important;border: none;padding: 0!important; text-decoration: underline; cursor: pointer;" type="submit" value="hourly"/></form> )
+	<script>
+
+		var plotActions = null;
+
+		$J(document).ready( function() {
+
+		$J.jqplot.config.enablePlugins = true;
+
+		plotActions = $J.jqplot(
+			'user_graph'
+			, [ [['2024-12-05 00:00:00',47035],['2024-12-05 01:00:00',50941],['2024-12-05 02:00:00',56559],['2024-12-05 03:00:00',64536],['2024-12-05 04:00:00',73646],['2024-12-05 05:00:00',81080],['2024-12-05 06:00:00',86711],['2024-12-05 07:00:00',89452],['2024-12-05 08:00:00',92058],['2024-12-05 09:00:00',94538],['2024-12-05 10:00:00',97726],['2024-12-05 11:00:00',101341],['2024-12-05 12:00:00',102167],['2024-12-05 13:00:00',100896],['2024-12-05 14:00:00',94212],['2024-12-05 15:00:00',86052],['2024-12-05 16:00:00',76735],['2024-12-05 17:00:00',70617],['2024-12-05 18:00:00',67444],['2024-12-05 19:00:00',63261],['2024-12-05 20:00:00',57592],['2024-12-05 21:00:00',52677],['2024-12-05 22:00:00',47715],['2024-12-05 23:00:00',44760],['2024-12-06 00:00:00',46634],['2024-12-06 01:00:00',50463],['2024-12-06 02:00:00',57280],['2024-12-06 03:00:00',66185],['2024-12-06 04:00:00',76262],['2024-12-06 05:00:00',84597],['2024-12-06 06:00:00',91311],['2024-12-06 07:00:00',94283],['2024-12-06 08:00:00',94372],['2024-12-06 09:00:00',94013],['2024-12-06 10:00:00',93209],['2024-12-06 11:00:00',92277],['2024-12-06 12:00:00',92879],['2024-12-06 13:00:00',93130],['2024-12-06 14:00:00',89842],['2024-12-06 15:00:00',82365],['2024-12-06 16:00:00',74303],['2024-12-06 17:00:00',68529],['2024-12-06 18:00:00',66709],['2024-12-06 19:00:00',66573],['2024-12-06 20:00:00',65414],['2024-12-06 21:00:00',63693],['2024-12-06 22:00:00',61477],['2024-12-06 23:00:00',58282],['2024-12-07 00:00:00',57841],['2024-12-07 01:00:00',61984],['2024-12-07 02:00:00',69070],['2024-12-07 03:00:00',78477],['2024-12-07 04:00:00',89672],['2024-12-07 05:00:00',100011],['2024-12-07 06:00:00',106962],['2024-12-07 07:00:00',108788],['2024-12-07 08:00:00',108650],['2024-12-07 09:00:00',107390],['2024-12-07 10:00:00',105378],['2024-12-07 11:00:00',104818],['2024-12-07 12:00:00',104548],['2024-12-07 13:00:00',103085],['2024-12-07 14:00:00',99805],['2024-12-07 15:00:00',92192],['2024-12-07 16:00:00',82716],['2024-12-07 17:00:00',75584],['2024-12-07 18:00:00',72777],['2024-12-07 19:00:00',72439],['2024-12-07 20:00:00',72676],['2024-12-07 21:00:00',72542],['2024-12-07 22:00:00',70860],['2024-12-07 23:00:00',68445],['2024-12-08 00:00:00',69530],['2024-12-08 01:00:00',74055],['2024-12-08 02:00:00',82006],['2024-12-08 03:00:00',93644],['2024-12-08 04:00:00',104972],['2024-12-08 05:00:00',113648],['2024-12-08 06:00:00',118626],['2024-12-08 07:00:00',118964],['2024-12-08 08:00:00',118438],['2024-12-08 09:00:00',116949],['2024-12-08 10:00:00',116657],['2024-12-08 11:00:00',115722],['2024-12-08 12:00:00',114242],['2024-12-08 13:00:00',107693],['2024-12-08 14:00:00',97376],['2024-12-08 15:00:00',85052],['2024-12-08 16:00:00',75147],['2024-12-08 17:00:00',69666],['2024-12-08 18:00:00',66074],['2024-12-08 19:00:00',60820],['2024-12-08 20:00:00',55328],['2024-12-08 21:00:00',50918],['2024-12-08 22:00:00',46142],['2024-12-08 23:00:00',43894],['2024-12-09 00:00:00',46547],['2024-12-09 01:00:00',50485],['2024-12-09 02:00:00',57734],['2024-12-09 03:00:00',67926],['2024-12-09 04:00:00',79407],['2024-12-09 05:00:00',89134],['2024-12-09 06:00:00',93175],['2024-12-09 07:00:00',94056],['2024-12-09 08:00:00',94936],['2024-12-09 09:00:00',96258],['2024-12-09 10:00:00',98130],['2024-12-09 11:00:00',98930],['2024-12-09 12:00:00',98799],['2024-12-09 13:00:00',93793],['2024-12-09 14:00:00',85042],['2024-12-09 15:00:00',76107],['2024-12-09 16:00:00',69966],['2024-12-09 17:00:00',67412],['2024-12-09 18:00:00',65659],['2024-12-09 19:00:00',62482],['2024-12-09 20:00:00',57054],['2024-12-09 21:00:00',53275],['2024-12-09 22:00:00',48606],['2024-12-09 23:00:00',46946],['2024-12-10 00:00:00',48779],['2024-12-10 01:00:00',52223],['2024-12-10 02:00:00',57651],['2024-12-10 03:00:00',67225],['2024-12-10 04:00:00',78441],['2024-12-10 05:00:00',88887],['2024-12-10 06:00:00',93426],['2024-12-10 07:00:00',93234],['2024-12-10 08:00:00',91997],['2024-12-10 09:00:00',92746],['2024-12-10 10:00:00',94098],['2024-12-10 11:00:00',94555],['2024-12-10 12:00:00',93187],['2024-12-10 13:00:00',88479],['2024-12-10 14:00:00',80807],['2024-12-10 15:00:00',73508],['2024-12-10 16:00:00',66905],['2024-12-10 17:00:00',65710],['2024-12-10 18:00:00',64294],['2024-12-10 19:00:00',60816],['2024-12-10 20:00:00',54862],['2024-12-10 21:00:00',50545],['2024-12-10 22:00:00',45602],['2024-12-10 23:00:00',43502],['2024-12-11 00:00:00',45208],['2024-12-11 01:00:00',48678],['2024-12-11 02:00:00',55685],['2024-12-11 03:00:00',65617],['2024-12-11 04:00:00',76771],['2024-12-11 05:00:00',87191],['2024-12-11 06:00:00',91659],['2024-12-11 07:00:00',91698],['2024-12-11 08:00:00',90058],['2024-12-11 09:00:00',88747],['2024-12-11 10:00:00',89938],['2024-12-11 11:00:00',90204],['2024-12-11 12:00:00',89165],['2024-12-11 13:00:00',84893],['2024-12-11 14:00:00',78296],['2024-12-11 15:00:00',71487],['2024-12-11 16:00:00',65776],['2024-12-11 17:00:00',63264],['2024-12-11 18:00:00',62080],['2024-12-11 19:00:00',58648],['2024-12-11 20:00:00',53162],['2024-12-11 21:00:00',48886],['2024-12-11 22:00:00',44719],['2024-12-11 23:00:00',42732],['2024-12-12 00:00:00',45368],['2024-12-12 01:00:00',49182],['2024-12-12 02:00:00',55834],['2024-12-12 03:00:00',65255],['2024-12-12 04:00:00',77349],['2024-12-12 05:00:00',86984],['2024-12-12 06:00:00',90721],['2024-12-12 07:00:00',90116],['2024-12-12 08:00:00',88201],['2024-12-12 09:00:00',87164],['2024-12-12 10:00:00',86700],['2024-12-12 11:00:00',87056],['2024-12-12 12:00:00',86889],['2024-12-12 13:00:00',83847],['2024-12-12 14:00:00',77590],['2024-12-12 15:00:00',69463],['2024-12-12 16:00:00',63870],['2024-12-12 17:00:00',60315],['2024-12-12 18:00:00',58025],['2024-12-12 19:00:00',54654],['2024-12-12 20:00:00',50727],['2024-12-12 21:00:00',49024],['2024-12-12 22:00:00',45306],['2024-12-12 23:00:00',44761],['2024-12-13 00:00:00',47439],['2024-12-13 01:00:00',51119],['2024-12-13 02:00:00',57538],['2024-12-13 03:00:00',67164],['2024-12-13 04:00:00',78786],['2024-12-13 05:00:00',90236],['2024-12-13 06:00:00',96745],['2024-12-13 07:00:00',97634],['2024-12-13 08:00:00',97180],['2024-12-13 09:00:00',94396],['2024-12-13 10:00:00',91538],['2024-12-13 11:00:00',88883],['2024-12-13 12:00:00',88572],['2024-12-13 13:00:00',87680],['2024-12-13 14:00:00',85070],['2024-12-13 15:00:00',78949],['2024-12-13 16:00:00',70973],['2024-12-13 17:00:00',66379],['2024-12-13 18:00:00',65556],['2024-12-13 19:00:00',65332],['2024-12-13 20:00:00',64594],['2024-12-13 21:00:00',64165],['2024-12-13 22:00:00',62337],['2024-12-13 23:00:00',60978],['2024-12-14 00:00:00',61116],['2024-12-14 01:00:00',63946],['2024-12-14 02:00:00',70030],['2024-12-14 03:00:00',79317],['2024-12-14 04:00:00',91708],['2024-12-14 05:00:00',102775],['2024-12-14 06:00:00',109713],['2024-12-14 07:00:00',111062],['2024-12-14 08:00:00',110636],['2024-12-14 09:00:00',107034],['2024-12-14 10:00:00',103718],['2024-12-14 11:00:00',99959],['2024-12-14 12:00:00',98651],['2024-12-14 13:00:00',96661],['2024-12-14 14:00:00',92018],['2024-12-14 15:00:00',84515],['2024-12-14 16:00:00',75887],['2024-12-14 17:00:00',69351],['2024-12-14 18:00:00',67862],['2024-12-14 19:00:00',68006],['2024-12-14 20:00:00',68721],['2024-12-14 21:00:00',68779],['2024-12-14 22:00:00',68830],['2024-12-14 23:00:00',69108],['2024-12-15 00:00:00',69616],['2024-12-15 01:00:00',71731],['2024-12-15 02:00:00',78584],['2024-12-15 03:00:00',88770],['2024-12-15 04:00:00',101794],['2024-12-15 05:00:00',111991],['2024-12-15 06:00:00',114987],['2024-12-15 07:00:00',114171],['2024-12-15 08:00:00',111036],['2024-12-15 09:00:00',105603],['2024-12-15 10:00:00',103778],['2024-12-15 11:00:00',103062],['2024-12-15 12:00:00',100750],['2024-12-15 13:00:00',95483],['2024-12-15 14:00:00',85685],['2024-12-15 15:00:00',74488],['2024-12-15 16:00:00',66135],['2024-12-15 17:00:00',61890],['2024-12-15 18:00:00',59370],['2024-12-15 19:00:00',56335],['2024-12-15 20:00:00',51219],['2024-12-15 21:00:00',49135],['2024-12-15 22:00:00',45058],['2024-12-15 23:00:00',44171],['2024-12-16 00:00:00',46296],['2024-12-16 01:00:00',50166],['2024-12-16 02:00:00',56184],['2024-12-16 03:00:00',66396],['2024-12-16 04:00:00',78359],['2024-12-16 05:00:00',88461],['2024-12-16 06:00:00',91235],['2024-12-16 07:00:00',90222],['2024-12-16 08:00:00',87590],['2024-12-16 09:00:00',85641],['2024-12-16 10:00:00',86039],['2024-12-16 11:00:00',86626],['2024-12-16 12:00:00',86438],['2024-12-16 13:00:00',81885],['2024-12-16 14:00:00',74984],['2024-12-16 15:00:00',67086],['2024-12-16 16:00:00',61727],['2024-12-16 17:00:00',59172],['2024-12-16 18:00:00',57760],['2024-12-16 19:00:00',54588],['2024-12-16 20:00:00',50803],['2024-12-16 21:00:00',48082],['2024-12-16 22:00:00',44110],['2024-12-16 23:00:00',42957],['2024-12-17 00:00:00',45665],['2024-12-17 01:00:00',49153],['2024-12-17 02:00:00',55484],['2024-12-17 03:00:00',65866],['2024-12-17 04:00:00',77589],['2024-12-17 05:00:00',87619],['2024-12-17 06:00:00',90866],['2024-12-17 07:00:00',90246],['2024-12-17 08:00:00',86751],['2024-12-17 09:00:00',84623],['2024-12-17 10:00:00',83661],['2024-12-17 11:00:00',83911],['2024-12-17 12:00:00',83323],['2024-12-17 13:00:00',79615],['2024-12-17 14:00:00',72909],['2024-12-17 15:00:00',64934],['2024-12-17 16:00:00',60014],['2024-12-17 17:00:00',59191],['2024-12-17 18:00:00',57731],['2024-12-17 19:00:00',55146],['2024-12-17 20:00:00',50601],['2024-12-17 21:00:00',47998],['2024-12-17 22:00:00',44054],['2024-12-17 23:00:00',43074],['2024-12-18 00:00:00',45146],['2024-12-18 01:00:00',48772],['2024-12-18 02:00:00',54879],['2024-12-18 03:00:00',64631],['2024-12-18 04:00:00',76608],['2024-12-18 05:00:00',86456],['2024-12-18 06:00:00',89679],['2024-12-18 07:00:00',88704],['2024-12-18 08:00:00',85154],['2024-12-18 09:00:00',82085],['2024-12-18 10:00:00',80567],['2024-12-18 11:00:00',81541],['2024-12-18 12:00:00',81068],['2024-12-18 13:00:00',77703],['2024-12-18 14:00:00',71451],['2024-12-18 15:00:00',64870],['2024-12-18 16:00:00',58864],['2024-12-18 17:00:00',56712],['2024-12-18 18:00:00',56221],['2024-12-18 19:00:00',54239],['2024-12-18 20:00:00',50360],['2024-12-18 21:00:00',47355],['2024-12-18 22:00:00',44156],['2024-12-18 23:00:00',43074],['2024-12-19 00:00:00',45258],['2024-12-19 01:00:00',48904],['2024-12-19 02:00:00',55452],['2024-12-19 03:00:00',64976],['2024-12-19 04:00:00',76548],['2024-12-19 05:00:00',85847],['2024-12-19 06:00:00',89416],['2024-12-19 07:00:00',88809],['2024-12-19 08:00:00',85889],['2024-12-19 09:00:00',83072],['2024-12-19 10:00:00',81001],['2024-12-19 11:00:00',80056],['2024-12-19 12:00:00',79429],['2024-12-19 13:00:00',76365],['2024-12-19 14:00:00',70993],['2024-12-19 15:00:00',64210],['2024-12-19 16:00:00',58684],['2024-12-19 17:00:00',57519],['2024-12-19 18:00:00',56831],['2024-12-19 19:00:00',55457],['2024-12-19 20:00:00',52319],['2024-12-19 21:00:00',50276],['2024-12-19 22:00:00',47658],['2024-12-19 23:00:00',46839],['2024-12-20 00:00:00',49005],['2024-12-20 01:00:00',52272],['2024-12-20 02:00:00',58897],['2024-12-20 03:00:00',68277],['2024-12-20 04:00:00',80217],['2024-12-20 05:00:00',90887],['2024-12-20 06:00:00',97796],['2024-12-20 07:00:00',98453],['2024-12-20 08:00:00',97482],['2024-12-20 09:00:00',94020],['2024-12-20 10:00:00',88847],['2024-12-20 11:00:00',85202],['2024-12-20 12:00:00',84523],['2024-12-20 13:00:00',83797],['2024-12-20 14:00:00',81135],['2024-12-20 15:00:00',74985],['2024-12-20 16:00:00',67979],['2024-12-20 17:00:00',63900],['2024-12-20 18:00:00',63881],['2024-12-20 19:00:00',63660],['2024-12-20 20:00:00',63607],['2024-12-20 21:00:00',63602],['2024-12-20 22:00:00',62786],['2024-12-20 23:00:00',62333],['2024-12-21 00:00:00',63203],['2024-12-21 01:00:00',65515],['2024-12-21 02:00:00',71357],['2024-12-21 03:00:00',80625],['2024-12-21 04:00:00',92458],['2024-12-21 05:00:00',103192],['2024-12-21 06:00:00',109689],['2024-12-21 07:00:00',110410],['2024-12-21 08:00:00',108985],['2024-12-21 09:00:00',105465],['2024-12-21 10:00:00',100388],['2024-12-21 11:00:00',95806],['2024-12-21 12:00:00',92780],['2024-12-21 13:00:00',90717],['2024-12-21 14:00:00',85988],['2024-12-21 15:00:00',78697],['2024-12-21 16:00:00',71277],['2024-12-21 17:00:00',66103],['2024-12-21 18:00:00',65515],['2024-12-21 19:00:00',66412],['2024-12-21 20:00:00',67933],['2024-12-21 21:00:00',68260],['2024-12-21 22:00:00',68365],['2024-12-21 23:00:00',69538],['2024-12-22 00:00:00',70102],['2024-12-22 01:00:00',72107],['2024-12-22 02:00:00',79003],['2024-12-22 03:00:00',89373],['2024-12-22 04:00:00',101682],['2024-12-22 05:00:00',111050],['2024-12-22 06:00:00',112891],['2024-12-22 07:00:00',112220],['2024-12-22 08:00:00',108296],['2024-12-22 09:00:00',103718],['2024-12-22 10:00:00',99841],['2024-12-22 11:00:00',97997],['2024-12-22 12:00:00',97343],['2024-12-22 13:00:00',94493],['2024-12-22 14:00:00',86742],['2024-12-22 15:00:00',77602],['2024-12-22 16:00:00',68885],['2024-12-22 17:00:00',62961],['2024-12-22 18:00:00',59835],['2024-12-22 19:00:00',57223],['2024-12-22 20:00:00',53847],['2024-12-22 21:00:00',51807],['2024-12-22 22:00:00',48080],['2024-12-22 23:00:00',47047],['2024-12-23 00:00:00',49573],['2024-12-23 01:00:00',54099],['2024-12-23 02:00:00',62355],['2024-12-23 03:00:00',73725],['2024-12-23 04:00:00',87741],['2024-12-23 05:00:00',97926],['2024-12-23 06:00:00',101149],['2024-12-23 07:00:00',100199],['2024-12-23 08:00:00',95199],['2024-12-23 09:00:00',89899],['2024-12-23 10:00:00',86522],['2024-12-23 11:00:00',85502],['2024-12-23 12:00:00',85583],['2024-12-23 13:00:00',84318],['2024-12-23 14:00:00',80802],['2024-12-23 15:00:00',73964],['2024-12-23 16:00:00',66757],['2024-12-23 17:00:00',61817],['2024-12-23 18:00:00',59929],['2024-12-23 19:00:00',59034],['2024-12-23 20:00:00',56742],['2024-12-23 21:00:00',55031],['2024-12-23 22:00:00',51277],['2024-12-23 23:00:00',49178],['2024-12-24 00:00:00',50673],['2024-12-24 01:00:00',54701],['2024-12-24 02:00:00',62114],['2024-12-24 03:00:00',73321],['2024-12-24 04:00:00',86408],['2024-12-24 05:00:00',96500],['2024-12-24 06:00:00',99858],['2024-12-24 07:00:00',98908],['2024-12-24 08:00:00',92517],['2024-12-24 09:00:00',85767],['2024-12-24 10:00:00',79708],['2024-12-24 11:00:00',75108],['2024-12-24 12:00:00',72186],['2024-12-24 13:00:00',68834],['2024-12-24 14:00:00',64917],['2024-12-24 15:00:00',58898],['2024-12-24 16:00:00',52206],['2024-12-24 17:00:00',47185],['2024-12-24 18:00:00',46628],['2024-12-24 19:00:00',48157],['2024-12-24 20:00:00',51154],['2024-12-24 21:00:00',51469],['2024-12-24 22:00:00',50904],['2024-12-24 23:00:00',51131],['2024-12-25 00:00:00',52827],['2024-12-25 01:00:00',56062],['2024-12-25 02:00:00',61644],['2024-12-25 03:00:00',70663],['2024-12-25 04:00:00',81117],['2024-12-25 05:00:00',89584],['2024-12-25 06:00:00',92350],['2024-12-25 07:00:00',91945],['2024-12-25 08:00:00',87551],['2024-12-25 09:00:00',83367],['2024-12-25 10:00:00',81162],['2024-12-25 11:00:00',80079],['2024-12-25 12:00:00',80049],['2024-12-25 13:00:00',78313],['2024-12-25 14:00:00',75501],['2024-12-25 15:00:00',69851],['2024-12-25 16:00:00',63031],['2024-12-25 17:00:00',58369],['2024-12-25 18:00:00',55713],['2024-12-25 19:00:00',53740],['2024-12-25 20:00:00',51430],['2024-12-25 21:00:00',50220],['2024-12-25 22:00:00',48218],['2024-12-25 23:00:00',47856],['2024-12-26 00:00:00',50061],['2024-12-26 01:00:00',53772],['2024-12-26 02:00:00',61052],['2024-12-26 03:00:00',71179],['2024-12-26 04:00:00',83532],['2024-12-26 05:00:00',94608],['2024-12-26 06:00:00',98123],['2024-12-26 07:00:00',97578],['2024-12-26 08:00:00',93044],['2024-12-26 09:00:00',87731],['2024-12-26 10:00:00',83046],['2024-12-26 11:00:00',80734],['2024-12-26 12:00:00',80715],['2024-12-26 13:00:00',79330],['2024-12-26 14:00:00',75864],['2024-12-26 15:00:00',70459],['2024-12-26 16:00:00',64041],['2024-12-26 17:00:00',60290],['2024-12-26 18:00:00',58284],['2024-12-26 19:00:00',56166],['2024-12-26 20:00:00',53242],['2024-12-26 21:00:00',51257],['2024-12-26 22:00:00',48744],['2024-12-26 23:00:00',48221],['2024-12-27 00:00:00',50193],['2024-12-27 01:00:00',53381],['2024-12-27 02:00:00',60491],['2024-12-27 03:00:00',70540],['2024-12-27 04:00:00',83337],['2024-12-27 05:00:00',94170],['2024-12-27 06:00:00',99859],['2024-12-27 07:00:00',100206],['2024-12-27 08:00:00',99097],['2024-12-27 09:00:00',94559],['2024-12-27 10:00:00',89938],['2024-12-27 11:00:00',86167],['2024-12-27 12:00:00',84554],['2024-12-27 13:00:00',83235],['2024-12-27 14:00:00',79672],['2024-12-27 15:00:00',73687],['2024-12-27 16:00:00',66921],['2024-12-27 17:00:00',62594],['2024-12-27 18:00:00',62576],['2024-12-27 19:00:00',62590],['2024-12-27 20:00:00',61413],['2024-12-27 21:00:00',61133],['2024-12-27 22:00:00',60714],['2024-12-27 23:00:00',60362],['2024-12-28 00:00:00',59614],['2024-12-28 01:00:00',61502],['2024-12-28 02:00:00',66571],['2024-12-28 03:00:00',75546],['2024-12-28 04:00:00',86969],['2024-12-28 05:00:00',98052],['2024-12-28 06:00:00',104008],['2024-12-28 07:00:00',104655],['2024-12-28 08:00:00',103379],['2024-12-28 09:00:00',99822],['2024-12-28 10:00:00',95128],['2024-12-28 11:00:00',90346],['2024-12-28 12:00:00',88739],['2024-12-28 13:00:00',86828],['2024-12-28 14:00:00',82671],['2024-12-28 15:00:00',76280],['2024-12-28 16:00:00',68681],['2024-12-28 17:00:00',63361],['2024-12-28 18:00:00',63092],['2024-12-28 19:00:00',63289],['2024-12-28 20:00:00',64270],['2024-12-28 21:00:00',64365],['2024-12-28 22:00:00',64490],['2024-12-28 23:00:00',64171],['2024-12-29 00:00:00',63934],['2024-12-29 01:00:00',65374],['2024-12-29 02:00:00',71064],['2024-12-29 03:00:00',80300],['2024-12-29 04:00:00',89558],['2024-12-29 05:00:00',102325],['2024-12-29 06:00:00',107197],['2024-12-29 07:00:00',106834],['2024-12-29 08:00:00',104363],['2024-12-29 09:00:00',99892],['2024-12-29 10:00:00',96240],['2024-12-29 11:00:00',93533],['2024-12-29 12:00:00',92648],['2024-12-29 13:00:00',90095],['2024-12-29 14:00:00',84777],['2024-12-29 15:00:00',76381],['2024-12-29 16:00:00',68335],['2024-12-29 17:00:00',62765],['2024-12-29 18:00:00',59969],['2024-12-29 19:00:00',58228],['2024-12-29 20:00:00',55071],['2024-12-29 21:00:00',54184],['2024-12-29 22:00:00',51652],['2024-12-29 23:00:00',51642],['2024-12-30 00:00:00',53067],['2024-12-30 01:00:00',55867],['2024-12-30 02:00:00',62159],['2024-12-30 03:00:00',71437],['2024-12-30 04:00:00',83086],['2024-12-30 05:00:00',93429],['2024-12-30 06:00:00',97811],['2024-12-30 07:00:00',97383],['2024-12-30 08:00:00',94785],['2024-12-30 09:00:00',91045],['2024-12-30 10:00:00',86774],['2024-12-30 11:00:00',84727],['2024-12-30 12:00:00',84211],['2024-12-30 13:00:00',83482],['2024-12-30 14:00:00',79948],['2024-12-30 15:00:00',74024],['2024-12-30 16:00:00',67330],['2024-12-30 17:00:00',63287],['2024-12-30 18:00:00',61660],['2024-12-30 19:00:00',61323],['2024-12-30 20:00:00',58994],['2024-12-30 21:00:00',57917],['2024-12-30 22:00:00',55070],['2024-12-30 23:00:00',53709],['2024-12-31 00:00:00',54110],['2024-12-31 01:00:00',55311],['2024-12-31 02:00:00',59989],['2024-12-31 03:00:00',67674],['2024-12-31 04:00:00',78094],['2024-12-31 05:00:00',86794],['2024-12-31 06:00:00',90133],['2024-12-31 07:00:00',89727],['2024-12-31 08:00:00',88278],['2024-12-31 09:00:00',83601],['2024-12-31 10:00:00',78320],['2024-12-31 11:00:00',71147],['2024-12-31 12:00:00',65156],['2024-12-31 13:00:00',60260],['2024-12-31 14:00:00',56656],['2024-12-31 15:00:00',50788],['2024-12-31 16:00:00',50090],['2024-12-31 17:00:00',49722],['2024-12-31 18:00:00',50323],['2024-12-31 19:00:00',51917],['2024-12-31 20:00:00',54603],['2024-12-31 21:00:00',58008],['2024-12-31 22:00:00',60795],['2024-12-31 23:00:00',61675]],[['2024-12-05 15:00:00',674235],['2024-12-06 15:00:00',654446],['2024-12-07 15:00:00',672707],['2024-12-08 15:00:00',710194],['2024-12-09 15:00:00',610439],['2024-12-10 15:00:00',601425],['2024-12-11 15:00:00',586219],['2024-12-12 15:00:00',573316],['2024-12-13 15:00:00',561331],['2024-12-14 15:00:00',614120],['2024-12-15 15:00:00',631589],['2024-12-16 15:00:00',544422],['2024-12-17 15:00:00',532776],['2024-12-18 15:00:00',532391],['2024-12-19 15:00:00',529265],['2024-12-20 15:00:00',536170],['2024-12-21 15:00:00',591970],['2024-12-22 15:00:00',614766],['2024-12-23 15:00:00',551138],['2024-12-24 15:00:00',532304],['2024-12-25 15:00:00',507926],['2024-12-26 15:00:00',526859],['2024-12-27 15:00:00',524980],['2024-12-28 15:00:00',550692],['2024-12-29 15:00:00',562342],['2024-12-30 15:00:00',525656],['2024-12-31 15:00:00',496712]] ]
+			, {
+			animate: true,
+			animateReplot: true,
+			stackSeries: false,
+			cursor: {
+			show: true,
+			zoom: true,
+			looseZoom: true,
+			clickReset: true,
+			showTooltip: false,
+			showTooltipUnitPosition: false
+			},
+			series:[ { label: 'Peak Concurrent Users'
+, color: '#038080'
+, highlighter: { formatString: 'Peak Concurrent Users: %s, %s'} , pointLabels: {
+  show: false,
+markerOptions: { style: 'diamond' },  ypadding: 1,
+}
+, yaxis: 'yaxis'
+, renderer: $J.jqplot.LineRenderer
+, showHighlight: true
+, fill: false
+, disableStack: true, rendererOptions: { 
+animation: { speed: 2000 }
+, highlightMouseOver: true
+ } 
+}, 
+{ label: 'Daily Active Users'
+, color: '#8a5706'
+, highlighter: { formatString: 'Daily Active Users: %s, %s'} , pointLabels: {
+  show: false,
+markerOptions: { style: 'diamond' },  ypadding: 1,
+}
+, yaxis: 'yaxis'
+, renderer: $J.jqplot.LineRenderer
+, showHighlight: true
+, fill: false
+, disableStack: true, rendererOptions: { 
+animation: { speed: 2000 }
+, highlightMouseOver: true
+ } 
+}, 
+ ],
+			seriesDefaults:	{
+				showMarker: false,
+				lineWidth: 1.5			},
+			grid:   {
+				backgroundColor: '#242424',
+				gridLineColor: '#424242',
+				borderColor: '#424242'
+			},
+			rendererOptions:    {
+			showDataLabels: true
+			},
+			AxesDefaults: { pad: 0 },
+			axes: {
+				xaxis: {
+					renderer: $J.jqplot.DateAxisRenderer,
+					rendererOptions:{ tickRenderer: $J.jqplot.CanvasAxisTickRenderer },
+					numberTicks: 5,
+					tickOptions: {
+						formatString: '%b-%d-%Y %#I%p', 						fontSize: '10pt'
+					},
+					min: '2024-12-03 14:00:00',					max: '2025-01-02 10:00:00',					drawMajorGridlines: true,
+					drawMinorGridlines: true,
+					drawMajorTickMarks: true,
+					rendererOptions: {
+						tickInset: 0.5,
+						minorTicks: 1,
+						sortMergedLabels: true
+					}
+				},
+				yaxis:  { renderer: $J.jqplot.LinearAxisRenderer, rendererOptions: { forceTickAt0: true },labelRenderer: $J.jqplot.CanvasAxisLabelRenderer, label: '',min: 0, tickRenderer: $J.jqplot.CanvasAxisTickRenderer, tickOptions: { formatString: "%'i",fontSize: '10pt', showGridline: true }, pad: 1.01 }							},
+			highlighter: {
+				show: true,
+				showLabel: true,
+				tooltipAxes: 'xy',
+				sizeAdjust: 2 ,
+				tooltipLocation : 'n',
+				tooltipOffset: 10,
+				lineWidthAdjust: 3,
+				useAxesFormatters:  true
+			},
+			legend: {
+				renderer: $J.jqplot.EnhancedLegendRenderer
+				, show: true
+				, placement: 'outsideGrid'
+				, location: 's'
+				, fontSize: '10pt'
+				, marginBottom: '10px'
+				, rendererOptions: {
+					numberColumns: null,
+					numberRows: 1
+				}
+			},
+					});
+
+	});
+	</script>
+<div id="user_graph" style = "height:350px;width:1000px"></div>						</div>
+												<br><br>
+						<div>
+							<b>Delta Force per platform player counts </b>
+							
+	<script>
+
+		var plotActions = null;
+
+		$J(document).ready( function() {
+
+		$J.jqplot.config.enablePlugins = true;
+
+		plotActions = $J.jqplot(
+			'platform_user_graph'
+			, [ [['2024-12-05 00:00:00',239],['2024-12-05 01:00:00',244],['2024-12-05 02:00:00',238],['2024-12-05 03:00:00',236],['2024-12-05 04:00:00',246],['2024-12-05 05:00:00',256],['2024-12-05 06:00:00',268],['2024-12-05 07:00:00',257],['2024-12-05 08:00:00',242],['2024-12-05 09:00:00',248],['2024-12-05 10:00:00',247],['2024-12-05 11:00:00',248],['2024-12-05 12:00:00',252],['2024-12-05 13:00:00',259],['2024-12-05 14:00:00',243],['2024-12-05 15:00:00',229],['2024-12-05 16:00:00',174],['2024-12-05 17:00:00',160],['2024-12-05 18:00:00',160],['2024-12-05 19:00:00',170],['2024-12-05 20:00:00',172],['2024-12-05 21:00:00',148],['2024-12-05 22:00:00',155],['2024-12-05 23:00:00',141],['2024-12-06 00:00:00',130],['2024-12-06 01:00:00',123],['2024-12-06 02:00:00',128],['2024-12-06 03:00:00',148],['2024-12-06 04:00:00',140],['2024-12-06 05:00:00',137],['2024-12-06 06:00:00',139],['2024-12-06 07:00:00',148],['2024-12-06 08:00:00',149],['2024-12-06 09:00:00',149],['2024-12-06 10:00:00',148],['2024-12-06 11:00:00',134],['2024-12-06 12:00:00',129],['2024-12-06 13:00:00',130],['2024-12-06 14:00:00',128],['2024-12-06 15:00:00',122],['2024-12-06 16:00:00',120],['2024-12-06 17:00:00',110],['2024-12-06 18:00:00',110],['2024-12-06 19:00:00',116],['2024-12-06 20:00:00',100],['2024-12-06 21:00:00',98],['2024-12-06 22:00:00',99],['2024-12-06 23:00:00',99],['2024-12-07 00:00:00',92],['2024-12-07 01:00:00',92],['2024-12-07 02:00:00',92],['2024-12-07 03:00:00',92],['2024-12-07 04:00:00',101],['2024-12-07 05:00:00',114],['2024-12-07 06:00:00',118],['2024-12-07 07:00:00',130],['2024-12-07 08:00:00',136],['2024-12-07 09:00:00',132],['2024-12-07 10:00:00',129],['2024-12-07 11:00:00',132],['2024-12-07 12:00:00',138],['2024-12-07 13:00:00',125],['2024-12-07 14:00:00',113],['2024-12-07 15:00:00',106],['2024-12-07 16:00:00',85],['2024-12-07 17:00:00',84],['2024-12-07 18:00:00',89],['2024-12-07 19:00:00',98],['2024-12-07 20:00:00',90],['2024-12-07 21:00:00',83],['2024-12-07 22:00:00',79],['2024-12-07 23:00:00',79],['2024-12-08 00:00:00',84],['2024-12-08 01:00:00',72],['2024-12-08 02:00:00',71],['2024-12-08 03:00:00',85],['2024-12-08 04:00:00',93],['2024-12-08 05:00:00',88],['2024-12-08 06:00:00',87],['2024-12-08 07:00:00',94],['2024-12-08 08:00:00',100],['2024-12-08 09:00:00',98],['2024-12-08 10:00:00',98],['2024-12-08 11:00:00',100],['2024-12-08 12:00:00',104],['2024-12-08 13:00:00',95],['2024-12-08 14:00:00',83],['2024-12-08 15:00:00',69],['2024-12-08 16:00:00',72],['2024-12-08 17:00:00',61],['2024-12-08 18:00:00',73],['2024-12-08 19:00:00',70],['2024-12-08 20:00:00',63],['2024-12-08 21:00:00',59],['2024-12-08 22:00:00',53],['2024-12-08 23:00:00',44],['2024-12-09 00:00:00',49],['2024-12-09 01:00:00',45],['2024-12-09 02:00:00',47],['2024-12-09 03:00:00',48],['2024-12-09 04:00:00',52],['2024-12-09 05:00:00',55],['2024-12-09 06:00:00',53],['2024-12-09 07:00:00',61],['2024-12-09 08:00:00',70],['2024-12-09 09:00:00',83],['2024-12-09 10:00:00',78],['2024-12-09 11:00:00',83],['2024-12-09 12:00:00',82],['2024-12-09 13:00:00',90],['2024-12-09 14:00:00',87],['2024-12-09 15:00:00',82],['2024-12-09 16:00:00',100],['2024-12-09 17:00:00',97],['2024-12-09 18:00:00',104],['2024-12-09 19:00:00',115],['2024-12-09 20:00:00',108],['2024-12-09 21:00:00',99],['2024-12-09 22:00:00',92],['2024-12-09 23:00:00',89],['2024-12-10 00:00:00',85],['2024-12-10 01:00:00',88],['2024-12-10 02:00:00',93],['2024-12-10 03:00:00',94],['2024-12-10 04:00:00',96],['2024-12-10 05:00:00',110],['2024-12-10 06:00:00',115],['2024-12-10 07:00:00',120],['2024-12-10 08:00:00',122],['2024-12-10 09:00:00',135],['2024-12-10 10:00:00',145],['2024-12-10 11:00:00',151],['2024-12-10 12:00:00',137],['2024-12-10 13:00:00',134],['2024-12-10 14:00:00',135],['2024-12-10 15:00:00',115],['2024-12-10 16:00:00',85],['2024-12-10 17:00:00',88],['2024-12-10 18:00:00',84],['2024-12-10 19:00:00',90],['2024-12-10 20:00:00',83],['2024-12-10 21:00:00',76],['2024-12-10 22:00:00',74],['2024-12-10 23:00:00',72],['2024-12-11 00:00:00',73],['2024-12-11 01:00:00',72],['2024-12-11 02:00:00',77],['2024-12-11 03:00:00',80],['2024-12-11 04:00:00',80],['2024-12-11 05:00:00',92],['2024-12-11 06:00:00',98],['2024-12-11 07:00:00',95],['2024-12-11 08:00:00',84],['2024-12-11 09:00:00',104],['2024-12-11 10:00:00',115],['2024-12-11 11:00:00',125],['2024-12-11 12:00:00',121],['2024-12-11 13:00:00',130],['2024-12-11 14:00:00',133],['2024-12-11 15:00:00',137],['2024-12-11 16:00:00',128],['2024-12-11 17:00:00',114],['2024-12-11 18:00:00',115],['2024-12-11 19:00:00',118],['2024-12-11 20:00:00',102],['2024-12-11 21:00:00',90],['2024-12-11 22:00:00',87],['2024-12-11 23:00:00',81],['2024-12-12 00:00:00',77],['2024-12-12 01:00:00',75],['2024-12-12 02:00:00',70],['2024-12-12 03:00:00',66],['2024-12-12 04:00:00',78],['2024-12-12 05:00:00',81],['2024-12-12 06:00:00',87],['2024-12-12 07:00:00',79],['2024-12-12 08:00:00',77],['2024-12-12 09:00:00',81],['2024-12-12 10:00:00',90],['2024-12-12 11:00:00',90],['2024-12-12 12:00:00',93],['2024-12-12 13:00:00',89],['2024-12-12 14:00:00',84],['2024-12-12 15:00:00',76],['2024-12-12 16:00:00',76],['2024-12-12 17:00:00',84],['2024-12-12 18:00:00',82],['2024-12-12 19:00:00',84],['2024-12-12 20:00:00',80],['2024-12-12 21:00:00',76],['2024-12-12 22:00:00',65],['2024-12-12 23:00:00',69],['2024-12-13 00:00:00',62],['2024-12-13 01:00:00',55],['2024-12-13 02:00:00',64],['2024-12-13 03:00:00',70],['2024-12-13 04:00:00',70],['2024-12-13 05:00:00',80],['2024-12-13 06:00:00',79],['2024-12-13 07:00:00',82],['2024-12-13 08:00:00',84],['2024-12-13 09:00:00',81],['2024-12-13 10:00:00',80],['2024-12-13 11:00:00',67],['2024-12-13 12:00:00',80],['2024-12-13 13:00:00',77],['2024-12-13 14:00:00',80],['2024-12-13 15:00:00',74],['2024-12-13 16:00:00',67],['2024-12-13 17:00:00',69],['2024-12-13 18:00:00',67],['2024-12-13 19:00:00',67],['2024-12-13 20:00:00',69],['2024-12-13 21:00:00',63],['2024-12-13 22:00:00',65],['2024-12-13 23:00:00',65],['2024-12-14 00:00:00',55],['2024-12-14 01:00:00',56],['2024-12-14 02:00:00',57],['2024-12-14 03:00:00',56],['2024-12-14 04:00:00',63],['2024-12-14 05:00:00',73],['2024-12-14 06:00:00',70],['2024-12-14 07:00:00',77],['2024-12-14 08:00:00',88],['2024-12-14 09:00:00',78],['2024-12-14 10:00:00',76],['2024-12-14 11:00:00',80],['2024-12-14 12:00:00',79],['2024-12-14 13:00:00',89],['2024-12-14 14:00:00',79],['2024-12-14 15:00:00',70],['2024-12-14 16:00:00',67],['2024-12-14 17:00:00',69],['2024-12-14 18:00:00',64],['2024-12-14 19:00:00',69],['2024-12-14 20:00:00',72],['2024-12-14 21:00:00',65],['2024-12-14 22:00:00',76],['2024-12-14 23:00:00',69],['2024-12-15 00:00:00',65],['2024-12-15 01:00:00',69],['2024-12-15 02:00:00',68],['2024-12-15 03:00:00',73],['2024-12-15 04:00:00',79],['2024-12-15 05:00:00',86],['2024-12-15 06:00:00',95],['2024-12-15 07:00:00',89],['2024-12-15 08:00:00',94],['2024-12-15 09:00:00',99],['2024-12-15 10:00:00',85],['2024-12-15 11:00:00',77],['2024-12-15 12:00:00',83],['2024-12-15 13:00:00',81],['2024-12-15 14:00:00',76],['2024-12-15 15:00:00',72],['2024-12-15 16:00:00',76],['2024-12-15 17:00:00',70],['2024-12-15 18:00:00',69],['2024-12-15 19:00:00',75],['2024-12-15 20:00:00',69],['2024-12-15 21:00:00',61],['2024-12-15 22:00:00',46],['2024-12-15 23:00:00',41],['2024-12-16 00:00:00',51],['2024-12-16 01:00:00',55],['2024-12-16 02:00:00',53],['2024-12-16 03:00:00',53],['2024-12-16 04:00:00',62],['2024-12-16 05:00:00',71],['2024-12-16 06:00:00',78],['2024-12-16 07:00:00',74],['2024-12-16 08:00:00',75],['2024-12-16 09:00:00',63],['2024-12-16 10:00:00',72],['2024-12-16 11:00:00',69],['2024-12-16 12:00:00',72],['2024-12-16 13:00:00',88],['2024-12-16 14:00:00',85],['2024-12-16 15:00:00',70],['2024-12-16 16:00:00',69],['2024-12-16 17:00:00',65],['2024-12-16 18:00:00',62],['2024-12-16 19:00:00',64],['2024-12-16 20:00:00',64],['2024-12-16 21:00:00',63],['2024-12-16 22:00:00',65],['2024-12-16 23:00:00',56],['2024-12-17 00:00:00',49],['2024-12-17 01:00:00',53],['2024-12-17 02:00:00',49],['2024-12-17 03:00:00',50],['2024-12-17 04:00:00',60],['2024-12-17 05:00:00',63],['2024-12-17 06:00:00',64],['2024-12-17 07:00:00',70],['2024-12-17 08:00:00',71],['2024-12-17 09:00:00',67],['2024-12-17 10:00:00',73],['2024-12-17 11:00:00',71],['2024-12-17 12:00:00',68],['2024-12-17 13:00:00',72],['2024-12-17 14:00:00',63],['2024-12-17 15:00:00',64],['2024-12-17 16:00:00',46],['2024-12-17 17:00:00',45],['2024-12-17 18:00:00',43],['2024-12-17 19:00:00',43],['2024-12-17 20:00:00',38],['2024-12-17 21:00:00',42],['2024-12-17 22:00:00',39],['2024-12-17 23:00:00',46],['2024-12-18 00:00:00',44],['2024-12-18 01:00:00',45],['2024-12-18 02:00:00',46],['2024-12-18 03:00:00',53],['2024-12-18 04:00:00',52],['2024-12-18 05:00:00',53],['2024-12-18 06:00:00',57],['2024-12-18 07:00:00',59],['2024-12-18 08:00:00',68],['2024-12-18 09:00:00',66],['2024-12-18 10:00:00',65],['2024-12-18 11:00:00',64],['2024-12-18 12:00:00',61],['2024-12-18 13:00:00',67],['2024-12-18 14:00:00',70],['2024-12-18 15:00:00',68],['2024-12-18 16:00:00',50],['2024-12-18 17:00:00',51],['2024-12-18 18:00:00',60],['2024-12-18 19:00:00',56],['2024-12-18 20:00:00',66],['2024-12-18 21:00:00',58],['2024-12-18 22:00:00',49],['2024-12-18 23:00:00',46],['2024-12-19 00:00:00',49],['2024-12-19 01:00:00',47],['2024-12-19 02:00:00',43],['2024-12-19 03:00:00',47],['2024-12-19 04:00:00',50],['2024-12-19 05:00:00',65],['2024-12-19 06:00:00',71],['2024-12-19 07:00:00',73],['2024-12-19 08:00:00',73],['2024-12-19 09:00:00',69],['2024-12-19 10:00:00',69],['2024-12-19 11:00:00',47],['2024-12-19 12:00:00',44],['2024-12-19 13:00:00',48],['2024-12-19 14:00:00',46],['2024-12-19 15:00:00',55],['2024-12-19 16:00:00',56],['2024-12-19 17:00:00',56],['2024-12-19 18:00:00',56],['2024-12-19 19:00:00',57],['2024-12-19 20:00:00',61],['2024-12-19 21:00:00',62],['2024-12-19 22:00:00',55],['2024-12-19 23:00:00',47],['2024-12-20 00:00:00',48],['2024-12-20 01:00:00',47],['2024-12-20 02:00:00',51],['2024-12-20 03:00:00',58],['2024-12-20 04:00:00',57],['2024-12-20 05:00:00',66],['2024-12-20 06:00:00',56],['2024-12-20 07:00:00',65],['2024-12-20 08:00:00',69],['2024-12-20 09:00:00',71],['2024-12-20 10:00:00',72],['2024-12-20 11:00:00',62],['2024-12-20 12:00:00',61],['2024-12-20 13:00:00',65],['2024-12-20 14:00:00',59],['2024-12-20 15:00:00',58],['2024-12-20 16:00:00',52],['2024-12-20 17:00:00',54],['2024-12-20 18:00:00',61],['2024-12-20 19:00:00',60],['2024-12-20 20:00:00',57],['2024-12-20 21:00:00',59],['2024-12-20 22:00:00',54],['2024-12-20 23:00:00',53],['2024-12-21 00:00:00',55],['2024-12-21 01:00:00',50],['2024-12-21 02:00:00',53],['2024-12-21 03:00:00',56],['2024-12-21 04:00:00',53],['2024-12-21 05:00:00',57],['2024-12-21 06:00:00',58],['2024-12-21 07:00:00',68],['2024-12-21 08:00:00',78],['2024-12-21 09:00:00',68],['2024-12-21 10:00:00',64],['2024-12-21 11:00:00',68],['2024-12-21 12:00:00',73],['2024-12-21 13:00:00',63],['2024-12-21 14:00:00',56],['2024-12-21 15:00:00',54],['2024-12-21 16:00:00',54],['2024-12-21 17:00:00',51],['2024-12-21 18:00:00',45],['2024-12-21 19:00:00',53],['2024-12-21 20:00:00',56],['2024-12-21 21:00:00',58],['2024-12-21 22:00:00',62],['2024-12-21 23:00:00',52],['2024-12-22 00:00:00',51],['2024-12-22 01:00:00',48],['2024-12-22 02:00:00',50],['2024-12-22 03:00:00',49],['2024-12-22 04:00:00',57],['2024-12-22 05:00:00',59],['2024-12-22 06:00:00',67],['2024-12-22 07:00:00',69],['2024-12-22 08:00:00',62],['2024-12-22 09:00:00',63],['2024-12-22 10:00:00',59],['2024-12-22 11:00:00',55],['2024-12-22 12:00:00',51],['2024-12-22 13:00:00',47],['2024-12-22 14:00:00',53],['2024-12-22 15:00:00',51],['2024-12-22 16:00:00',47],['2024-12-22 17:00:00',42],['2024-12-22 18:00:00',38],['2024-12-22 19:00:00',42],['2024-12-22 20:00:00',37],['2024-12-22 21:00:00',42],['2024-12-22 22:00:00',35],['2024-12-22 23:00:00',35],['2024-12-23 00:00:00',24],['2024-12-23 01:00:00',31],['2024-12-23 02:00:00',32],['2024-12-23 03:00:00',35],['2024-12-23 04:00:00',40],['2024-12-23 05:00:00',39],['2024-12-23 06:00:00',46],['2024-12-23 07:00:00',45],['2024-12-23 08:00:00',49],['2024-12-23 09:00:00',52],['2024-12-23 10:00:00',51],['2024-12-23 11:00:00',45],['2024-12-23 12:00:00',51],['2024-12-23 13:00:00',48],['2024-12-23 14:00:00',37],['2024-12-23 15:00:00',47],['2024-12-23 16:00:00',46],['2024-12-23 17:00:00',43],['2024-12-23 18:00:00',41],['2024-12-23 19:00:00',39],['2024-12-23 20:00:00',291],['2024-12-23 21:00:00',289],['2024-12-23 22:00:00',291],['2024-12-23 23:00:00',292],['2024-12-24 00:00:00',280],['2024-12-24 01:00:00',282],['2024-12-24 02:00:00',286],['2024-12-24 03:00:00',286],['2024-12-24 04:00:00',292],['2024-12-24 05:00:00',285],['2024-12-24 06:00:00',287],['2024-12-24 07:00:00',292],['2024-12-24 08:00:00',291],['2024-12-24 09:00:00',300],['2024-12-24 10:00:00',295],['2024-12-24 11:00:00',295],['2024-12-24 12:00:00',291],['2024-12-24 13:00:00',292],['2024-12-24 14:00:00',289],['2024-12-24 15:00:00',285],['2024-12-24 16:00:00',279],['2024-12-24 17:00:00',284],['2024-12-24 18:00:00',285],['2024-12-24 19:00:00',289],['2024-12-24 20:00:00',281],['2024-12-24 21:00:00',281],['2024-12-24 22:00:00',287],['2024-12-24 23:00:00',281],['2024-12-25 00:00:00',288],['2024-12-25 01:00:00',286],['2024-12-25 02:00:00',287],['2024-12-25 03:00:00',284],['2024-12-25 04:00:00',283],['2024-12-25 05:00:00',291],['2024-12-25 06:00:00',286],['2024-12-25 07:00:00',294],['2024-12-25 08:00:00',303],['2024-12-25 09:00:00',295],['2024-12-25 10:00:00',292],['2024-12-25 11:00:00',294],['2024-12-25 12:00:00',304],['2024-12-25 13:00:00',303],['2024-12-25 14:00:00',293],['2024-12-25 15:00:00',284],['2024-12-25 16:00:00',286],['2024-12-25 17:00:00',291],['2024-12-25 18:00:00',293],['2024-12-25 19:00:00',285],['2024-12-25 20:00:00',280],['2024-12-25 21:00:00',283],['2024-12-25 22:00:00',279],['2024-12-25 23:00:00',276],['2024-12-26 00:00:00',283],['2024-12-26 01:00:00',285],['2024-12-26 02:00:00',287],['2024-12-26 03:00:00',286],['2024-12-26 04:00:00',285],['2024-12-26 05:00:00',293],['2024-12-26 06:00:00',292],['2024-12-26 07:00:00',296],['2024-12-26 08:00:00',292],['2024-12-26 09:00:00',296],['2024-12-26 10:00:00',301],['2024-12-26 11:00:00',300],['2024-12-26 12:00:00',298],['2024-12-26 13:00:00',298],['2024-12-26 14:00:00',302],['2024-12-26 15:00:00',302],['2024-12-26 16:00:00',305],['2024-12-26 17:00:00',301],['2024-12-26 18:00:00',291],['2024-12-26 19:00:00',289],['2024-12-26 20:00:00',286],['2024-12-26 21:00:00',285],['2024-12-26 22:00:00',287],['2024-12-26 23:00:00',281],['2024-12-27 00:00:00',277],['2024-12-27 01:00:00',277],['2024-12-27 02:00:00',278],['2024-12-27 03:00:00',281],['2024-12-27 04:00:00',289],['2024-12-27 05:00:00',283],['2024-12-27 06:00:00',283],['2024-12-27 07:00:00',291],['2024-12-27 08:00:00',297],['2024-12-27 09:00:00',295],['2024-12-27 10:00:00',299],['2024-12-27 11:00:00',288],['2024-12-27 12:00:00',286],['2024-12-27 13:00:00',287],['2024-12-27 14:00:00',290],['2024-12-27 15:00:00',287],['2024-12-27 16:00:00',282],['2024-12-27 17:00:00',289],['2024-12-27 18:00:00',282],['2024-12-27 19:00:00',284],['2024-12-27 20:00:00',283],['2024-12-27 21:00:00',286],['2024-12-27 22:00:00',284],['2024-12-27 23:00:00',281],['2024-12-28 00:00:00',277],['2024-12-28 01:00:00',277],['2024-12-28 02:00:00',275],['2024-12-28 03:00:00',270],['2024-12-28 04:00:00',278],['2024-12-28 05:00:00',283],['2024-12-28 06:00:00',288],['2024-12-28 07:00:00',296],['2024-12-28 08:00:00',298],['2024-12-28 09:00:00',291],['2024-12-28 10:00:00',292],['2024-12-28 11:00:00',297],['2024-12-28 12:00:00',291],['2024-12-28 13:00:00',290],['2024-12-28 14:00:00',288],['2024-12-28 15:00:00',289],['2024-12-28 16:00:00',292],['2024-12-28 17:00:00',291],['2024-12-28 18:00:00',284],['2024-12-28 19:00:00',288],['2024-12-28 20:00:00',288],['2024-12-28 21:00:00',290],['2024-12-28 22:00:00',290],['2024-12-28 23:00:00',280],['2024-12-29 00:00:00',284],['2024-12-29 01:00:00',283],['2024-12-29 02:00:00',276],['2024-12-29 03:00:00',280],['2024-12-29 04:00:00',282],['2024-12-29 05:00:00',289],['2024-12-29 06:00:00',292],['2024-12-29 07:00:00',288],['2024-12-29 08:00:00',289],['2024-12-29 09:00:00',291],['2024-12-29 10:00:00',288],['2024-12-29 11:00:00',290],['2024-12-29 12:00:00',288],['2024-12-29 13:00:00',287],['2024-12-29 14:00:00',287],['2024-12-29 15:00:00',288],['2024-12-29 16:00:00',286],['2024-12-29 17:00:00',285],['2024-12-29 18:00:00',279],['2024-12-29 19:00:00',273],['2024-12-29 20:00:00',279],['2024-12-29 21:00:00',278],['2024-12-29 22:00:00',281],['2024-12-29 23:00:00',279],['2024-12-30 00:00:00',277],['2024-12-30 01:00:00',275],['2024-12-30 02:00:00',283],['2024-12-30 03:00:00',286],['2024-12-30 04:00:00',274],['2024-12-30 05:00:00',278],['2024-12-30 06:00:00',276],['2024-12-30 07:00:00',282],['2024-12-30 08:00:00',282],['2024-12-30 09:00:00',288],['2024-12-30 10:00:00',285],['2024-12-30 11:00:00',277],['2024-12-30 12:00:00',289],['2024-12-30 13:00:00',287],['2024-12-30 14:00:00',292],['2024-12-30 15:00:00',289],['2024-12-30 16:00:00',290],['2024-12-30 17:00:00',282],['2024-12-30 18:00:00',282],['2024-12-30 19:00:00',288],['2024-12-30 20:00:00',291],['2024-12-30 21:00:00',288],['2024-12-30 22:00:00',281],['2024-12-30 23:00:00',286],['2024-12-31 00:00:00',283],['2024-12-31 01:00:00',280],['2024-12-31 02:00:00',278],['2024-12-31 03:00:00',275],['2024-12-31 04:00:00',275],['2024-12-31 05:00:00',279],['2024-12-31 06:00:00',282],['2024-12-31 07:00:00',286],['2024-12-31 08:00:00',293],['2024-12-31 09:00:00',287],['2024-12-31 10:00:00',294],['2024-12-31 11:00:00',295],['2024-12-31 12:00:00',287],['2024-12-31 13:00:00',284],['2024-12-31 14:00:00',288],['2024-12-31 15:00:00',284],['2024-12-31 16:00:00',283],['2024-12-31 17:00:00',287],['2024-12-31 18:00:00',269],['2024-12-31 19:00:00',276],['2024-12-31 20:00:00',276],['2024-12-31 21:00:00',277],['2024-12-31 22:00:00',279],['2024-12-31 23:00:00',280]] ]
+			, {
+			animate: true,
+			animateReplot: true,
+			stackSeries: false,
+			cursor: {
+			show: true,
+			zoom: true,
+			looseZoom: true,
+			clickReset: true,
+			showTooltip: false,
+			showTooltipUnitPosition: false
+			},
+			series:[ { label: 'Peak Concurrent Linux Users'
+, color: '#038080'
+, highlighter: { formatString: 'Peak Concurrent Linux Users: %s, %s'} , pointLabels: {
+  show: false,
+markerOptions: { style: 'diamond' },  ypadding: 1,
+}
+, yaxis: 'yaxis'
+, renderer: $J.jqplot.LineRenderer
+, showHighlight: true
+, fill: false
+, disableStack: true, rendererOptions: { 
+animation: { speed: 2000 }
+, highlightMouseOver: true
+ } 
+}, 
+ ],
+			seriesDefaults:	{
+				showMarker: false,
+				lineWidth: 1.5			},
+			grid:   {
+				backgroundColor: '#242424',
+				gridLineColor: '#424242',
+				borderColor: '#424242'
+			},
+			rendererOptions:    {
+			showDataLabels: true
+			},
+			AxesDefaults: { pad: 0 },
+			axes: {
+				xaxis: {
+					renderer: $J.jqplot.DateAxisRenderer,
+					rendererOptions:{ tickRenderer: $J.jqplot.CanvasAxisTickRenderer },
+					numberTicks: 5,
+					tickOptions: {
+						formatString: '%b-%d-%Y %#I%p', 						fontSize: '10pt'
+					},
+					min: '2024-12-03 14:00:00',					max: '2025-01-02 10:00:00',					drawMajorGridlines: true,
+					drawMinorGridlines: true,
+					drawMajorTickMarks: true,
+					rendererOptions: {
+						tickInset: 0.5,
+						minorTicks: 1,
+						sortMergedLabels: true
+					}
+				},
+				yaxis:  { renderer: $J.jqplot.LinearAxisRenderer, rendererOptions: { forceTickAt0: true },labelRenderer: $J.jqplot.CanvasAxisLabelRenderer, label: '',min: 0, tickRenderer: $J.jqplot.CanvasAxisTickRenderer, tickOptions: { formatString: "%'i",fontSize: '10pt', showGridline: true }, pad: 1.01 }							},
+			highlighter: {
+				show: true,
+				showLabel: true,
+				tooltipAxes: 'xy',
+				sizeAdjust: 2 ,
+				tooltipLocation : 'n',
+				tooltipOffset: 10,
+				lineWidthAdjust: 3,
+				useAxesFormatters:  true
+			},
+			legend: {
+				renderer: $J.jqplot.EnhancedLegendRenderer
+				, show: true
+				, placement: 'outsideGrid'
+				, location: 's'
+				, fontSize: '10pt'
+				, marginBottom: '10px'
+				, rendererOptions: {
+					numberColumns: null,
+					numberRows: 1
+				}
+			},
+					});
+
+	});
+	</script>
+<div id="platform_user_graph" style = "height:350px;width:1000px"></div>						</div>
+									</div>
+				<br clear="all">
+				<br><br>
+				<div>
+					<b>Players by region - Yesterday (2025-09-16)</b><br>
+					<div style="float:left;text-align:left; margin-right:40px">
+						<div><div id="chartdiv0" class="JSGraph" style="width: 400px;height: 260px; margin-bottom:40px;" align="center"; >
+	</div><div class="LoadingBox" >Loading ...</div></div><script type="text/javascript">
+		var jsgraph0;
+		jsonpFetch( "https://partner.steampowered.com//report_xml.php?query=QueryPlayersByRegionPct&appID=2507950&dateStart=2024-12-05&dateEnd=2024-12-31&piechart=1&width=400&height=260&json=1&func=onJsonData0", "onJsonData0", onJsonData0 );
+		//console.log( "https://partner.steampowered.com//report_xml.php?query=QueryPlayersByRegionPct&appID=2507950&dateStart=2024-12-05&dateEnd=2024-12-31&piechart=1&width=400&height=260&json=1&func=onJsonData0" );
+	function onJsonData0( data )
+	{
+		var font_desc =  {
+				size: 11,
+				lineHeight: 13,
+				style: "normal",
+				weight: "normal",
+				family: "Verdana, Arial, Helvetica, sans-serif",
+				variant: "normal",
+				color: "#a3a3a3"
+			};
+
+
+	jsgraph0 = jQuery.plot( jQuery( "#chartdiv0" ), data, {
+		series: {
+			
+			lines: {
+				show: false,
+				
+			},
+			bars: {
+				show: false,
+			},
+			pie: {
+				show: true,
+				stroke: {
+					color: "#424242",
+					width: 0,
+				}
+			},
+		},
+		legend: {
+			show: true,
+			margin: 0,
+			labelBoxBorderColor: "none",
+			backgroundColor: "#545454",
+			position:"ne",
+
+		},
+		yaxis: {
+			show: true,
+			tickFormatter: (function (d) {
+				return d.toLocaleString();
+			}),
+			tickColor: "#424242",
+			autoscaleMargin: 0.15,
+			font: font_desc,
+			
+		},
+		xaxis: {
+			font: font_desc,
+			labelWidth: 100,
+			reserveSpace: 80,
+			show: true,
+			ticks: data[0]['ticks'],
+			
+		},
+		grid: {
+			hoverable: true,
+			clickable: false,
+			margin: 0,
+			borderWidth: 0,
+			axisMargin: 0,
+			minBorderMargin: 0,
+			mouseActiveRadius: 1000,
+			backgroundColor: '#222222'
+		},
+		query_params:{"query":"QueryPlayersByRegionPct","appID":2507950,"dateStart":"2024-12-05","dateEnd":"2024-12-31","piechart":1,"width":400,"height":260,"json":1,"func":"onJsonData0"},
+
+	});
+
+	jsgraph0.getOptions().query_params["func"] = "onJsonDataGraphReload0";
+
+	jQuery( "#chartdiv0" ).addClass( "pie" );
+	AddFunctionsToPlot( jsgraph0, "https://partner.steampowered.com//report_xml.php?", "chartdiv0", onJsonDataGraphReload0, false, true );
+}
+
+function onJsonDataGraphReload0( data )
+{
+	jsgraph0.setData( data );
+	jsgraph0.getOptions().updatePlotAxis( jsgraph0 );
+
+	jQuery( "#chartdiv0" ).parent().removeClass( "loading" );
+}
+</script>
+						</div>
+					<div style="float:left;text-align:right;">
+						<table>
+							<tr>
+								<td><b>Country</b></td>
+								<td align=right><b>% of Players</b></td>
+							</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CN&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">China</a></td>
+									<td align=right>70.34%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=US&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">United States</a></td>
+									<td align=right>3.92%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TH&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Thailand</a></td>
+									<td align=right>2.94%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=JP&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Japan</a></td>
+									<td align=right>1.78%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Brazil</a></td>
+									<td align=right>1.49%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ID&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Indonesia</a></td>
+									<td align=right>1.49%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=HK&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Hong Kong</a></td>
+									<td align=right>1.37%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Germany</a></td>
+									<td align=right>1.31%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MY&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Malaysia</a></td>
+									<td align=right>1.15%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Korea, Republic of</a></td>
+									<td align=right>1.05%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=FR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">France</a></td>
+									<td align=right>0.75%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Canada</a></td>
+									<td align=right>0.71%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Turkey</a></td>
+									<td align=right>0.63%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GB&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">United Kingdom</a></td>
+									<td align=right>0.63%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ES&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Spain</a></td>
+									<td align=right>0.59%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AU&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Australia</a></td>
+									<td align=right>0.58%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PH&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Philippines</a></td>
+									<td align=right>0.57%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=RU&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Russian Federation</a></td>
+									<td align=right>0.50%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Argentina</a></td>
+									<td align=right>0.49%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Singapore</a></td>
+									<td align=right>0.41%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Iran (Islamic Republic of)</a></td>
+									<td align=right>0.40%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Saudi Arabia</a></td>
+									<td align=right>0.40%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IN&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">India</a></td>
+									<td align=right>0.38%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IQ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Iraq</a></td>
+									<td align=right>0.36%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IT&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Italy</a></td>
+									<td align=right>0.33%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=UA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Ukraine</a></td>
+									<td align=right>0.30%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CL&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Chile</a></td>
+									<td align=right>0.28%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PL&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Poland</a></td>
+									<td align=right>0.27%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MX&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Mexico</a></td>
+									<td align=right>0.24%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ZA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">South Africa</a></td>
+									<td align=right>0.19%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=RO&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Romania</a></td>
+									<td align=right>0.17%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NL&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Netherlands</a></td>
+									<td align=right>0.17%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Sweden</a></td>
+									<td align=right>0.15%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TW&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Taiwan</a></td>
+									<td align=right>0.15%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Peru</a></td>
+									<td align=right>0.14%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BY&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Belarus</a></td>
+									<td align=right>0.13%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PT&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Portugal</a></td>
+									<td align=right>0.13%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CZ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Czech Republic</a></td>
+									<td align=right>0.11%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=HU&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Hungary</a></td>
+									<td align=right>0.11%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">United Arab Emirates</a></td>
+									<td align=right>0.11%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CO&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Colombia</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NZ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">New Zealand</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DK&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Denmark</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AT&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Austria</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KZ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Kazakhstan</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BD&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Bangladesh</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KH&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Cambodia</a></td>
+									<td align=right>0.10%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CH&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Switzerland</a></td>
+									<td align=right>0.09%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=FI&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Finland</a></td>
+									<td align=right>0.08%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IL&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Israel</a></td>
+									<td align=right>0.08%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PK&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Pakistan</a></td>
+									<td align=right>0.08%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MO&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Macau</a></td>
+									<td align=right>0.07%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NO&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Norway</a></td>
+									<td align=right>0.07%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KW&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Kuwait</a></td>
+									<td align=right>0.07%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=EG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Egypt</a></td>
+									<td align=right>0.07%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DZ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Algeria</a></td>
+									<td align=right>0.07%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Greece</a></td>
+									<td align=right>0.06%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=JO&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Jordan</a></td>
+									<td align=right>0.06%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=VN&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Viet Nam</a></td>
+									<td align=right>0.06%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LK&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Sri Lanka</a></td>
+									<td align=right>0.05%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=VE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Venezuela</a></td>
+									<td align=right>0.05%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PS&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Palestine, State of</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SK&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Slovakia (Slovak Republic)</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=UY&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Uruguay</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Bulgaria</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LB&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Lebanon</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=RS&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Serbia</a></td>
+									<td align=right>0.04%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Ireland</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=HR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Croatia</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LT&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Lithuania</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BO&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Bolivia</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=UZ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Uzbekistan</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=OM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Oman</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=EC&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Ecuador</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=QA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Qatar</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Georgia</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=EE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Estonia</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Morocco</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TN&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Tunisia</a></td>
+									<td align=right>0.03%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Laos</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LV&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Latvia</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BN&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Brunei Darussalam</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SI&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Slovenia</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Puerto Rico</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Costa Rica</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Myanmar (Burma)</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AZ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Azerbaijan</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PY&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Paraguay</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MD&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Moldova, Republic of</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MN&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Mongolia</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NP&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Nepal</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Panama</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DO&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Dominican Republic</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BH&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Bahrain</a></td>
+									<td align=right>0.02%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LY&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Libya</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GT&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Guatemala</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Bosnia And Herzegowina</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=RE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Reunion</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Kyrgyzstan</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CY&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Cyprus</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SV&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">El Salvador</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Belgium</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=HN&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Honduras</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AL&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Albania</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LU&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Luxembourg</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Armenia</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CU&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Cuba</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MK&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">North Macedonia</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Nigeria</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MU&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Mauritius</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SY&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Syria</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Kenya</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TT&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Trinidad And Tobago</a></td>
+									<td align=right>0.01%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Namibia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IS&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Iceland</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Madagascar</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CD&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Congo, The DRC</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NI&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Nicaragua</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AO&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Angola</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GU&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Guam</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SC&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Seychelles</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MV&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Maldives</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CI&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Cote D'Ivoire</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MT&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Malta</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GH&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Ghana</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=YE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Yemen</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MZ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Mozambique</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ZW&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Zimbabwe</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=JM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Jamaica</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GP&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Guadeloupe</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=UG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Uganda</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ME&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Montenegro</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GY&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Guyana</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ZM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Zambia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NC&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">New Caledonia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MQ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Martinique</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ET&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Ethiopia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TZ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Tanzania, United Republic of</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=JE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Jersey</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Cameroon</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TJ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Tajikistan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GF&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">French Guiana</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AD&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Andorra</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BB&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Barbados</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BJ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Benin</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CW&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Curacao</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BZ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Belize</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Turkmenistan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SN&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Senegal</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Suriname</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BS&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Bahamas</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AF&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Afghanistan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=IM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Isle of Man</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GN&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Guinea</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AW&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Aruba</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SL&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Sierra Leone</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KN&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Saint Kitts And Nevis</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Congo</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Togo</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=FO&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Faroe Islands</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GL&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Greenland</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MW&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Malawi</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SD&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Sudan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Papua New Guinea</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">San Marino</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=PF&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">French Polynesia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BW&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Botswana</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=KY&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Cayman Islands</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MP&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Northern Mariana Islands</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=ML&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Mali</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=RW&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Rwanda</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=FM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Micronesia, Federated States of</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GA&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Gabon</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BT&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Bhutan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TD&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Chad</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SX&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Sint Maarten, Dutch Part</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=  &amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">  </a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SO&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Somalia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Bermuda</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AX&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Aland Islands</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=BF&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Burkina Faso</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=FJ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Fiji</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LC&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Saint Lucia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Mauritania</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=VI&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Virgin Islands (U.S.)</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Liberia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GD&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Grenada</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=LI&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Liechtenstein</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GI&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Gibraltar</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Antigua And Barbuda</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=AS&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">American Samoa</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=MC&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Monaco</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=VU&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Vanuatu</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SZ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Eswatini</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GG&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Guernsey</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=SS&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">South Sudan</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=TL&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">East Timor</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode= Z&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31"> Z</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=CV&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Cabo Verde</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NR&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Nauru</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Dominica</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=DJ&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Djibouti</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=WS&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Samoa</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=GM&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Gambia</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+															<tr>
+									<td><a href="https://partner.steampowered.com/country.php?countryCode=NE&amp;dateStart=2024-12-05&amp;dateEnd=2024-12-31">Niger</a></td>
+									<td align=right>0.00%</td>
+								</tr>
+													</table>
+					</div>
+				</div>
+				<br clear="all">
+			</div>
+		</div>
+		</div>
+	</center>
+</body>
+
+</html>
