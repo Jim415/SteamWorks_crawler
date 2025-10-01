@@ -1259,7 +1259,8 @@ class SteamWorksCrawler:
         game_tables = {
             2507950: 'delta_force_daily_metrics',
             3104410: 'terminull_brigade_daily_metrics', 
-            3478050: 'road_to_empress_daily_metrics'
+            3478050: 'road_to_empress_daily_metrics',
+            2073620: 'arena_breakout_infinite_daily_metrics'
         }
         return game_tables.get(self.steam_app_id)
 
@@ -1620,6 +1621,7 @@ def main():
             (2507950, 'Delta Force'),
             (3104410, 'Terminull Brigade'),
             (3478050, 'Road to Empress'),
+            (2073620, 'Arena Breakout: Infinite'),
         ]
 
     overall_success = True
