@@ -428,8 +428,401 @@ class SteamworksMarketingCrawler:
             logging.error(f"Failed to extract owner percentage from HTML: {str(e)}")
             return None
     
+    def extract_top_country_visits_from_html(self):
+        """Extract top country visits from HTML source by parsing dataTicks and dataCountries arrays"""
+        try:
+            # Get the page source
+            page_source = self.driver.page_source
+            
+            # Look for the dataCountries JavaScript array first
+            import re
+            countries_pattern = r'var dataCountries\s*=\s*\[(.*?)\];'
+            countries_match = re.search(countries_pattern, page_source, re.DOTALL)
+            
+            if not countries_match:
+                logging.warning("Could not find dataCountries array in HTML source")
+                return None
+            
+            # Extract visit numbers from dataCountries
+            visits_str = countries_match.group(1)
+            visits_pattern = r'(\d+)'
+            visits_numbers = re.findall(visits_pattern, visits_str)
+            visits_numbers = [int(v) for v in visits_numbers]
+            
+            # Look for the dataTicks JavaScript array
+            ticks_pattern = r'var dataTicks\s*=\s*\[(.*?)\];'
+            ticks_match = re.search(ticks_pattern, page_source, re.DOTALL)
+            
+            if not ticks_match:
+                logging.warning("Could not find dataTicks array in HTML source")
+                return None
+            
+            data_ticks_str = ticks_match.group(1)
+            # Parse the array content
+            # Expected format: "Hong Kong, 17%","China, 17%","United States, 12%",...
+            
+            # Extract individual entries
+            entries_pattern = r'"([^"]+)"'
+            entries = re.findall(entries_pattern, data_ticks_str)
+            
+            # Verify that we have matching counts
+            if len(entries) != len(visits_numbers):
+                logging.warning(f"Mismatch between country entries ({len(entries)}) and visit numbers ({len(visits_numbers)})")
+                return None
+            
+            country_data = []
+            for rank, entry in enumerate(entries):
+                try:
+                    # Split by comma to separate country and percentage
+                    if ',' in entry:
+                        country_part, percentage_part = entry.rsplit(',', 1)
+                        country = country_part.strip()
+                        
+                        # Extract percentage number (remove % symbol)
+                        percentage_match = re.search(r'([0-9.]+)%?', percentage_part.strip())
+                        if percentage_match:
+                            percentage = float(percentage_match.group(1))
+                            visits = visits_numbers[rank]  # Get corresponding visit number
+                            
+                            country_data.append({
+                                'country': country,
+                                'percentage': percentage,
+                                'visits': visits,
+                                'rank': rank + 1
+                            })
+                except Exception as e:
+                    logging.warning(f"Failed to parse country entry '{entry}': {str(e)}")
+                    continue
+            
+            if country_data:
+                logging.info(f"Found {len(country_data)} countries in top_country_visits")
+                return country_data
+            else:
+                logging.warning("No valid country data found in dataTicks")
+                return None
+            
+        except Exception as e:
+            logging.error(f"Failed to extract top country visits from HTML: {str(e)}")
+            return None
+    
+    def extract_all_source_breakdown_from_html(self):
+        """Extract all source breakdown data from HTML source by parsing all first-level rows"""
+        try:
+            # Get the page source
+            page_source = self.driver.page_source
+            import re
+            
+            # Look for all first-level rows (highlightHover page_stats)
+            # These are the main table rows that can be expanded
+            first_level_pattern = r'<div class="tr highlightHover page_stats".*?onclick="ToggleFeatureStats.*?</div>\s*</div>'
+            first_level_matches = re.findall(first_level_pattern, page_source, re.DOTALL)
+            
+            if not first_level_matches:
+                logging.warning("Could not find any first-level rows in HTML source")
+                return None
+            
+            logging.info(f"Found {len(first_level_matches)} first-level rows")
+            
+            all_source_data = []
+            
+            # Process each first-level row
+            for row_html in first_level_matches:
+                try:
+                    # Extract page/feature name
+                    name_pattern = r'<strong>([^<]+)</strong>'
+                    name_match = re.search(name_pattern, row_html)
+                    if not name_match:
+                        continue
+                    
+                    page_feature = name_match.group(1).strip()
+                    
+                    # Extract all td values in the correct order
+                    # Find all td elements that contain data (not the title or expander)
+                    td_pattern = r'<div class="td"[^>]*>([^<]*)</div>'
+                    all_td_matches = re.findall(td_pattern, row_html)
+                    
+                    # Filter out the title (first td) and expander (last td), keep only data values
+                    data_values = []
+                    for i, value in enumerate(all_td_matches):
+                        clean_value = value.strip()
+                        # Skip empty values, title, and expander
+                        if (clean_value and 
+                            clean_value != page_feature and  # Skip the title
+                            'expander' not in clean_value and  # Skip expander
+                            (clean_value.replace(',', '').replace('.', '').replace('%', '').isdigit() or 
+                             '.' in clean_value.replace('%', '') or 
+                             ',' in clean_value)):
+                            data_values.append(clean_value)
+                    
+                    # Initialize row data with default values
+                    row_data = {
+                        'page_feature': page_feature,
+                        'impressions': 0,
+                        'owner_impressions': 0,
+                        'percentage_of_total_impressions': 0.0,
+                        'click_thru_rate': 0.0,
+                        'visits': 0,
+                        'owner_visits': 0,
+                        'percentage_of_total_visits': 0.0
+                    }
+                    
+                    # Map the available values to the correct fields (use 0 for missing values)
+                    field_names = ['impressions', 'owner_impressions', 'percentage_of_total_impressions', 
+                                  'click_thru_rate', 'visits', 'owner_visits', 'percentage_of_total_visits']
+                    
+                    for i, value in enumerate(data_values):
+                        if i < len(field_names):
+                            field_name = field_names[i]
+                            
+                            if not value.strip():
+                                row_data[field_name] = 0
+                            else:
+                                # Remove commas and extract number
+                                clean_value = value.strip().replace(',', '')
+                                if clean_value.endswith('%'):
+                                    # Percentage value
+                                    num_match = re.search(r'([0-9.]+)%?', clean_value)
+                                    row_data[field_name] = float(num_match.group(1)) if num_match else 0
+                                else:
+                                    # Regular number
+                                    try:
+                                        row_data[field_name] = int(clean_value)
+                                    except ValueError:
+                                        row_data[field_name] = 0
+                    
+                    all_source_data.append(row_data)
+                    logging.info(f"Processed first-level row: {page_feature} with {len(data_values)} values")
+                        
+                except Exception as e:
+                    logging.warning(f"Failed to parse first-level row: {str(e)}")
+                    continue
+            
+            if all_source_data:
+                logging.info(f"All source breakdown: extracted {len(all_source_data)} rows")
+                return all_source_data
+            else:
+                logging.warning("No valid first-level rows found")
+                return None
+            
+        except Exception as e:
+            logging.error(f"Failed to extract all source breakdown from HTML: {str(e)}")
+            return None
+    
+    def extract_homepage_breakdown_from_html(self):
+        """Extract homepage breakdown data from HTML source by parsing Home Page expanded section"""
+        try:
+            # Get the page source
+            page_source = self.driver.page_source
+            import re
+            
+            # Look for Home Page expanded section (featurestatsclass_3)
+            # Pattern matches rows with class "feature_stats featurestatsclass_3"
+            homepage_pattern = r'<div class="tr feature_stats featurestatsclass_3".*?</div>\s*</div>'
+            homepage_matches = re.findall(homepage_pattern, page_source, re.DOTALL)
+            
+            if not homepage_matches:
+                logging.warning("Could not find Home Page expanded section in HTML source")
+                return None
+            
+            logging.info(f"Found {len(homepage_matches)} Home Page expanded rows")
+            
+            homepage_data = []
+            
+            # Process each expanded row
+            for row_html in homepage_matches:
+                try:
+                    # Extract page/feature name
+                    name_pattern = r'<strong>([^<]+)</strong>'
+                    name_match = re.search(name_pattern, row_html)
+                    if not name_match:
+                        continue
+                    
+                    
+                    page_feature = name_match.group(1).strip()
+                    
+                    # Extract all td values in the correct order
+                    # Find all td elements that contain data (not the title)
+                    td_pattern = r'<div class="td"[^>]*>([^<]*)</div>'
+                    all_td_matches = re.findall(td_pattern, row_html)
+                    
+                    # Filter out the title (first td), keep only data values
+                    data_values = []
+                    for i, value in enumerate(all_td_matches):
+                        clean_value = value.strip()
+                        # Skip empty values and title
+                        if (clean_value and 
+                            clean_value != page_feature and  # Skip the title
+                            (clean_value.replace(',', '').replace('.', '').replace('%', '').isdigit() or 
+                             '.' in clean_value.replace('%', '') or 
+                             ',' in clean_value)):
+                            data_values.append(clean_value)
+                    
+                    # Initialize row data with default values (include all rows regardless of data count)
+                    row_data = {
+                        'page_feature': page_feature,
+                        'impressions': 0,
+                        'owner_impressions': 0,
+                        'percentage_of_total_impressions': 0.0,
+                        'click_thru_rate': 0.0,
+                        'visits': 0,
+                        'owner_visits': 0,
+                        'percentage_of_total_visits': 0.0
+                    }
+                    
+                    # Map the available values to the correct fields (use 0 for missing values)
+                    field_names = ['impressions', 'owner_impressions', 'percentage_of_total_impressions', 
+                                  'click_thru_rate', 'visits', 'owner_visits', 'percentage_of_total_visits']
+                    
+                    for i, value in enumerate(data_values):
+                        if i < len(field_names):
+                            field_name = field_names[i]
+                            
+                            if not value.strip():
+                                row_data[field_name] = 0
+                            else:
+                                # Remove commas and extract number
+                                clean_value = value.strip().replace(',', '')
+                                if clean_value.endswith('%'):
+                                    # Percentage value
+                                    num_match = re.search(r'([0-9.]+)%?', clean_value)
+                                    row_data[field_name] = float(num_match.group(1)) if num_match else 0
+                                else:
+                                    # Regular number
+                                    try:
+                                        row_data[field_name] = int(clean_value)
+                                    except ValueError:
+                                        row_data[field_name] = 0
+                    
+                    homepage_data.append(row_data)
+                    logging.info(f"Processed Home Page expanded row: {page_feature} with {len(data_values)} values")
+                        
+                except Exception as e:
+                    logging.warning(f"Failed to parse Home Page expanded row: {str(e)}")
+                    continue
+            
+            if homepage_data:
+                logging.info(f"Homepage breakdown: extracted {len(homepage_data)} rows")
+                return homepage_data
+            else:
+                logging.warning("No valid Home Page expanded rows found")
+                return None
+            
+        except Exception as e:
+            logging.error(f"Failed to extract homepage breakdown from HTML: {str(e)}")
+            return None
+    
+    def extract_takeover_banner_from_breakdown(self, homepage_breakdown):
+        """Extract takeover banner data from homepage_breakdown JSON"""
+        try:
+            if not homepage_breakdown:
+                logging.warning("No homepage breakdown data available for takeover banner extraction")
+                return None
+            
+            # Find the takeover banner entry in homepage breakdown
+            for entry in homepage_breakdown:
+                if entry.get('page_feature') == 'Takeover Banner':
+                    # Apply threshold check: if impressions < 1000, return None
+                    if entry.get('impressions', 0) >= 1000:
+                        logging.info(f"Found Takeover Banner: impressions={entry.get('impressions')}, visits={entry.get('visits')}")
+                        return entry
+                    else:
+                        logging.info(f"Takeover Banner impressions ({entry.get('impressions', 0)}) below threshold (1000), skipping")
+                        return None
+            
+            logging.warning("Could not find Takeover Banner entry in homepage breakdown")
+            return None
+            
+        except Exception as e:
+            logging.error(f"Failed to extract takeover banner from breakdown: {str(e)}")
+            return None
+    
+    def extract_main_cluster_from_breakdown(self, homepage_breakdown):
+        """Extract and aggregate main cluster data from homepage_breakdown JSON"""
+        try:
+            if not homepage_breakdown:
+                logging.warning("No homepage breakdown data available for main cluster extraction")
+                return None
+            
+            # Find all main cluster entries
+            main_cluster_entries = []
+            for entry in homepage_breakdown:
+                page_feature = entry.get('page_feature', '')
+                if page_feature.startswith('Main Cluster ('):
+                    main_cluster_entries.append(entry)
+            
+            if not main_cluster_entries:
+                logging.warning("Could not find any Main Cluster entries in homepage breakdown")
+                return None
+            
+            logging.info(f"Found {len(main_cluster_entries)} Main Cluster entries")
+            
+            # Aggregate the data
+            aggregated_data = {
+                'impressions': 0,
+                'owner_impressions': 0,
+                'percentage_of_total_impressions': 0.0,
+                'click_thru_rate': 0.0,
+                'visits': 0,
+                'owner_visits': 0,
+                'percentage_of_total_visits': 0.0
+            }
+            
+            # Sum up all main cluster data
+            for entry in main_cluster_entries:
+                aggregated_data['impressions'] += entry.get('impressions', 0)
+                aggregated_data['owner_impressions'] += entry.get('owner_impressions', 0)
+                aggregated_data['percentage_of_total_impressions'] += entry.get('percentage_of_total_impressions', 0)
+                aggregated_data['click_thru_rate'] += entry.get('click_thru_rate', 0)
+                aggregated_data['visits'] += entry.get('visits', 0)
+                aggregated_data['owner_visits'] += entry.get('owner_visits', 0)
+                aggregated_data['percentage_of_total_visits'] += entry.get('percentage_of_total_visits', 0)
+                
+                logging.info(f"Processed Main Cluster '{entry.get('page_feature')}': impressions={entry.get('impressions')}, visits={entry.get('visits')}")
+            
+            # Calculate average click-thru rate
+            if len(main_cluster_entries) > 0:
+                aggregated_data['click_thru_rate'] = round(aggregated_data['click_thru_rate'] / len(main_cluster_entries), 2)
+                # Note: percentage_of_total_impressions and percentage_of_total_visits are summed, not averaged
+            
+            # Apply threshold check: if impressions < 1000, return None
+            if aggregated_data['impressions'] < 1000:
+                logging.info(f"Main Cluster impressions ({aggregated_data['impressions']}) below threshold (1000), skipping")
+                return None
+            
+            logging.info(f"Main Cluster aggregated data: impressions={aggregated_data['impressions']}, visits={aggregated_data['visits']}")
+            return aggregated_data
+            
+        except Exception as e:
+            logging.error(f"Failed to extract main cluster from breakdown: {str(e)}")
+            return None
+    
+    def extract_pop_up_message_from_breakdown(self, all_source_breakdown):
+        """Extract pop-up message data from all_source_breakdown JSON"""
+        try:
+            if not all_source_breakdown:
+                logging.warning("No all source breakdown data available for pop-up message extraction")
+                return None
+            
+            # Find the marketing message entry in all source breakdown
+            for entry in all_source_breakdown:
+                if entry.get('page_feature') == 'Marketing Message':
+                    # Apply threshold check: if impressions < 1000, return None
+                    if entry.get('impressions', 0) >= 1000:
+                        logging.info(f"Found Marketing Message: impressions={entry.get('impressions')}, visits={entry.get('visits')}")
+                        return entry
+                    else:
+                        logging.info(f"Marketing Message impressions ({entry.get('impressions', 0)}) below threshold (1000), skipping")
+                        return None
+            
+            logging.warning("Could not find Marketing Message entry in all source breakdown")
+            return None
+            
+        except Exception as e:
+            logging.error(f"Failed to extract pop-up message from breakdown: {str(e)}")
+            return None
+    
     def extract_basic_metrics(self):
-        """Extract the 4 basic metrics from the marketing page"""
+        """Extract the 10 basic metrics from the marketing page"""
         logging.info("Extracting basic metrics...")
         
         # Debug: Check current date range on page before extraction
@@ -481,11 +874,41 @@ class SteamworksMarketingCrawler:
             owner_visits = self.extract_owner_percentage_from_html()
             logging.info(f"Extracted owner_visits: {owner_visits}")
             
+            # 5. Extract top_country_visits from HTML source
+            top_country_visits = self.extract_top_country_visits_from_html()
+            logging.info(f"Extracted top_country_visits: {len(top_country_visits) if top_country_visits else 0} countries")
+            
+            # 6. Extract all_source_breakdown from HTML source
+            all_source_breakdown = self.extract_all_source_breakdown_from_html()
+            logging.info(f"Extracted all_source_breakdown: {'success' if all_source_breakdown else 'not found'}")
+            
+            # 7. Extract homepage_breakdown from HTML source
+            homepage_breakdown = self.extract_homepage_breakdown_from_html()
+            logging.info(f"Extracted homepage_breakdown: {'success' if homepage_breakdown else 'not found'}")
+            
+            # 8. Extract main_cluster from homepage_breakdown JSON
+            main_cluster = self.extract_main_cluster_from_breakdown(homepage_breakdown)
+            logging.info(f"Extracted main_cluster: {'success' if main_cluster else 'skipped/not found'}")
+            
+            # 9. Extract takeover_banner from homepage_breakdown JSON
+            takeover_banner = self.extract_takeover_banner_from_breakdown(homepage_breakdown)
+            logging.info(f"Extracted takeover_banner: {'success' if takeover_banner else 'skipped/not found'}")
+            
+            # 10. Extract pop_up_message from all_source_breakdown JSON
+            pop_up_message = self.extract_pop_up_message_from_breakdown(all_source_breakdown)
+            logging.info(f"Extracted pop_up_message: {'success' if pop_up_message else 'skipped/not found'}")
+            
             return {
                 'total_impressions': total_impressions,
                 'total_visits': total_visits, 
                 'total_click_through_rate': total_click_through_rate,
-                'owner_visits': owner_visits
+                'owner_visits': owner_visits,
+                'top_country_visits': top_country_visits,
+                'main_cluster': main_cluster,
+                'takeover_banner': takeover_banner,
+                'pop_up_message': pop_up_message,
+                'all_source_breakdown': all_source_breakdown,
+                'homepage_breakdown': homepage_breakdown
             }
             
         except Exception as e:
@@ -494,7 +917,13 @@ class SteamworksMarketingCrawler:
                 'total_impressions': None,
                 'total_visits': None, 
                 'total_click_through_rate': None,
-                'owner_visits': None
+                'owner_visits': None,
+                'top_country_visits': None,
+                'main_cluster': None,
+                'takeover_banner': None,
+                'pop_up_message': None,
+                'all_source_breakdown': None,
+                'homepage_breakdown': None
             }
     
     def get_game_table_name(self):
@@ -536,12 +965,12 @@ class SteamworksMarketingCrawler:
                 'total_visits': data.get('total_visits'),
                 'total_click_through_rate': data.get('total_click_through_rate'),
                 'owner_visits': data.get('owner_visits'),
-                'top_country_visits': None,  # Will be implemented later
-                'takeover_banner': None,     # Will be implemented later
-                'pop_up_message': None,      # Will be implemented later
-                'main_cluster': None,         # Will be implemented later
-                'all_source_breakdown': None, # Will be implemented later
-                'homepage_breakdown': None    # Will be implemented later
+                'top_country_visits': json.dumps(data.get('top_country_visits')) if data.get('top_country_visits') else None,
+                'takeover_banner': json.dumps(data.get('takeover_banner')) if data.get('takeover_banner') else None,
+                'pop_up_message': json.dumps(data.get('pop_up_message')) if data.get('pop_up_message') else None,
+                'main_cluster': json.dumps(data.get('main_cluster')) if data.get('main_cluster') else None,
+                'all_source_breakdown': json.dumps(data.get('all_source_breakdown')) if data.get('all_source_breakdown') else None,
+                'homepage_breakdown': json.dumps(data.get('homepage_breakdown')) if data.get('homepage_breakdown') else None
             }
             
             # Insert into overall table
@@ -559,6 +988,12 @@ class SteamworksMarketingCrawler:
                     total_visits = VALUES(total_visits),
                     total_click_through_rate = VALUES(total_click_through_rate),
                     owner_visits = VALUES(owner_visits),
+                    top_country_visits = VALUES(top_country_visits),
+                    takeover_banner = VALUES(takeover_banner),
+                    pop_up_message = VALUES(pop_up_message),
+                    main_cluster = VALUES(main_cluster),
+                    all_source_breakdown = VALUES(all_source_breakdown),
+                    homepage_breakdown = VALUES(homepage_breakdown),
                     updated_at = CURRENT_TIMESTAMP
             """
             
@@ -582,6 +1017,12 @@ class SteamworksMarketingCrawler:
                         total_visits = VALUES(total_visits),
                         total_click_through_rate = VALUES(total_click_through_rate),
                         owner_visits = VALUES(owner_visits),
+                        top_country_visits = VALUES(top_country_visits),
+                        takeover_banner = VALUES(takeover_banner),
+                        pop_up_message = VALUES(pop_up_message),
+                        main_cluster = VALUES(main_cluster),
+                        all_source_breakdown = VALUES(all_source_breakdown),
+                        homepage_breakdown = VALUES(homepage_breakdown),
                         updated_at = CURRENT_TIMESTAMP
                 """
                 
