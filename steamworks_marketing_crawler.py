@@ -29,6 +29,214 @@ logging.basicConfig(
     ]
 )
 
+# Chinese to English translation dictionary for feature names
+CHINESE_TO_ENGLISH_FEATURES = {
+    '主页': 'Home Page',
+    '（其他页面）': '(other pages)',
+    '宣传信息': 'Marketing Message',
+    '营销信息': 'Marketing Message',
+    '搜索建议': 'Search Suggestions',
+    '直接导航': 'Direct Navigation',
+    'Steam 客户端 - 库': 'Steam Client - Library',
+    '外部网站': 'External Website',
+    '机器人流量': 'Bot Traffic',
+    '愿望单': 'Wishlist',
+    '新品发布通知电子邮件': 'New Release Notification Email',
+    '直接搜索结果': 'Direct Search Results',
+    '探索队列': 'Discovery Queue',
+    '免费开玩游戏中心': 'Free to Play Hub',
+    '社区中心': 'Community Hub',
+    'Steam 榜单': 'Steam Charts',
+    'Steam 新品页': 'New on Steam Page',
+    '标签页面': 'Tag Page',
+    '浏览搜索结果': 'Browse Search Results',
+    'Valve 网站': 'Valve Website',
+    '热销商品 - 完整列表': 'Top Sellers - Full List',
+    '其他产品页面': 'Other Product Pages',
+    '社区中心 - 讨论': 'Community Hub - Discussions',
+    '热销商品（全球）- 完整列表': 'Top Sellers (Global) - Full List',
+    '社区 - 用户生成内容': 'Community - User Generated Content',
+    '更多类似产品': 'More Like This',
+    '鉴赏家或开发者主页': 'Curator or Developer Homepage',
+    '新闻中心和活动': 'News Hub and Events',
+    '热门新品发布 - 完整列表': 'Popular New Releases - Full List',
+    '游戏 IFrame 小部件': 'Game IFrame Widget',
+    '按标签浏览搜索结果': 'Browse Search Results By Tags',
+    '社区 - 好友动态推送通知': 'Community - Friend Activity Feed',
+    '即将推出页面': 'Upcoming Releases Page',
+    '加入 Steam 页面': 'Join Steam Page',
+    '游戏中心': 'Games Hub',
+    '推荐信息': 'Recommendation Feed',
+    '季节性特卖主页': 'Seasonal Sale Home Page',
+    '所有"即将推出"': 'All Upcoming Releases Queue',
+    '试用版新品发布通知电子邮件': 'New Demo Release Notification Email',
+    '商店全局形象图': 'Store Global Header',
+    '特卖页面': 'Sales Page',
+    'Steam 实验室 - 微型宣传片': 'Steam Labs - Microtrailers',
+    '好友动态页面': 'Friend Activity Page',
+    'Steam 客户端 - 好友及聊天': 'Steam Client - Friends & Chat',
+    '电子邮件': 'E-mail',
+    'Steam 实验室': 'Steam Labs',
+    '您的探索队列页面': 'Your Discovery Queue Page',
+    '推荐 - 主页': 'Recommendations - Main',
+    '新品队列': 'New Releases Queue',
+    '即将推出 - 完整列表': 'Coming Soon - Full List',
+    '热门标签页面': 'Popular Tags Page',
+    '捆绑包页面': 'Bundle Page',
+    '游戏 DLC 列表': 'Game DLC List',
+    '促销页面': 'Promotion Page',
+    '购物车页面': 'Cart Page',
+    '您的帐户页面': 'Your Account Page',
+    'Steam 客户端 - 好友游戏中通知': 'Steam Client - Friend Is In-Game Notification',
+    '关于 Steam': 'About Steam',
+    '交互式推荐模型': 'Interactive Recommender',
+    '推荐 - 查看好友推荐': 'Recommendations - View Friend Recommendaion',
+    'MacOS 中心': 'MacOS Hub',
+    # Homepage child features
+    '置顶展示横幅': 'Takeover Banner',
+    '人气蹿升的新品': 'New and Trending',
+    '热销商品列表': 'Top Sellers List',
+    'Steam 实验室社区推荐': 'Community Recommendations by Steam Labs',
+    '主看板（热销商品）': 'Main Cluster (Top Seller)',
+    '（其他）': '(Other)',
+    '最近查看过': 'Recently Viewed',
+    '即将推出列表': 'Upcoming List',
+    '因为您玩过 X': 'Because You Played X',
+    '好友间人气蹿升': 'Trending Among Friends',
+    '主看板（鉴赏家推荐）': 'Main Cluster (Curator Recommendation)',
+    '由所建议鉴赏家推荐': 'Recommended by a Suggested Curator',
+    '由鉴赏家推荐，大版面': 'Recommended by Curators, large spot',
+    '由鉴赏家推荐': 'Recommended by Curators',
+    '主看板（好友推荐）': 'Main Cluster (Friend Recommendation)',
+    '主看板（为您推荐）': 'Main Cluster (Recommended For You)',
+    '由 Steam 实验室推荐': 'Recommended by Steam Labs',
+    '主商店链接': 'Primary Store Link',
+    '游戏内好友或聊天成员': 'In-Game Friend or Chat Member',
+    '聊天中分享的链接': 'Link Shared in Chat',
+    '图像': 'Image',
+    '按钮': 'Button',
+    '愿望单图像': 'Wishlist Image',
+    '愿望单 - 查看详情按钮': 'Wishlist - View Details Button',
+    '产品图像': 'Product Image',
+    '截图': 'Screenshot',
+    '搜索结果': 'Search Results',
+    '搜索自动完成': 'Search Auto-complete',
+    '热门作品': 'Popular Titles',
+    '精选产品': 'Featured Products',
+    '人气蹿升的新品列表': 'New & Trending List',
+    '"在您的愿望单上"栏目': 'On Your Wishlist Section',
+    '浏览内容 - 热门': 'Browse Items - Popular',
+    '分面浏览': 'Faceted Browsing',
+    '"在愿望单中人气蹿升"栏目': 'Trending Wishlist Section',
+    '浏览内容 - 在愿望单中人气蹿升': 'Browse Items - Trending Wishlists',
+    '浏览内容 - 搜索': 'Browse Items - Search',
+    '浏览内容 - 全部': 'Browse Items - All',
+    '"最近活动"栏目': 'Recent Events Section',
+    '浏览内容 - 最受好评': 'Browse Items - Top Rated',
+    '"推荐"栏目': 'Recommended Section',
+    '主页': 'Home',
+    '浏览所有评测': 'Browse All Reviews',
+    '浏览截图': 'Browse Screenshots',
+    '浏览指南': 'Browse Guides',
+    '浏览差评': 'Browse Negative Reviews',
+    '浏览艺术作品': 'Browse Artwork',
+    '浏览视频': 'Browse Videos',
+    '浏览好评': 'Browse Positive Reviews',
+    '浏览全部新闻': 'Browse All News',
+    '浏览直播': 'Browse Broadcasts',
+    '查看官方公告': 'View Official Announcement',
+    '最热玩游戏': 'Most Played',
+    '热销商品': 'Top Selling',
+    '概览': 'Overview',
+    '新品热销': 'New Top Sellers',
+    '全部新品选项卡': 'All New Releases Tab',
+    '顶部主宣传图': 'Top Main Capsules',
+    '推荐新品': 'Recommended New Release',
+    '带选项卡的栏目': 'Tabbed Section',
+    '最热愿望单物品': 'Top Wishlisted Item',
+    '鉴赏家精选推荐': 'Curator Featured Recommendations',
+    '精选推荐': 'Featured Recommendations',
+    '鉴赏家推荐': 'Recommended by Curators',
+    '精选列表': 'Featured List',
+    '精选标签部分': 'Featured Tag Section',
+    '旧版鉴赏家推荐': 'Old Format Curator Recommendation',
+    '痕迹导航': 'Breadcrumbs',
+    '更多类似主要物品': 'More Like Main Item',
+    '即将推出列表': 'Coming Soon List',
+    '浏览内容 - 即将推出': 'Browse Items - Coming Soon',
+    '浏览内容 - 打折中': 'Browse Items - Discounted',
+    '浏览主题': 'Browse Topics',
+    '单一主题': 'Single Topic',
+    '活动单一主题': 'Event Single Topic',
+    '搜索': 'Search',
+    '被举报的单一主题': 'Reported Single Topic',
+    '活动主题搜索': 'Event Topic Search',
+    '更多类似主要物品': 'More Like Main Item',
+    '加入 Steam': 'Join Steam',
+    '鉴赏家评测': 'Curator Reviews',
+    '公告': 'Announcement',
+    '用户评测': 'User Review',
+    '鉴赏家评测': 'Curator Review',
+    '已发布截图': 'Screenshot Published',
+    '已收藏物品': 'Item Favorited',
+    '已发布艺术作品': 'Artwork Published',
+    '已发布指南': 'Guide Published',
+    '所有即将推出标签页': 'All Upcoming Releases Tab',
+    '推荐栏': 'Recommendations Row',
+    '来自愿望单': 'From Wishlist',
+    '加入了愿望单的相似游戏': 'Similar by wishlist',
+    '标签相似的游戏': 'Similar by tags',
+    '好友评测': 'Friends reviews',
+    '游玩时间相似的游戏': 'Similar by playtime',
+    '嵌入小部件': 'Embedded Widget',
+    '推荐 - 最近查看过的': 'Recommended - Recently Viewed',
+    '推荐 - 更多最近查看过的': 'Recommended - More Recently Viewed',
+    '好友推荐': 'Friend Recommendations',
+    '最近玩过的类似应用': 'Similar Recent Apps',
+    'DLC 父应用链接': 'DLC Parent App Link',
+    '观看直播': 'Watch Broadcast',
+    '视频': 'Video',
+    '指南': 'Guide',
+    '艺术作品': 'Artwork',
+    '非游戏拥有者，首次通知': 'Non-Owner, First Notification',
+    '非游戏拥有者，更多通知': 'Non-Owner, Additional Notifications',
+    '游戏拥有者，首次通知': 'Game Owner, First Notification',
+    '游戏拥有者，更多通知': 'Game Owner, Additional Notifications',
+    '忽略的应用列表': 'Ignored App List',
+    '宣传图': 'Capsule',
+    '好友动态 - 焦点': 'Friend Activity - Spotlight',
+    'owner_visits': 'Owner Visits',
+    '来自所有者': 'From Owners',
+}
+
+def translate_feature_name_to_english(chinese_name):
+    """
+    Translate Chinese feature name to English
+    Supports both exact matches and pattern-based translations
+    """
+    # Return as-is if already in English (contains Latin characters)
+    if re.search(r'[a-zA-Z]', chinese_name) and not re.search(r'[\u4e00-\u9fff]', chinese_name):
+        return chinese_name
+    
+    # Exact match
+    if chinese_name in CHINESE_TO_ENGLISH_FEATURES:
+        return CHINESE_TO_ENGLISH_FEATURES[chinese_name]
+    
+    # Pattern matching for dynamic entries
+    # Pattern: 主看板（第 X 个位置） → Main Cluster (Position X)
+    match = re.search(r'主看板（第\s*(\d+)\s*个位置）', chinese_name)
+    if match:
+        position = match.group(1)
+        return f'Main Cluster (Position {position})'
+    
+    # If starts with 主看板 but not matched above
+    if chinese_name.startswith('主看板'):
+        # Replace Chinese with English equivalent
+        return chinese_name.replace('主看板', 'Main Cluster').replace('（', '(').replace('）', ')')
+    
+    # Return original if no translation found
+    return chinese_name
+
 class SteamworksMarketingCrawler:
     def __init__(self, db_config, steam_app_id, game_name):
         self.db_config = db_config
@@ -366,22 +574,24 @@ class SteamworksMarketingCrawler:
             return False
     
     def parse_number_with_suffix(self, text):
-        """Parse numbers with suffixes like '46.54 million' to proper integers"""
+        """Parse numbers with suffixes like '46.54 million' or '46.54 百万' to proper integers"""
         if not text:
             return 0
             
-        # Remove commas and extract number + suffix
-        match = re.search(r'([\d,]+\.?\d*)\s*(million|thousand|billion)?', text.lower())
+        # Support both English and Chinese suffixes
+        # English: million, thousand, billion
+        # Chinese: 百万 (million), 千 (thousand), 十亿 (billion)
+        match = re.search(r'([\d,]+\.?\d*)\s*(million|thousand|billion|百万|千|十亿)?', text.lower())
         if match:
             number_str = match.group(1).replace(',', '')
             suffix = match.group(2) if match.group(2) else ''
             
             number = float(number_str)
-            if suffix == 'million':
+            if suffix in ['million', '百万']:
                 return int(number * 1_000_000)
-            elif suffix == 'thousand':
+            elif suffix in ['thousand', '千']:
                 return int(number * 1_000)
-            elif suffix == 'billion':
+            elif suffix in ['billion', '十亿']:
                 return int(number * 1_000_000_000)
             else:
                 return int(number)
@@ -397,7 +607,7 @@ class SteamworksMarketingCrawler:
             return 0
     
     def extract_owner_percentage_from_html(self):
-        """Extract owner percentage from HTML source by parsing JavaScript"""
+        """Extract owner percentage from HTML source by parsing JavaScript (supports both English and Chinese)"""
         try:
             # Get the page source
             page_source = self.driver.page_source
@@ -410,16 +620,22 @@ class SteamworksMarketingCrawler:
             if match:
                 data_owners_str = match.group(1)
                 # Parse the array content
-                # Expected format: [ 'Non-Owners: 74.2%',  74.2 ], [ 'Owners: 25.8%',  25.8 ]
+                # Expected format: 
+                # English: [ 'Non-Owners: 74.2%',  74.2 ], [ 'Owners: 25.8%',  25.8 ]
+                # Chinese: [ '来自非所有者：65.58%',  65.58 ], [ '来自所有者：34.42%',  34.42 ]
                 
-                # Look for the Owners entry
-                owners_pattern = r"\[\s*'Owners:\s*([0-9.]+)%',\s*([0-9.]+)\s*\]"
-                owners_match = re.search(owners_pattern, data_owners_str)
+                # Look for the Owners entry in both English and Chinese
+                owners_patterns = [
+                    r"\[\s*'Owners:\s*([0-9.]+)%',\s*([0-9.]+)\s*\]",  # English
+                    r"\[\s*'来自所有者：([0-9.]+)%',\s*([0-9.]+)\s*\]"   # Chinese
+                ]
                 
-                if owners_match:
-                    owner_percentage = float(owners_match.group(2))
-                    logging.info(f"Found owner percentage: {owner_percentage}%")
-                    return owner_percentage
+                for owners_pattern in owners_patterns:
+                    owners_match = re.search(owners_pattern, data_owners_str)
+                    if owners_match:
+                        owner_percentage = float(owners_match.group(2))
+                        logging.info(f"Found owner percentage: {owner_percentage}%")
+                        return owner_percentage
             
             logging.warning("Could not find owner percentage in HTML source")
             return None
@@ -513,8 +729,8 @@ class SteamworksMarketingCrawler:
             import re
             
             # Look for all first-level rows (highlightHover page_stats)
-            # These are the main table rows that can be expanded
-            first_level_pattern = r'<div class="tr highlightHover page_stats".*?onclick="ToggleFeatureStats.*?</div>\s*</div>'
+            # FIXED: Use greedy match to capture complete row including all cells and expander
+            first_level_pattern = r'<div class="tr highlightHover page_stats"[^>]*?onclick="ToggleFeatureStats[^"]*".*?</div>\s*<div class="tr'
             first_level_matches = re.findall(first_level_pattern, page_source, re.DOTALL)
             
             if not first_level_matches:
@@ -534,25 +750,36 @@ class SteamworksMarketingCrawler:
                     if not name_match:
                         continue
                     
+                    # Get feature name and translate to English
                     page_feature = name_match.group(1).strip()
+                    page_feature = translate_feature_name_to_english(page_feature)
                     
-                    # Extract all td values in the correct order
-                    # Find all td elements that contain data (not the title or expander)
-                    td_pattern = r'<div class="td"[^>]*>([^<]*)</div>'
-                    all_td_matches = re.findall(td_pattern, row_html)
+                    # Helper function to strip HTML tags and extract text
+                    def strip_html_tags(html_content):
+                        """Remove HTML tags and extract pure text"""
+                        text = re.sub(r'<[^>]+>', '', html_content)
+                        text = re.sub(r'\s+', ' ', text).strip()
+                        return text
                     
-                    # Filter out the title (first td) and expander (last td), keep only data values
+                    # Extract all td values - FIXED: Pattern matches class="td" AND class="td page_type"
+                    # Use word boundary to match "td" as a class name
+                    td_pattern = r'<div class="[^"]*\btd\b[^"]*"[^>]*?>(.*?)</div>'
+                    all_td_matches = re.findall(td_pattern, row_html, re.DOTALL)
+                    
+                    # FIXED: Keep ALL 7 data cells in positional order (don't filter out empties!)
+                    # HTML structure: [title, impressions, owner_impressions, %, click_thru, visits, owner_visits, %, expander]
+                    if len(all_td_matches) < 8:
+                        logging.warning(f"All-source row '{page_feature}' has {len(all_td_matches)} td cells, expected 8+, skipping")
+                        continue
+                    
+                    # Extract and clean all 7 data cells (skip cell 0=title, skip cell 8+=expander/extra)
                     data_values = []
-                    for i, value in enumerate(all_td_matches):
-                        clean_value = value.strip()
-                        # Skip empty values, title, and expander
-                        if (clean_value and 
-                            clean_value != page_feature and  # Skip the title
-                            'expander' not in clean_value and  # Skip expander
-                            (clean_value.replace(',', '').replace('.', '').replace('%', '').isdigit() or 
-                             '.' in clean_value.replace('%', '') or 
-                             ',' in clean_value)):
+                    for i in range(1, 8):  # Cells 1-7 are the data columns
+                        if i < len(all_td_matches):
+                            clean_value = strip_html_tags(all_td_matches[i])
                             data_values.append(clean_value)
+                        else:
+                            data_values.append('')  # Pad with empty if missing
                     
                     # Initialize row data with default values
                     row_data = {
@@ -566,7 +793,7 @@ class SteamworksMarketingCrawler:
                         'percentage_of_total_visits': 0.0
                     }
                     
-                    # Map the available values to the correct fields (use 0 for missing values)
+                    # Map the 7 data values POSITIONALLY to the correct fields
                     field_names = ['impressions', 'owner_impressions', 'percentage_of_total_impressions', 
                                   'click_thru_rate', 'visits', 'owner_visits', 'percentage_of_total_visits']
                     
@@ -574,11 +801,12 @@ class SteamworksMarketingCrawler:
                         if i < len(field_names):
                             field_name = field_names[i]
                             
-                            if not value.strip():
+                            # Parse the value (empty string becomes 0)
+                            if not value or value in ['', '&nbsp;', '-']:
                                 row_data[field_name] = 0
                             else:
                                 # Remove commas and extract number
-                                clean_value = value.strip().replace(',', '')
+                                clean_value = value.replace(',', '')
                                 if clean_value.endswith('%'):
                                     # Percentage value
                                     num_match = re.search(r'([0-9.]+)%?', clean_value)
@@ -589,6 +817,13 @@ class SteamworksMarketingCrawler:
                                         row_data[field_name] = int(clean_value)
                                     except ValueError:
                                         row_data[field_name] = 0
+                    
+                    # APPLY 1% FILTER: Skip row if both percentages are <= 1%
+                    percentage_impressions = row_data.get('percentage_of_total_impressions', 0)
+                    percentage_visits = row_data.get('percentage_of_total_visits', 0)
+                    
+                    if percentage_impressions <= 1.0 and percentage_visits <= 1.0:
+                        continue  # Skip this row, move to next
                     
                     all_source_data.append(row_data)
                     logging.info(f"Processed first-level row: {page_feature} with {len(data_values)} values")
@@ -609,22 +844,139 @@ class SteamworksMarketingCrawler:
             return None
     
     def extract_homepage_breakdown_from_html(self):
-        """Extract homepage breakdown data from HTML source by parsing Home Page expanded section"""
+        """Extract homepage breakdown data from HTML source - SUPPORTS SEASONAL HOMEPAGE"""
         try:
             # Get the page source
             page_source = self.driver.page_source
             import re
             
-            # Look for Home Page expanded section (featurestatsclass_3)
-            # Pattern matches rows with class "feature_stats featurestatsclass_3"
-            homepage_pattern = r'<div class="tr feature_stats featurestatsclass_3".*?</div>\s*</div>'
-            homepage_matches = re.findall(homepage_pattern, page_source, re.DOTALL)
+            homepage_data = []
             
-            if not homepage_matches:
-                logging.warning("Could not find Home Page expanded section in HTML source")
+            # Step 1: Search for BOTH homepage variants
+            # Find all parent rows - capture until the next <div class="tr feature_stats to get complete row
+            all_parents = re.findall(
+                r'<div class="tr highlightHover page_stats"[^>]*?onclick="ToggleFeatureStats\(\s*this,\s*\'(featurestatsclass_\d+)\'\s*\);"[^>]*?>(.*?)</div>\s*(?=<div class="tr feature_stats)',
+                page_source,
+                re.DOTALL
+            )
+            
+            seasonal_homepage = None
+            normal_homepage = None
+            
+            for class_name, row_content in all_parents:
+                # Extract the title from <strong> tag
+                title_match = re.search(r'<strong>([^<]+)</strong>', row_content)
+                if not title_match:
+                    continue
+                    
+                title = title_match.group(1).strip()
+                
+                # Check if this is seasonal homepage (contains "季节性" AND ("特卖" OR "主页"))
+                if '季节性' in title and ('特卖' in title or '主页' in title):
+                    # Extract impressions from parent row using the proven td pattern
+                    td_pattern = r'<div class="[^"]*\btd\b[^"]*"[^>]*?>(.*?)</div>'
+                    all_tds = re.findall(td_pattern, row_content, re.DOTALL)
+                    
+                    # Clean TD content
+                    def strip_html(html_content):
+                        text = re.sub(r'<[^>]+>', '', html_content)
+                        text = re.sub(r'\s+', ' ', text).strip()
+                        return text
+                    
+                    # Impressions is in TD cell 1 (cell 0 is title)
+                    impressions = 0
+                    if len(all_tds) > 1:
+                        impressions_text = strip_html(all_tds[1]).replace(',', '')
+                        if impressions_text.isdigit():
+                            impressions = int(impressions_text)
+                    
+                    seasonal_homepage = {
+                        'class': class_name,
+                        'title': title,
+                        'impressions': impressions
+                    }
+                    logging.info(f"Found Seasonal Homepage: '{title}' uses {class_name}, impressions: {impressions:,}")
+                
+                # Check if this is normal homepage (exact match "主页" or "Home Page", without "季节性")
+                elif (title == '主页' or title == 'Home Page') and '季节性' not in title:
+                    # Extract impressions from parent row using the proven td pattern
+                    td_pattern = r'<div class="[^"]*\btd\b[^"]*"[^>]*?>(.*?)</div>'
+                    all_tds = re.findall(td_pattern, row_content, re.DOTALL)
+                    
+                    # Clean TD content
+                    def strip_html(html_content):
+                        text = re.sub(r'<[^>]+>', '', html_content)
+                        text = re.sub(r'\s+', ' ', text).strip()
+                        return text
+                    
+                    # Impressions is in TD cell 1 (cell 0 is title)
+                    impressions = 0
+                    if len(all_tds) > 1:
+                        impressions_text = strip_html(all_tds[1]).replace(',', '')
+                        if impressions_text.isdigit():
+                            impressions = int(impressions_text)
+                    
+                    normal_homepage = {
+                        'class': class_name,
+                        'title': title,
+                        'impressions': impressions
+                    }
+                    logging.info(f"Found Normal Homepage: '{title}' uses {class_name}, impressions: {impressions:,}")
+            
+            # Step 2: Compare and select which homepage to use
+            selected_homepage = None
+            
+            if seasonal_homepage and normal_homepage:
+                # Both found - compare impressions
+                if seasonal_homepage['impressions'] > normal_homepage['impressions']:
+                    selected_homepage = seasonal_homepage
+                    logging.info(f"Selected SEASONAL homepage (impressions: {seasonal_homepage['impressions']:,} > {normal_homepage['impressions']:,})")
+                else:
+                    selected_homepage = normal_homepage
+                    logging.info(f"Selected NORMAL homepage (impressions: {normal_homepage['impressions']:,} >= {seasonal_homepage['impressions']:,})")
+            elif seasonal_homepage:
+                selected_homepage = seasonal_homepage
+                logging.info(f"Only seasonal homepage found, using it")
+            elif normal_homepage:
+                selected_homepage = normal_homepage
+                logging.info(f"Only normal homepage found, using it")
+            else:
+                logging.warning("Could not find any Home Page variant (seasonal or normal)")
                 return None
             
-            logging.info(f"Found {len(homepage_matches)} Home Page expanded rows")
+            homepage_class = selected_homepage['class']
+            homepage_title = selected_homepage['title']
+            
+            # Step 2: Find all child rows with this dynamically discovered class
+            # FIXED: Use split approach but capture ALL content until next row
+            split_pattern = rf'<div class="tr feature_stats {homepage_class}"[^>]*?>'
+            sections = re.split(split_pattern, page_source)
+            
+            # Process each section to extract the complete row content
+            homepage_matches = []
+            for section in sections[1:]:
+                # Find all content until the next <div class="tr" (which starts the next row)
+                # Use GREEDY match .* to capture everything, not just to first </div>
+                end_match = re.search(r'(.*)</div>\s*<div class="tr', section, re.DOTALL)
+                if end_match:
+                    # Found next row - take everything before it
+                    homepage_matches.append(end_match.group(1))
+                else:
+                    # This is the last row or an empty row - take everything until we find the empty row marker
+                    end_match2 = re.search(r'(.*)</div>\s*<div class="tr feature_stats_empty', section, re.DOTALL)
+                    if end_match2:
+                        homepage_matches.append(end_match2.group(1))
+                    else:
+                        # Take everything up to the end
+                        content = section.strip()
+                        if content and '<div class="td"' in content:
+                            homepage_matches.append(content)
+            
+            if not homepage_matches:
+                logging.warning(f"Found parent class '{homepage_class}' for '{homepage_title}' but no child rows")
+                return None
+            
+            logging.info(f"Found {len(homepage_matches)} expanded rows for '{homepage_title}' with class {homepage_class}")
             
             homepage_data = []
             
@@ -637,27 +989,38 @@ class SteamworksMarketingCrawler:
                     if not name_match:
                         continue
                     
-                    
+                    # Get feature name and translate to English
                     page_feature = name_match.group(1).strip()
+                    page_feature = translate_feature_name_to_english(page_feature)
                     
-                    # Extract all td values in the correct order
-                    # Find all td elements that contain data (not the title)
-                    td_pattern = r'<div class="td"[^>]*>([^<]*)</div>'
-                    all_td_matches = re.findall(td_pattern, row_html)
+                    # Helper function to strip HTML tags and extract text
+                    def strip_html_tags(html_content):
+                        """Remove HTML tags and extract pure text"""
+                        text = re.sub(r'<[^>]+>', '', html_content)
+                        text = re.sub(r'\s+', ' ', text).strip()
+                        return text
                     
-                    # Filter out the title (first td), keep only data values
+                    # Extract all td values - FIXED: Pattern matches class="td" AND class="td page_type"
+                    # Use word boundary to match "td" as a class name
+                    td_pattern = r'<div class="[^"]*\btd\b[^"]*"[^>]*?>(.*?)</div>'
+                    all_td_matches = re.findall(td_pattern, row_html, re.DOTALL)
+                    
+                    # FIXED: Keep ALL 7 data cells in positional order (don't filter out empties!)
+                    # HTML structure: [title, impressions, owner_impressions, %, click_thru, visits, owner_visits, %, expander]
+                    if len(all_td_matches) < 8:
+                        logging.warning(f"Homepage row '{page_feature}' has {len(all_td_matches)} td cells, expected 8+, skipping")
+                        continue
+                    
+                    # Extract and clean all 7 data cells (skip cell 0=title, skip cell 8+=expander/extra)
                     data_values = []
-                    for i, value in enumerate(all_td_matches):
-                        clean_value = value.strip()
-                        # Skip empty values and title
-                        if (clean_value and 
-                            clean_value != page_feature and  # Skip the title
-                            (clean_value.replace(',', '').replace('.', '').replace('%', '').isdigit() or 
-                             '.' in clean_value.replace('%', '') or 
-                             ',' in clean_value)):
+                    for i in range(1, 8):  # Cells 1-7 are the data columns
+                        if i < len(all_td_matches):
+                            clean_value = strip_html_tags(all_td_matches[i])
                             data_values.append(clean_value)
+                        else:
+                            data_values.append('')  # Pad with empty if missing
                     
-                    # Initialize row data with default values (include all rows regardless of data count)
+                    # Initialize row data with default values
                     row_data = {
                         'page_feature': page_feature,
                         'impressions': 0,
@@ -669,7 +1032,7 @@ class SteamworksMarketingCrawler:
                         'percentage_of_total_visits': 0.0
                     }
                     
-                    # Map the available values to the correct fields (use 0 for missing values)
+                    # Map the 7 data values POSITIONALLY to the correct fields
                     field_names = ['impressions', 'owner_impressions', 'percentage_of_total_impressions', 
                                   'click_thru_rate', 'visits', 'owner_visits', 'percentage_of_total_visits']
                     
@@ -677,11 +1040,12 @@ class SteamworksMarketingCrawler:
                         if i < len(field_names):
                             field_name = field_names[i]
                             
-                            if not value.strip():
+                            # Parse the value (empty string becomes 0)
+                            if not value or value in ['', '&nbsp;', '-']:
                                 row_data[field_name] = 0
                             else:
                                 # Remove commas and extract number
-                                clean_value = value.strip().replace(',', '')
+                                clean_value = value.replace(',', '')
                                 if clean_value.endswith('%'):
                                     # Percentage value
                                     num_match = re.search(r'([0-9.]+)%?', clean_value)
@@ -693,6 +1057,13 @@ class SteamworksMarketingCrawler:
                                     except ValueError:
                                         row_data[field_name] = 0
                     
+                    # APPLY 1% FILTER: Skip row if both percentages are <= 1%
+                    percentage_impressions = row_data.get('percentage_of_total_impressions', 0)
+                    percentage_visits = row_data.get('percentage_of_total_visits', 0)
+                    
+                    if percentage_impressions <= 1.0 and percentage_visits <= 1.0:
+                        continue  # Skip this row, move to next
+                    
                     homepage_data.append(row_data)
                     logging.info(f"Processed Home Page expanded row: {page_feature} with {len(data_values)} values")
                         
@@ -701,10 +1072,10 @@ class SteamworksMarketingCrawler:
                     continue
             
             if homepage_data:
-                logging.info(f"Homepage breakdown: extracted {len(homepage_data)} rows")
+                logging.info(f"Homepage breakdown for '{homepage_title}': extracted {len(homepage_data)} rows (after 1% filter)")
                 return homepage_data
             else:
-                logging.warning("No valid Home Page expanded rows found")
+                logging.warning(f"No expanded rows found for '{homepage_title}' after 1% filter - homepage_breakdown will be null")
                 return None
             
         except Exception as e:
@@ -712,24 +1083,26 @@ class SteamworksMarketingCrawler:
             return None
     
     def extract_takeover_banner_from_breakdown(self, homepage_breakdown):
-        """Extract takeover banner data from homepage_breakdown JSON"""
+        """Extract takeover banner data from homepage_breakdown JSON (supports English and Chinese)"""
         try:
             if not homepage_breakdown:
                 logging.warning("No homepage breakdown data available for takeover banner extraction")
                 return None
             
             # Find the takeover banner entry in homepage breakdown
+            # English: "Takeover Banner", Chinese: "置顶展示横幅"
             for entry in homepage_breakdown:
-                if entry.get('page_feature') == 'Takeover Banner':
+                page_feature = entry.get('page_feature', '')
+                if page_feature in ['Takeover Banner', '置顶展示横幅']:
                     # Apply threshold check: if impressions < 1000, return None
                     if entry.get('impressions', 0) >= 1000:
-                        logging.info(f"Found Takeover Banner: impressions={entry.get('impressions')}, visits={entry.get('visits')}")
+                        logging.info(f"Found Takeover Banner/置顶展示横幅: impressions={entry.get('impressions')}, visits={entry.get('visits')}")
                         return entry
                     else:
                         logging.info(f"Takeover Banner impressions ({entry.get('impressions', 0)}) below threshold (1000), skipping")
                         return None
             
-            logging.warning("Could not find Takeover Banner entry in homepage breakdown")
+            logging.warning("Could not find Takeover Banner/置顶展示横幅 entry in homepage breakdown")
             return None
             
         except Exception as e:
@@ -737,17 +1110,18 @@ class SteamworksMarketingCrawler:
             return None
     
     def extract_main_cluster_from_breakdown(self, homepage_breakdown):
-        """Extract and aggregate main cluster data from homepage_breakdown JSON"""
+        """Extract and aggregate main cluster data from homepage_breakdown JSON (supports English and Chinese)"""
         try:
             if not homepage_breakdown:
                 logging.warning("No homepage breakdown data available for main cluster extraction")
                 return None
             
             # Find all main cluster entries
+            # English: "Main Cluster (", Chinese: "主看板" or "主看板（"
             main_cluster_entries = []
             for entry in homepage_breakdown:
                 page_feature = entry.get('page_feature', '')
-                if page_feature.startswith('Main Cluster ('):
+                if page_feature.startswith('Main Cluster (') or '主看板' in page_feature:
                     main_cluster_entries.append(entry)
             
             if not main_cluster_entries:
@@ -797,24 +1171,26 @@ class SteamworksMarketingCrawler:
             return None
     
     def extract_pop_up_message_from_breakdown(self, all_source_breakdown):
-        """Extract pop-up message data from all_source_breakdown JSON"""
+        """Extract pop-up message data from all_source_breakdown JSON (supports English and Chinese)"""
         try:
             if not all_source_breakdown:
                 logging.warning("No all source breakdown data available for pop-up message extraction")
                 return None
             
             # Find the marketing message entry in all source breakdown
+            # English: "Marketing Message", Chinese: "宣传信息" or "营销信息"
             for entry in all_source_breakdown:
-                if entry.get('page_feature') == 'Marketing Message':
+                page_feature = entry.get('page_feature', '')
+                if page_feature in ['Marketing Message', '宣传信息', '营销信息']:
                     # Apply threshold check: if impressions < 1000, return None
                     if entry.get('impressions', 0) >= 1000:
-                        logging.info(f"Found Marketing Message: impressions={entry.get('impressions')}, visits={entry.get('visits')}")
+                        logging.info(f"Found Marketing Message/宣传信息: impressions={entry.get('impressions')}, visits={entry.get('visits')}")
                         return entry
                     else:
                         logging.info(f"Marketing Message impressions ({entry.get('impressions', 0)}) below threshold (1000), skipping")
                         return None
             
-            logging.warning("Could not find Marketing Message entry in all source breakdown")
+            logging.warning("Could not find Marketing Message/宣传信息 entry in all source breakdown")
             return None
             
         except Exception as e:
@@ -843,22 +1219,54 @@ class SteamworksMarketingCrawler:
             logging.warning(f"Could not find date range: {str(e)}")
         
         try:
-            # 1. Extract total_impressions
-            impressions_element = WebDriverWait(self.driver, 60).until(
-                EC.presence_of_element_located(
-                    (By.XPATH, "//div[@class='stats_header_section']//div[contains(text(), 'Impressions')]/following-sibling::div[@class='stat']")
+            # 1. Extract total_impressions (support both English and Chinese)
+            # English: "Impressions", Chinese: "曝光量"
+            impressions_element = None
+            for text_pattern in ['Impressions', '曝光量']:
+                try:
+                    impressions_element = WebDriverWait(self.driver, 10).until(
+                        EC.presence_of_element_located(
+                            (By.XPATH, f"//div[@class='stats_header_section']//div[contains(text(), '{text_pattern}')]/following-sibling::div[@class='stat']")
+                        )
+                    )
+                    break
+                except:
+                    continue
+            
+            if not impressions_element:
+                # Fallback: just get the first stat
+                impressions_element = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located(
+                        (By.XPATH, "//div[@class='stats_header_section'][1]//div[@class='stat']")
+                    )
                 )
-            )
+            
             impressions_text = impressions_element.text.strip()
             total_impressions = self.parse_number_with_suffix(impressions_text)
             logging.info(f"Extracted total_impressions: {total_impressions}")
             
-            # 2. Extract total_visits  
-            visits_element = self.wait.until(
-                EC.presence_of_element_located(
-                    (By.XPATH, "//div[@class='stats_header_section']//div[contains(text(), 'Visits')]/following-sibling::div[@class='stat']")
+            # 2. Extract total_visits (support both English and Chinese)
+            # English: "Visits", Chinese: "访问量"
+            visits_element = None
+            for text_pattern in ['Visits', '访问量']:
+                try:
+                    visits_element = self.wait.until(
+                        EC.presence_of_element_located(
+                            (By.XPATH, f"//div[@class='stats_header_section']//div[contains(text(), '{text_pattern}')]/following-sibling::div[@class='stat']")
+                        )
+                    )
+                    break
+                except:
+                    continue
+            
+            if not visits_element:
+                # Fallback: get the second stat
+                visits_element = self.wait.until(
+                    EC.presence_of_element_located(
+                        (By.XPATH, "//div[@class='stats_header_section'][2]//div[@class='stat']")
+                    )
                 )
-            )
+            
             visits_text = visits_element.text.strip()
             total_visits = self.parse_number_with_commas(visits_text)
             logging.info(f"Extracted total_visits: {total_visits}")
@@ -1116,8 +1524,14 @@ def main():
             games = []
     if not games:
         # Default games list - testing with Delta Force only
+        # games = [
+        #     (2507950, 'Delta Force'),
+        # ]
         games = [
             (2507950, 'Delta Force'),
+            (2073620, 'Arena Breakout: Infinite'),
+            (3478050, 'Road to Empress'),
+            (3104410, 'Terminull Brigade'),
         ]
 
     overall_success = True

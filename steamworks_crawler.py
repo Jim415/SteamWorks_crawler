@@ -1619,9 +1619,9 @@ def main():
         # Default games list
         games = [
             (2507950, 'Delta Force'),
-            (3104410, 'Terminull Brigade'),
-            (3478050, 'Road to Empress'),
             (2073620, 'Arena Breakout: Infinite'),
+            (3478050, 'Road to Empress'),
+            (3104410, 'Terminull Brigade'),
         ]
 
     overall_success = True

@@ -19,8 +19,8 @@ except ImportError:
     ZoneInfo = None
 import tempfile
 
-# Import the existing marketing crawler class
-from steamworks_marketing_crawler import SteamworksMarketingCrawler
+# Import the existing marketing crawler class and translation function
+from steamworks_marketing_crawler import SteamworksMarketingCrawler, translate_feature_name_to_english, CHINESE_TO_ENGLISH_FEATURES
 
 # Setup logging
 logging.basicConfig(
@@ -39,54 +39,139 @@ class SteamworksHistoricalMarketingCrawler(SteamworksMarketingCrawler):
         self.end_date = end_date
         
     def extract_homepage_breakdown_from_html(self):
-        """Extract homepage breakdown data from HTML source by parsing Home Page expanded section - FIXED VERSION"""
+        """Extract homepage breakdown data from HTML source - SUPPORTS SEASONAL HOMEPAGE"""
         try:
             # Get the page source
             page_source = self.driver.page_source
             import re
             
-            # FIXED: More flexible approach to find Home Page expanded content
             homepage_data = []
             
-            # Step 1: Look for Home Page expanded content directly
-            # Try multiple patterns to find the expanded content
-            expanded_patterns = [
-                # Home Page uses featurestatsclass_6
-                r'<div class="tr feature_stats featurestatsclass_6"[^>]*>.*?</div>\s*</div>',
-                # Alternative pattern
-                r'<div[^>]*class="[^"]*feature_stats[^"]*featurestatsclass_6[^"]*"[^>]*>.*?</div>\s*</div>',
-                # More flexible pattern
-                r'<div[^>]*featurestatsclass_6[^>]*>.*?</div>\s*</div>'
-            ]
+            # Step 1: Search for BOTH homepage variants
+            # Find all parent rows - capture until the next <div class="tr feature_stats to get complete row
+            all_parents = re.findall(
+                r'<div class="tr highlightHover page_stats"[^>]*?onclick="ToggleFeatureStats\(\s*this,\s*\'(featurestatsclass_\d+)\'\s*\);"[^>]*?>(.*?)</div>\s*(?=<div class="tr feature_stats)',
+                page_source,
+                re.DOTALL
+            )
             
-            expanded_matches = []
-            for pattern in expanded_patterns:
-                matches = re.findall(pattern, page_source, re.DOTALL)
-                if matches:
-                    expanded_matches = matches
-                    logging.info(f"Found {len(expanded_matches)} Home Page expanded rows using pattern: {pattern[:50]}...")
-                    break
+            seasonal_homepage = None
+            normal_homepage = None
             
-            if not expanded_matches:
-                logging.warning("Could not find Home Page expanded content with any pattern")
+            for class_name, row_content in all_parents:
+                # Extract the title from <strong> tag
+                title_match = re.search(r'<strong>([^<]+)</strong>', row_content)
+                if not title_match:
+                    continue
+                    
+                title = title_match.group(1).strip()
                 
-                # DEBUG: Let's see what featurestatsclass_6 elements exist
-                debug_pattern = r'<div[^>]*featurestatsclass_6[^>]*>.*?</div>\s*</div>'
-                debug_matches = re.findall(debug_pattern, page_source, re.DOTALL)
-                logging.info(f"DEBUG: Found {len(debug_matches)} featurestatsclass_6 elements total")
+                # Check if this is seasonal homepage (contains "季节性" AND ("特卖" OR "主页"))
+                if '季节性' in title and ('特卖' in title or '主页' in title):
+                    # Extract impressions from parent row using the proven td pattern
+                    td_pattern = r'<div class="[^"]*\btd\b[^"]*"[^>]*?>(.*?)</div>'
+                    all_tds = re.findall(td_pattern, row_content, re.DOTALL)
+                    
+                    # Clean TD content
+                    def strip_html(html_content):
+                        text = re.sub(r'<[^>]+>', '', html_content)
+                        text = re.sub(r'\s+', ' ', text).strip()
+                        return text
+                    
+                    # Impressions is in TD cell 1 (cell 0 is title)
+                    impressions = 0
+                    if len(all_tds) > 1:
+                        impressions_text = strip_html(all_tds[1]).replace(',', '')
+                        if impressions_text.isdigit():
+                            impressions = int(impressions_text)
+                    
+                    seasonal_homepage = {
+                        'class': class_name,
+                        'title': title,
+                        'impressions': impressions
+                    }
+                    logging.info(f"Found Seasonal Homepage: '{title}' uses {class_name}, impressions: {impressions:,}")
                 
-                if debug_matches:
-                    logging.info("DEBUG: Sample featurestatsclass_6 elements:")
-                    for i, match in enumerate(debug_matches[:3]):
-                        strong_match = re.search(r'<strong>([^<]+)</strong>', match)
-                        if strong_match:
-                            logging.info(f"  {i+1}. Title: {strong_match.group(1)}")
-                        else:
-                            logging.info(f"  {i+1}. No title found")
-                
+                # Check if this is normal homepage (exact match "主页" or "Home Page", without "季节性")
+                elif (title == '主页' or title == 'Home Page') and '季节性' not in title:
+                    # Extract impressions from parent row using the proven td pattern
+                    td_pattern = r'<div class="[^"]*\btd\b[^"]*"[^>]*?>(.*?)</div>'
+                    all_tds = re.findall(td_pattern, row_content, re.DOTALL)
+                    
+                    # Clean TD content
+                    def strip_html(html_content):
+                        text = re.sub(r'<[^>]+>', '', html_content)
+                        text = re.sub(r'\s+', ' ', text).strip()
+                        return text
+                    
+                    # Impressions is in TD cell 1 (cell 0 is title)
+                    impressions = 0
+                    if len(all_tds) > 1:
+                        impressions_text = strip_html(all_tds[1]).replace(',', '')
+                        if impressions_text.isdigit():
+                            impressions = int(impressions_text)
+                    
+                    normal_homepage = {
+                        'class': class_name,
+                        'title': title,
+                        'impressions': impressions
+                    }
+                    logging.info(f"Found Normal Homepage: '{title}' uses {class_name}, impressions: {impressions:,}")
+            
+            # Step 2: Compare and select which homepage to use
+            selected_homepage = None
+            
+            if seasonal_homepage and normal_homepage:
+                # Both found - compare impressions
+                if seasonal_homepage['impressions'] > normal_homepage['impressions']:
+                    selected_homepage = seasonal_homepage
+                    logging.info(f"Selected SEASONAL homepage (impressions: {seasonal_homepage['impressions']:,} > {normal_homepage['impressions']:,})")
+                else:
+                    selected_homepage = normal_homepage
+                    logging.info(f"Selected NORMAL homepage (impressions: {normal_homepage['impressions']:,} >= {seasonal_homepage['impressions']:,})")
+            elif seasonal_homepage:
+                selected_homepage = seasonal_homepage
+                logging.info(f"Only seasonal homepage found, using it")
+            elif normal_homepage:
+                selected_homepage = normal_homepage
+                logging.info(f"Only normal homepage found, using it")
+            else:
+                logging.warning("Could not find any Home Page variant (seasonal or normal)")
                 return []
             
-            logging.info(f"Found {len(expanded_matches)} Home Page expanded rows")
+            homepage_class = selected_homepage['class']
+            homepage_title = selected_homepage['title']
+            
+            # Step 2: Find all child rows with this dynamically discovered class
+            # FIXED: Use split approach but capture ALL content until next row (same as marketing crawler)
+            split_pattern = rf'<div class="tr feature_stats {homepage_class}"[^>]*?>'
+            sections = re.split(split_pattern, page_source)
+            
+            # Process each section to extract the complete row content
+            expanded_matches = []
+            for section in sections[1:]:
+                # Find all content until the next <div class="tr" (which starts the next row)
+                # Use GREEDY match .* to capture everything, not just to first </div>
+                end_match = re.search(r'(.*)</div>\s*<div class="tr', section, re.DOTALL)
+                if end_match:
+                    # Found next row - take everything before it
+                    expanded_matches.append(end_match.group(1))
+                else:
+                    # This is the last row or an empty row - take everything until we find the empty row marker
+                    end_match2 = re.search(r'(.*)</div>\s*<div class="tr feature_stats_empty', section, re.DOTALL)
+                    if end_match2:
+                        expanded_matches.append(end_match2.group(1))
+                    else:
+                        # Take everything up to the end
+                        content = section.strip()
+                        if content and '<div class="td"' in content:
+                            expanded_matches.append(content)
+            
+            if not expanded_matches:
+                logging.warning(f"Found parent class '{homepage_class}' for '{homepage_title}' but no child rows")
+                return []
+            
+            logging.info(f"Found {len(expanded_matches)} expanded rows for '{homepage_title}' with class {homepage_class}")
             
             # Step 2: Process each expanded row with 1% filter
             for row_html in expanded_matches:
@@ -97,73 +182,87 @@ class SteamworksHistoricalMarketingCrawler(SteamworksMarketingCrawler):
                     if not name_match:
                         continue
                     
+                    # Get feature name and translate to English
                     page_feature = name_match.group(1).strip()
+                    page_feature = translate_feature_name_to_english(page_feature)
                     
                     # Filter out entries that don't belong in homepage breakdown
                     invalid_entries = ['Image', 'Button', 'Primary Store Link', 'Search Auto-complete', 'Discovery Queue']
                     if page_feature in invalid_entries:
                         continue
                     
-                    # Extract all td values
-                    td_pattern = r'<div class="td"[^>]*>([^<]*)</div>'
-                    all_td_matches = re.findall(td_pattern, row_html)
+                    # Helper function to strip HTML tags and extract text
+                    def strip_html_tags(html_content):
+                        """Remove HTML tags and extract pure text"""
+                        text = re.sub(r'<[^>]+>', '', html_content)
+                        text = re.sub(r'\s+', ' ', text).strip()
+                        return text
                     
-                    # Filter out the title, keep only data values
-                    data_values = []
-                    for i, value in enumerate(all_td_matches):
-                        clean_value = value.strip()
-                        if (clean_value and 
-                            clean_value != page_feature and  # Skip the title
-                            not clean_value.startswith('expander') and  # Skip expander
-                            (clean_value.replace(',', '').replace('.', '').replace('%', '').isdigit() or 
-                             '.' in clean_value.replace('%', '') or 
-                             ',' in clean_value)):
-                            data_values.append(clean_value)
+                    # Extract all td values - FIXED: Use proven regex approach from marketing crawler
+                    # Pattern matches class="td" AND class="td page_type"
+                    # Use word boundary to match "td" as a class name
+                    td_pattern = r'<div class="[^"]*\btd\b[^"]*"[^>]*?>(.*?)</div>'
+                    all_td_matches = re.findall(td_pattern, row_html, re.DOTALL)
                     
-                    # Skip if not enough data values
-                    if len(data_values) < 3:
+                    # FIXED: Keep ALL 7 data cells in positional order (don't filter out empties!)
+                    # HTML structure: [title, impressions, owner_impressions, %, click_thru, visits, owner_visits, %, expander]
+                    if len(all_td_matches) < 8:
+                        logging.warning(f"Homepage row '{page_feature}' has {len(all_td_matches)} td cells, expected 8+, skipping")
                         continue
                     
-                    # Parse the data values to get percentages for filtering
+                    # Extract and clean all 7 data cells (skip cell 0=title, skip cell 8+=expander/extra)
+                    data_values = []
+                    for i in range(1, 8):  # Cells 1-7 are the data columns
+                        if i < len(all_td_matches):
+                            clean_value = strip_html_tags(all_td_matches[i])
+                            data_values.append(clean_value)
+                        else:
+                            data_values.append('')  # Pad with empty if missing
+                    
+                    # Initialize row data with default values
+                    row_data = {
+                        'page_feature': page_feature,
+                        'impressions': 0,
+                        'owner_impressions': 0,
+                        'percentage_of_total_impressions': 0.0,
+                        'click_thru_rate': 0.0,
+                        'visits': 0,
+                        'owner_visits': 0,
+                        'percentage_of_total_visits': 0.0
+                    }
+                    
+                    # Map the 7 data values POSITIONALLY to the correct fields
                     field_names = ['impressions', 'owner_impressions', 'percentage_of_total_impressions', 
                                   'click_thru_rate', 'visits', 'owner_visits', 'percentage_of_total_visits']
                     
-                    parsed_values = {}
                     for i, value in enumerate(data_values):
                         if i < len(field_names):
                             field_name = field_names[i]
                             
-                            if not value.strip():
-                                parsed_values[field_name] = 0
+                            # Parse the value (empty string becomes 0)
+                            if not value or value in ['', '&nbsp;', '-']:
+                                row_data[field_name] = 0
                             else:
-                                clean_value = value.strip().replace(',', '')
+                                # Remove commas and extract number
+                                clean_value = value.replace(',', '')
                                 if clean_value.endswith('%'):
+                                    # Percentage value
                                     num_match = re.search(r'([0-9.]+)%?', clean_value)
-                                    parsed_values[field_name] = float(num_match.group(1)) if num_match else 0
+                                    row_data[field_name] = float(num_match.group(1)) if num_match else 0
                                 else:
+                                    # Regular number
                                     try:
-                                        parsed_values[field_name] = int(clean_value)
+                                        row_data[field_name] = int(clean_value)
                                     except ValueError:
-                                        parsed_values[field_name] = 0
+                                        row_data[field_name] = 0
                     
                     # APPLY 1% FILTER: Skip row if both percentages are <= 1%
-                    percentage_impressions = parsed_values.get('percentage_of_total_impressions', 0)
-                    percentage_visits = parsed_values.get('percentage_of_total_visits', 0)
+                    percentage_impressions = row_data.get('percentage_of_total_impressions', 0)
+                    percentage_visits = row_data.get('percentage_of_total_visits', 0)
                     
-                    if percentage_impressions <= 1.0 and percentage_visits <= 1.0:
+                    # GUARD: Only apply filter if we have valid data (not parsing failures)
+                    if len(data_values) >= 7 and percentage_impressions <= 1.0 and percentage_visits <= 1.0:
                         continue  # Skip this row, move to next
-                    
-                    # Row passed the filter, create the data structure
-                    row_data = {
-                        'page_feature': page_feature,
-                        'impressions': parsed_values.get('impressions', 0),
-                        'owner_impressions': parsed_values.get('owner_impressions', 0),
-                        'percentage_of_total_impressions': percentage_impressions,
-                        'click_thru_rate': parsed_values.get('click_thru_rate', 0),
-                        'visits': parsed_values.get('visits', 0),
-                        'owner_visits': parsed_values.get('owner_visits', 0),
-                        'percentage_of_total_visits': percentage_visits
-                    }
                     
                     homepage_data.append(row_data)
                     logging.info(f"Processed Home Page expanded row: {page_feature} with {len(data_values)} values")
@@ -173,10 +272,10 @@ class SteamworksHistoricalMarketingCrawler(SteamworksMarketingCrawler):
                     continue
             
             if homepage_data:
-                logging.info(f"Homepage breakdown: extracted {len(homepage_data)} rows (after 1% filter)")
+                logging.info(f"Homepage breakdown for '{homepage_title}': extracted {len(homepage_data)} rows (after 1% filter)")
                 return homepage_data
             else:
-                logging.info("No Home Page expanded rows found after filtering")
+                logging.warning(f"No expanded rows found for '{homepage_title}' after 1% filter - homepage_breakdown will be null")
                 return []
             
         except Exception as e:
@@ -211,29 +310,67 @@ class SteamworksHistoricalMarketingCrawler(SteamworksMarketingCrawler):
                     if not name_match:
                         continue
                     
+                    # Get feature name and translate to English
                     page_feature = name_match.group(1).strip()
+                    page_feature = translate_feature_name_to_english(page_feature)
                     
-                    # Extract all td values
-                    td_pattern = r'<div class="td"[^>]*>([^<]*)</div>'
-                    all_td_matches = re.findall(td_pattern, row_html)
+                    # Helper function to strip HTML tags and extract text
+                    def strip_html_tags(html_content):
+                        """Remove HTML tags and extract pure text"""
+                        text = re.sub(r'<[^>]+>', '', html_content)
+                        text = re.sub(r'\s+', ' ', text).strip()
+                        return text
                     
-                    # Filter out the title and expander, keep only data values
-                    data_values = []
-                    for i, value in enumerate(all_td_matches):
-                        clean_value = value.strip()
-                        if (clean_value and 
-                            clean_value != page_feature and  # Skip the title
-                            not clean_value.startswith('expander') and  # Skip expander
-                            (clean_value.replace(',', '').replace('.', '').replace('%', '').isdigit() or 
-                             '.' in clean_value.replace('%', '') or 
-                             ',' in clean_value)):
-                            data_values.append(clean_value)
+                    # Extract all td values - FIXED: Handle nested HTML properly
+                    # Use a simpler approach that works correctly
+                    def extract_td_content(html_content):
+                        """Extract content from all td divs, handling nested HTML properly"""
+                        td_contents = []
+                        # Find all td divs with the correct pattern
+                        td_divs = re.findall(r'<div class="td[^"]*"[^>]*>', html_content)
+                        
+                        for i, td_div in enumerate(td_divs):
+                            # Find the start position of this td div
+                            start_pos = html_content.find(td_div)
+                            if start_pos == -1:
+                                continue
+                            
+                            # Find the content after the opening tag
+                            content_start = start_pos + len(td_div)
+                            
+                            # Look for the next td div or end of content
+                            next_td_pos = html_content.find('<div class="td', content_start)
+                            if next_td_pos == -1:
+                                # Take until the end
+                                content = html_content[content_start:]
+                            else:
+                                # Take until the next td div
+                                content = html_content[content_start:next_td_pos]
+                            
+                            # Clean up the content
+                            content = content.strip()
+                            td_contents.append(content)
+                        
+                        return td_contents
                     
-                    # Skip if not enough data values
-                    if len(data_values) < 3:
+                    all_td_matches = extract_td_content(row_html)
+                    
+                    # FIXED: Keep ALL 7 data cells in positional order (don't filter out empties!)
+                    # HTML structure: [title, impressions, owner_impressions, %, click_thru, visits, owner_visits, %, expander]
+                    if len(all_td_matches) < 8:
+                        logging.warning(f"All-source row '{page_feature}' has {len(all_td_matches)} td cells, expected 8+, skipping")
                         continue
                     
-                    # Parse the data values to get percentages for filtering
+                    # Extract and clean all 7 data cells (skip cell 0=title, skip cell 8+=expander/extra)
+                    data_values = []
+                    for i in range(1, 8):  # Cells 1-7 are the data columns
+                        if i < len(all_td_matches):
+                            clean_value = strip_html_tags(all_td_matches[i])
+                            data_values.append(clean_value)
+                        else:
+                            data_values.append('')  # Pad with empty if missing
+                    
+                    # Parse all data values POSITIONALLY into a dictionary
                     field_names = ['impressions', 'owner_impressions', 'percentage_of_total_impressions', 
                                   'click_thru_rate', 'visits', 'owner_visits', 'percentage_of_total_visits']
                     
@@ -242,10 +379,11 @@ class SteamworksHistoricalMarketingCrawler(SteamworksMarketingCrawler):
                         if i < len(field_names):
                             field_name = field_names[i]
                             
-                            if not value.strip():
+                            # Parse the value (empty string becomes 0)
+                            if not value or value in ['', '&nbsp;', '-']:
                                 parsed_values[field_name] = 0
                             else:
-                                clean_value = value.strip().replace(',', '')
+                                clean_value = value.replace(',', '')
                                 if clean_value.endswith('%'):
                                     num_match = re.search(r'([0-9.]+)%?', clean_value)
                                     parsed_values[field_name] = float(num_match.group(1)) if num_match else 0
@@ -350,6 +488,44 @@ class SteamworksHistoricalMarketingCrawler(SteamworksMarketingCrawler):
         except Exception as e:
             logging.warning(f"Error setting custom date filter: {str(e)}")
             return False
+    
+    def extract_owner_percentage_from_html(self):
+        """Extract owner percentage from HTML source by parsing JavaScript (supports both English and Chinese)"""
+        try:
+            # Get the page source
+            page_source = self.driver.page_source
+            
+            # Look for the dataOwners JavaScript array
+            import re
+            pattern = r'var dataOwners = \[(.*?)\];'
+            match = re.search(pattern, page_source, re.DOTALL)
+            
+            if match:
+                data_owners_str = match.group(1)
+                # Parse the array content
+                # Expected format: 
+                # English: [ 'Non-Owners: 74.2%',  74.2 ], [ 'Owners: 25.8%',  25.8 ]
+                # Chinese: [ '来自非所有者：65.58%',  65.58 ], [ '来自所有者：34.42%',  34.42 ]
+                
+                # Look for the Owners entry in both English and Chinese
+                owners_patterns = [
+                    r"\[\s*'Owners:\s*([0-9.]+)%',\s*([0-9.]+)\s*\]",  # English
+                    r"\[\s*'来自所有者：([0-9.]+)%',\s*([0-9.]+)\s*\]"   # Chinese
+                ]
+                
+                for owners_pattern in owners_patterns:
+                    owners_match = re.search(owners_pattern, data_owners_str)
+                    if owners_match:
+                        owner_percentage = float(owners_match.group(2))
+                        logging.info(f"Found owner percentage: {owner_percentage}%")
+                        return owner_percentage
+            
+            logging.warning("Could not find owner percentage in HTML source")
+            return None
+            
+        except Exception as e:
+            logging.error(f"Failed to extract owner percentage from HTML: {str(e)}")
+            return None
     
     def store_historical_marketing_data(self, data, target_date):
         """Store historical marketing data in game-specific table only"""
