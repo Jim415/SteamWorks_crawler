@@ -121,6 +121,10 @@ class SteamWorksCrawler:
         # chrome_options.add_argument("--headless")
         
         self.driver = webdriver.Chrome(options=chrome_options)
+        # Set explicit page load timeout to handle slow-loading pages (default 60s, increased to 120s)
+        self.driver.set_page_load_timeout(120)
+        # Set script timeout as well
+        self.driver.set_script_timeout(120)
         self.wait = WebDriverWait(self.driver, 30)
         
         logging.info("Chrome WebDriver setup completed")
@@ -205,66 +209,88 @@ class SteamWorksCrawler:
         except Exception as e:
             logging.warning(f"ensure_partner_context failed: {str(e)}")
 
-    def navigate_to_page(self, url, page_name):
-        """Navigate to a specific page and handle login if needed"""
-        try:
-            logging.info(f"Navigating to {page_name}: {url}")
-            self.driver.get(url)
-            
-            # Wait for page to load
-            time.sleep(3)
-            
-            # Check current URL to see if we were redirected to login
-            current_url = self.driver.current_url
-            logging.info(f"Current URL: {current_url}")
-            
-            # If page shows access denied, retry via login goto route once
+    def navigate_to_page(self, url, page_name, max_retries=2):
+        """Navigate to a specific page with retry logic and handle login if needed"""
+        for attempt in range(max_retries + 1):
             try:
-                page_html = (self.driver.page_source or '').lower()
-                if ('access denied' in page_html) or ('do not have access' in page_html) or ('error 403' in page_html):
-                    logging.warning("Access denied detected. Retrying via login goto route...")
-                    # Build goto using path (must be relative on partner site)
-                    rel = url.replace('https://partner.steampowered.com', '')
-                    goto_url = f"https://partner.steampowered.com/login/?goto={quote(rel)}"
-                    self.driver.get(goto_url)
-                    time.sleep(3)
-                    current_url = self.driver.current_url
-                    logging.info(f"After goto route, current URL: {current_url}")
-            except Exception:
-                pass
-            
-            # Check if we're on a login page
-            if "login" in current_url.lower() or "signin" in current_url.lower():
-                logging.warning(f"Detected login page for {page_name}. Manual login required.")
-                print(f"\nManual login required for {page_name}")
-                print("Please:")
-                print("1. Log in to SteamWorks in the browser window")
-                print("2. Navigate to the correct page if needed")
-                print("3. Press Enter here when ready...")
-                input("Press Enter after logging in...")
+                if attempt > 0:
+                    wait_time = min(5 * (2 ** (attempt - 1)), 30)  # Exponential backoff, max 30s
+                    logging.info(f"Retrying navigation to {page_name} (attempt {attempt + 1}/{max_retries + 1}) after {wait_time}s...")
+                    time.sleep(wait_time)
                 
-                # Try to navigate again after manual login
-                logging.info(f"Navigating to {page_name} again after manual login...")
+                logging.info(f"Navigating to {page_name}: {url}")
                 self.driver.get(url)
+                
+                # Wait for page to load
                 time.sleep(3)
                 
-                # Check again
+                # Check current URL to see if we were redirected to login
                 current_url = self.driver.current_url
-                logging.info(f"Current URL after manual login: {current_url}")
+                logging.info(f"Current URL: {current_url}")
                 
-                if "login" not in current_url.lower() and "signin" not in current_url.lower():
-                    logging.info(f"Successfully accessed {page_name} after manual login")
-                    return True
+                # If page shows access denied, retry via login goto route once
+                try:
+                    page_html = (self.driver.page_source or '').lower()
+                    if ('access denied' in page_html) or ('do not have access' in page_html) or ('error 403' in page_html):
+                        logging.warning("Access denied detected. Retrying via login goto route...")
+                        # Build goto using path (must be relative on partner site)
+                        rel = url.replace('https://partner.steampowered.com', '')
+                        goto_url = f"https://partner.steampowered.com/login/?goto={quote(rel)}"
+                        self.driver.get(goto_url)
+                        time.sleep(3)
+                        current_url = self.driver.current_url
+                        logging.info(f"After goto route, current URL: {current_url}")
+                except Exception:
+                    pass
+                
+                # Check if we're on a login page
+                if "login" in current_url.lower() or "signin" in current_url.lower():
+                    logging.warning(f"Detected login page for {page_name}. Manual login required.")
+                    print(f"\nManual login required for {page_name}")
+                    print("Please:")
+                    print("1. Log in to SteamWorks in the browser window")
+                    print("2. Navigate to the correct page if needed")
+                    print("3. Press Enter here when ready...")
+                    input("Press Enter after logging in...")
+                    
+                    # Try to navigate again after manual login
+                    logging.info(f"Navigating to {page_name} again after manual login...")
+                    self.driver.get(url)
+                    time.sleep(3)
+                    
+                    # Check again
+                    current_url = self.driver.current_url
+                    logging.info(f"Current URL after manual login: {current_url}")
+                    
+                    if "login" not in current_url.lower() and "signin" not in current_url.lower():
+                        logging.info(f"Successfully accessed {page_name} after manual login")
+                        return True
+                    else:
+                        logging.error(f"Still on login page after manual login for {page_name}")
+                        return False
                 else:
-                    logging.error(f"Still on login page after manual login for {page_name}")
-                    return False
-            else:
-                logging.info(f"Successfully accessed {page_name}")
-                return True
+                    logging.info(f"Successfully accessed {page_name}")
+                    return True
+                    
+            except Exception as e:
+                error_msg = str(e)
+                is_timeout = 'timeout' in error_msg.lower() or 'timed out' in error_msg.lower()
                 
-        except Exception as e:
-            logging.error(f"Error navigating to {page_name}: {str(e)}")
-            return False
+                if attempt < max_retries:
+                    if is_timeout:
+                        logging.warning(f"Timeout navigating to {page_name} (attempt {attempt + 1}/{max_retries + 1}): {error_msg}")
+                    else:
+                        logging.warning(f"Error navigating to {page_name} (attempt {attempt + 1}/{max_retries + 1}): {error_msg}")
+                    continue
+                else:
+                    # Final attempt failed
+                    if is_timeout:
+                        logging.error(f"Timeout navigating to {page_name} after {max_retries + 1} attempts: {error_msg}")
+                    else:
+                        logging.error(f"Error navigating to {page_name} after {max_retries + 1} attempts: {error_msg}")
+                    return False
+        
+        return False
     
     def set_yesterday_filter(self):
         """Set the time filter to 'yesterday' on the current page"""
@@ -1531,6 +1557,8 @@ class SteamWorksCrawler:
             default_data = self.extract_default_page_data()
             if default_data:
                 all_data.update(default_data)
+            else:
+                logging.warning("⚠️ Default Game Page extraction failed - fields from this page will be NULL: unique_player, lifetime_total_units, wishlist, lifetime_total_revenue, median_playtime")
             
             # Extract data from Lifetime Play Time Page
             logging.info("=== Extracting from Lifetime Play Time Page ===")
