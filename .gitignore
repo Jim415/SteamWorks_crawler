@@ -74,4 +74,7 @@ Instruction.xlsx
 # Chrome profiles and local artifacts to avoid huge commits
 chrome_profile/
 chrome_profile_clone/
-steamworks_crawler.log 
+steamworks_crawler.log
+
+# Alert system configuration (contains webhook URL)
+alert_config.json 

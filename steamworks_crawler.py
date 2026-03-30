@@ -121,10 +121,10 @@ class SteamWorksCrawler:
         # chrome_options.add_argument("--headless")
         
         self.driver = webdriver.Chrome(options=chrome_options)
-        # Set explicit page load timeout to handle slow-loading pages (default 60s, increased to 120s)
-        self.driver.set_page_load_timeout(120)
+        # Set explicit page load timeout to handle slow-loading pages (increased to 180s for Default Game Page)
+        self.driver.set_page_load_timeout(180)
         # Set script timeout as well
-        self.driver.set_script_timeout(120)
+        self.driver.set_script_timeout(180)
         self.wait = WebDriverWait(self.driver, 30)
         
         logging.info("Chrome WebDriver setup completed")
@@ -209,7 +209,7 @@ class SteamWorksCrawler:
         except Exception as e:
             logging.warning(f"ensure_partner_context failed: {str(e)}")
 
-    def navigate_to_page(self, url, page_name, max_retries=2):
+    def navigate_to_page(self, url, page_name, max_retries=2, custom_timeout=None):
         """Navigate to a specific page with retry logic and handle login if needed"""
         for attempt in range(max_retries + 1):
             try:
@@ -469,6 +469,12 @@ class SteamWorksCrawler:
             except Exception as e:
                 logging.warning(f"Failed to get Lifetime Steam revenue (gross): {str(e)}")
             
+            # Validate that unique_player was extracted (the only critical field)
+            if 'unique_player' not in data or data['unique_player'] is None:
+                logging.warning("Default Game Page extraction failed - unique_player not extracted. This field will be NULL.")
+                return None  # Return None instead of empty dict to trigger warning in run_crawler
+            
+            logging.info(f"Default Game Page extraction successful - unique_player extracted: {data['unique_player']}")
             return data
             
         except Exception as e:
