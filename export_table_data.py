@@ -25,15 +25,10 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 import sys
 import json
+from db_config import get_db_config
 
 # Database configuration
-DB_CONFIG = {
-    'host': 'localhost',
-    'port': 3306,
-    'database': 'steamworks_crawler',
-    'user': 'root',
-    'password': 'Zh1149191843!'
-}
+DB_CONFIG = get_db_config()
 
 # Games to export
 GAMES = [

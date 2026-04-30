@@ -19,6 +19,7 @@ import logging
 import sys
 import mysql.connector
 from mysql.connector import Error
+from db_config import get_db_config
 
 
 logging.basicConfig(
@@ -229,13 +230,7 @@ def main():
         print("Cancelled.")
         return
 
-    db_config = {
-        'host': 'localhost',
-        'port': 3306,
-        'database': 'steamworks_crawler',
-        'user': 'root',
-        'password': 'Zh1149191843!'
-    }
+    db_config = get_db_config()
 
     connection = None
     cursor = None

@@ -17,6 +17,7 @@ try:
 except ImportError:
     ZoneInfo = None
 import tempfile
+from db_config import get_db_config
 
 # Setup logging
 logging.basicConfig(
@@ -1626,14 +1627,7 @@ class SteamWorksCrawler:
 def main():
     """Main function to run the crawler"""
     
-    # Database configuration
-    db_config = {
-        'host': 'localhost',
-        'port': 3306,
-        'database': 'steamworks_crawler',
-        'user': 'root',
-        'password': 'Zh1149191843!'
-    }
+    db_config = get_db_config()
     
     # Games to run. You can override via env var STEAMWORKS_GAMES, format:
     # STEAMWORKS_GAMES="2507950:Delta Force,3104410:Terminull Brigade"

@@ -61,11 +61,11 @@ pip install -r requirements_visualization.txt
 2. Edit `config/.env` with your credentials:
    ```
    # MySQL Database
-   MYSQL_HOST=localhost
+   MYSQL_HOST=your-tdsql-public-host
    MYSQL_PORT=3306
    MYSQL_DATABASE=steamworks_crawler
-   MYSQL_USER=root
-   MYSQL_PASSWORD=your_actual_password
+   MYSQL_USER=steamworks_app
+   MYSQL_PASSWORD=your_password
 
    # SMTP Email (for alerts)
    SMTP_SERVER=smtp.exmail.qq.com

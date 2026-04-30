@@ -13,6 +13,7 @@ import os
 import shutil
 from urllib.parse import quote
 import re
+from db_config import get_db_config
 try:
     from zoneinfo import ZoneInfo  # Python 3.9+
 except ImportError:
@@ -1500,14 +1501,7 @@ class SteamworksMarketingCrawler:
 
 def main():
     """Main function to run the marketing crawler"""
-    # Database configuration
-    db_config = {
-        'host': 'localhost',
-        'port': 3306,
-        'database': 'steamworks_crawler',
-        'user': 'root',
-        'password': 'Zh1149191843!'
-    }
+    db_config = get_db_config()
     
     # Games to run (same as financial crawler)
     games_env = os.environ.get('STEAMWORKS_GAMES', '').strip()

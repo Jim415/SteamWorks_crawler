@@ -1,17 +1,11 @@
 import mysql.connector
 from mysql.connector import Error
+from db_config import get_db_config
 
 def check_database():
     """Check what data is in the database"""
     
-    # Database configuration
-    config = {
-        'host': 'localhost',
-        'port': 3306,
-        'database': 'steamworks_crawler',
-        'user': 'root',
-        'password': 'Zh1149191843!'
-    }
+    config = get_db_config()
     
     connection = None
     cursor = None

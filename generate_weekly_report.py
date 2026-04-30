@@ -11,6 +11,7 @@ from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 import sys
 import logging
+from db_config import get_db_config
 
 # Setup logging
 logging.basicConfig(
@@ -376,14 +377,7 @@ def main():
     print("SteamWorks Weekly Report Generator")
     print("=" * 60)
     
-    # Database configuration
-    db_config = {
-        'host': 'localhost',
-        'port': 3306,
-        'database': 'steamworks_crawler',
-        'user': 'root',
-        'password': 'Zh1149191843!'
-    }
+    db_config = get_db_config()
     
     # Get user input
     print("\nEnter the starting date (Monday) in YYYYMMDD format")

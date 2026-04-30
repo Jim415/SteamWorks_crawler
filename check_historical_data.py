@@ -7,17 +7,12 @@ import mysql.connector
 from mysql.connector import Error
 import json
 from datetime import date, timedelta
+from db_config import get_db_config
 
 def connect_to_database():
     """Connect to the database"""
     try:
-        connection = mysql.connector.connect(
-            host='localhost',
-            port=3306,
-            database='steamworks_crawler',
-            user='root',
-            password='Zh1149191843!'
-        )
+        connection = mysql.connector.connect(**get_db_config())
         return connection
     except Error as e:
         print(f"Error connecting to database: {e}")

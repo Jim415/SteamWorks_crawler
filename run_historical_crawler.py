@@ -4,19 +4,13 @@ Configuration script for running historical marketing data crawler
 """
 
 from datetime import date, timedelta
+from db_config import get_db_config
 from steamworks_historical_marketing_crawler import SteamworksHistoricalMarketingCrawler
 
 def main():
     """Main function to configure and run historical crawler"""
     
-    # Database configuration
-    db_config = {
-        'host': 'localhost',
-        'port': 3306,
-        'database': 'steamworks_crawler',
-        'user': 'root',
-        'password': 'Zh1149191843!'
-    }
+    db_config = get_db_config()
     
     # Fixed configuration for Delta Force only
     steam_app_id = 2507950

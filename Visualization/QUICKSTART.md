@@ -22,8 +22,11 @@ cp config/env.example config/.env
 
 **Required settings in `config/.env`:**
 ```
-MYSQL_USER=root
-MYSQL_PASSWORD=Zh1149191843!
+MYSQL_HOST=your-tdsql-public-host
+MYSQL_PORT=3306
+MYSQL_DATABASE=steamworks_crawler
+MYSQL_USER=steamworks_app
+MYSQL_PASSWORD=your_password
 ALERT_RECIPIENT=jimhanzhang@tencent.com
 ```
 

@@ -13,6 +13,7 @@ import os
 import sys
 from datetime import datetime, timedelta, date
 from pathlib import Path
+from db_config import get_db_config
 try:
     from zoneinfo import ZoneInfo  # Python 3.9+
 except ImportError:
@@ -40,13 +41,7 @@ EXPECTED_GAMES = [
 ]
 
 # Database configuration (same as crawler)
-DB_CONFIG = {
-    'host': 'localhost',
-    'port': 3306,
-    'database': 'steamworks_crawler',
-    'user': 'root',
-    'password': 'Zh1149191843!'
-}
+DB_CONFIG = get_db_config()
 
 # Configuration file path
 CONFIG_FILE = os.path.join(os.path.dirname(__file__), 'alert_config.json')

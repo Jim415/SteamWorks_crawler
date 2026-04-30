@@ -1,16 +1,14 @@
 """
 Quick script to check what marketing data was actually saved
 """
+import os
+import sys
 import mysql.connector
 import json
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+from db_config import get_db_config
 
-db_config = {
-    'host': 'localhost',
-    'port': 3306,
-    'database': 'steamworks_crawler',
-    'user': 'root',
-    'password': 'Zh1149191843!'
-}
+db_config = get_db_config()
 
 try:
     conn = mysql.connector.connect(**db_config)
