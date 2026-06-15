@@ -35,7 +35,8 @@ GAMES = [
     {'app_id': 2507950, 'name': 'Delta Force'},
     {'app_id': 2073620, 'name': 'Arena Breakout: Infinite'},
     {'app_id': 3478050, 'name': 'Road to Empress'},
-    {'app_id': 3104410, 'name': 'Terminull Brigade'}
+    {'app_id': 3104410, 'name': 'Terminull Brigade'},
+    {'app_id': 4148240, 'name': 'Road to Empress II'}
 ]
 
 # Note: If no command line arguments are provided, the script will prompt for dates interactively

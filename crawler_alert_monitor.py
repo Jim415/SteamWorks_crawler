@@ -38,6 +38,7 @@ EXPECTED_GAMES = [
     (2073620, 'Arena Breakout: Infinite'),
     (3478050, 'Road to Empress'),
     (3104410, 'Terminull Brigade'),
+    (4148240, 'Road to Empress II'),
 ]
 
 # Database configuration (same as crawler)
@@ -48,6 +49,17 @@ CONFIG_FILE = os.path.join(os.path.dirname(__file__), 'alert_config.json')
 
 # Log file path
 CRAWLER_LOG_FILE = os.path.join(os.path.dirname(__file__), 'steamworks_crawler.log')
+
+
+def log_database_target():
+    """Log non-sensitive database connection details for troubleshooting."""
+    logger.info(
+        "Database target: host=%s port=%s database=%s user=%s",
+        DB_CONFIG.get('host'),
+        DB_CONFIG.get('port'),
+        DB_CONFIG.get('database'),
+        DB_CONFIG.get('user'),
+    )
 
 
 def load_webhook_config():
@@ -407,6 +419,7 @@ def main():
     logger.info("=" * 60)
     logger.info("SteamWorks Crawler Alert Monitor - Starting")
     logger.info("=" * 60)
+    log_database_target()
     
     # Load webhook URL
     webhook_url = load_webhook_config()

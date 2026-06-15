@@ -40,6 +40,7 @@ class SteamWorksCrawler:
     def setup_driver(self):
         """Setup Chrome with persistent user data directory to retain login"""
         chrome_options = Options()
+        chrome_options.page_load_strategy = "eager"
         
         # Decide which Chrome profile to use
         use_system_profile = os.environ.get('STEAMWORKS_USE_SYSTEM_CHROME_PROFILE', '0') == '1'
@@ -122,13 +123,31 @@ class SteamWorksCrawler:
         # chrome_options.add_argument("--headless")
         
         self.driver = webdriver.Chrome(options=chrome_options)
-        # Set explicit page load timeout to handle slow-loading pages (increased to 180s for Default Game Page)
+        # Set explicit page load timeout to handle slow-loading pages
         self.driver.set_page_load_timeout(180)
         # Set script timeout as well
         self.driver.set_script_timeout(180)
         self.wait = WebDriverWait(self.driver, 30)
         
         logging.info("Chrome WebDriver setup completed")
+
+    def recover_default_page_after_timeout(self, target_url):
+        """Stop a slow default page load and continue if the needed DOM is available."""
+        try:
+            self.driver.execute_script("window.stop();")
+            time.sleep(2)
+            current_url = self.driver.current_url
+            page_source = self.driver.page_source or ""
+            if (
+                target_url.rstrip("/") in current_url.rstrip("/")
+                and "Lifetime unique users" in page_source
+            ):
+                logging.info("Recovered Default Game Page after timeout using window.stop()")
+                return True
+            logging.warning(f"Default Game Page timeout recovery did not find expected content. Current URL: {current_url}")
+        except Exception as recover_exc:
+            logging.warning(f"Default Game Page timeout recovery failed: {recover_exc}")
+        return False
     
     def warmup_session(self):
         """Open SteamWorks home once to ensure domain session is active"""
@@ -212,6 +231,12 @@ class SteamWorksCrawler:
 
     def navigate_to_page(self, url, page_name, max_retries=2, custom_timeout=None):
         """Navigate to a specific page with retry logic and handle login if needed"""
+        original_timeout = 180
+        if custom_timeout:
+            try:
+                self.driver.set_page_load_timeout(custom_timeout)
+            except Exception:
+                pass
         for attempt in range(max_retries + 1):
             try:
                 if attempt > 0:
@@ -265,17 +290,40 @@ class SteamWorksCrawler:
                     
                     if "login" not in current_url.lower() and "signin" not in current_url.lower():
                         logging.info(f"Successfully accessed {page_name} after manual login")
+                        if custom_timeout:
+                            try:
+                                self.driver.set_page_load_timeout(original_timeout)
+                            except Exception:
+                                pass
                         return True
                     else:
                         logging.error(f"Still on login page after manual login for {page_name}")
+                        if custom_timeout:
+                            try:
+                                self.driver.set_page_load_timeout(original_timeout)
+                            except Exception:
+                                pass
                         return False
                 else:
                     logging.info(f"Successfully accessed {page_name}")
+                    if custom_timeout:
+                        try:
+                            self.driver.set_page_load_timeout(original_timeout)
+                        except Exception:
+                            pass
                     return True
                     
             except Exception as e:
                 error_msg = str(e)
                 is_timeout = 'timeout' in error_msg.lower() or 'timed out' in error_msg.lower()
+                if is_timeout and page_name == "Default Game Page":
+                    if self.recover_default_page_after_timeout(url):
+                        if custom_timeout:
+                            try:
+                                self.driver.set_page_load_timeout(original_timeout)
+                            except Exception:
+                                pass
+                        return True
                 
                 if attempt < max_retries:
                     if is_timeout:
@@ -289,8 +337,18 @@ class SteamWorksCrawler:
                         logging.error(f"Timeout navigating to {page_name} after {max_retries + 1} attempts: {error_msg}")
                     else:
                         logging.error(f"Error navigating to {page_name} after {max_retries + 1} attempts: {error_msg}")
+                    if custom_timeout:
+                        try:
+                            self.driver.set_page_load_timeout(original_timeout)
+                        except Exception:
+                            pass
                     return False
         
+        if custom_timeout:
+            try:
+                self.driver.set_page_load_timeout(original_timeout)
+            except Exception:
+                pass
         return False
     
     def set_yesterday_filter(self):
@@ -331,7 +389,7 @@ class SteamWorksCrawler:
         """Extract data from the Default Game Page"""
         url = f"https://partner.steampowered.com/app/details/{self.steam_app_id}/"
         
-        if not self.navigate_to_page(url, "Default Game Page"):
+        if not self.navigate_to_page(url, "Default Game Page", custom_timeout=300):
             return None
         
         data = {}
@@ -492,83 +550,7 @@ class SteamWorksCrawler:
         data = {}
         
         try:
-            # Extract Playtime Breakdown Table
-            logging.info("Extracting Playtime Breakdown Table...")
-            try:
-                # Look for the playtime breakdown table
-                table_selectors = [
-                    "//table[contains(@class, 'table')]",
-                    "//table",
-                    "//div[contains(@class, 'table')]//table"
-                ]
-                
-                playtime_data = {}
-                table_found = False
-                
-                for table_selector in table_selectors:
-                    try:
-                        tables = self.driver.find_elements(By.XPATH, table_selector)
-                        for table in tables:
-                            # Look for rows with "Minimum Time Played" and "Percentage of Users"
-                            rows = table.find_elements(By.XPATH, ".//tr")
-                            for row in rows:
-                                cells = row.find_elements(By.XPATH, ".//td")
-                                if len(cells) >= 2:
-                                    time_cell = cells[0].text.strip()
-                                    percentage_cell = cells[1].text.strip()
-                                    
-                                    # Check if this looks like playtime data
-                                    if ('hour' in time_cell.lower() or 'minute' in time_cell.lower()) and '%' in percentage_cell:
-                                        playtime_data[time_cell] = self.parse_numeric_value(percentage_cell)
-                                        table_found = True
-                        
-                        if table_found:
-                            break
-                    except:
-                        continue
-                
-                if playtime_data:
-                    logging.info(f"Found Playtime Breakdown: {len(playtime_data)} entries")
-                    # Extract players_20h_plus from the "20 hours" row as integer percent
-                    try:
-                        percent_val = None
-                        # Prefer an exact-like key containing '20 hours'
-                        for k, v in playtime_data.items():
-                            key_l = str(k).lower()
-                            if '20 hour' in key_l:
-                                if v is not None:
-                                    percent_val = int(float(v))
-                                    break
-                        if percent_val is not None:
-                            data['players_20h_plus'] = percent_val
-                            logging.info(f"Found players_20h_plus: {percent_val}")
-                    except Exception:
-                        pass
-                else:
-                    logging.warning("Failed to get Playtime Breakdown")
-                    
-            except Exception as e:
-                logging.warning(f"Failed to get Playtime Breakdown: {str(e)}")
-            
-            # Extract Average and Median time played as strings
-            try:
-                avg_selector_candidates = [
-                    "//td[b[contains(text(), 'Average time played')]]/following-sibling::td",
-                    "//tr[td/b[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'average time played')]]/td[2]"
-                ]
-                for selector in avg_selector_candidates:
-                    try:
-                        el = self.driver.find_element(By.XPATH, selector)
-                        text_val = el.text.strip()
-                        if text_val:
-                            data['avg_playtime'] = text_val
-                            logging.info(f"Found Average Time Played: {text_val}")
-                            break
-                    except:
-                        continue
-            except Exception as e:
-                logging.warning(f"Failed to get Average Time Played: {str(e)}")
-            
+            # Extract Median time played as string
             try:
                 median_selector_candidates = [
                     "//td[b[contains(text(), 'Median time played')]]/following-sibling::td",
@@ -905,13 +887,12 @@ class SteamWorksCrawler:
                             if not name:
                                 continue
                             entry = region_to_metrics.get(name, {'region': name})
-                            # Share column applies for both rows
-                            share_raw = tds[2].text.strip() or tds[2].get_attribute('innerText') or ''
-                            share_val = self.parse_numeric_value(share_raw)
-                            if share_val is not None:
-                                entry['share'] = f"{float(share_val):.2f}%"
                             # Change column is on revenue row
                             if label == 'revenue':
+                                share_raw = tds[2].text.strip() or tds[2].get_attribute('innerText') or ''
+                                share_val = self.parse_numeric_value(share_raw)
+                                if share_val is not None:
+                                    entry['share'] = f"{float(share_val):.2f}%"
                                 revenue_val = self.parse_numeric_value(tds[4].text.strip())
                                 entry['revenue'] = float(revenue_val) if revenue_val is not None else None
                                 change_raw = tds[6].text.strip()
@@ -981,11 +962,11 @@ class SteamWorksCrawler:
                             if not name:
                                 continue
                             entry = country_to_metrics.get(name, {'country': name})
-                            share_raw = tds[2].text.strip() or tds[2].get_attribute('innerText') or ''
-                            share_val = self.parse_numeric_value(share_raw)
-                            if share_val is not None:
-                                entry['share'] = f"{float(share_val):.2f}%"
                             if label == 'revenue':
+                                share_raw = tds[2].text.strip() or tds[2].get_attribute('innerText') or ''
+                                share_val = self.parse_numeric_value(share_raw)
+                                if share_val is not None:
+                                    entry['share'] = f"{float(share_val):.2f}%"
                                 revenue_val = self.parse_numeric_value(tds[4].text.strip())
                                 entry['revenue'] = float(revenue_val) if revenue_val is not None else None
                                 change_raw = tds[6].text.strip()
@@ -1183,87 +1164,6 @@ class SteamWorksCrawler:
             logging.error(f"Error extracting data from Downloads Region Page: {str(e)}")
             return None
     
-    def extract_in_game_purchases_page_data(self):
-        """Extract data from the In-Game Purchases Page"""
-        url = f"https://partner.steampowered.com/app/microtxn/{self.steam_app_id}/"
-        
-        if not self.navigate_to_page(url, "In-Game Purchases Page"):
-            return None
-        
-        data = {}
-        
-        try:
-            # Set time filter to yesterday
-            self.set_yesterday_filter()
-            
-
-            
-            # Do not fetch daily_total_revenue here; it is sourced from Regions World section
-            
-            # Do not fetch lifetime_total_revenue here; it is sourced from Detail page
-            
-            # Extract IAP breakdown table (Item, ID, Units, Average Price, Revenue)
-            try:
-                breakdown_rows = []
-                # Target the Item Breakdown table by its header context
-                tables = self.driver.find_elements(By.XPATH, "//h2[contains(., 'Item Breakdown')]/following::table[1]//tr[td]")
-                for row in tables:
-                    try:
-                        tds = row.find_elements(By.XPATH, ".//td")
-                        if len(tds) < 6:
-                            continue
-                        # Skip header rows (contain th elsewhere or bold labels)
-                        # Identify by checking if the first cell has a link (item name) and ID is numeric
-                        item_name = tds[0].text.strip()
-                        try:
-                            link = tds[0].find_element(By.XPATH, ".//a")
-                            if link.text.strip():
-                                item_name = link.text.strip()
-                        except Exception:
-                            pass
-                        item_id = tds[1].text.strip()
-                        units_txt = tds[3].text.strip()
-                        avg_price_txt = tds[4].text.strip()
-                        revenue_txt = tds[5].text.strip()
-                        # Basic validation
-                        if not item_name or not item_id:
-                            continue
-                        units_val = self.parse_numeric_value(units_txt)
-                        avg_price_val = self.parse_numeric_value(avg_price_txt)
-                        revenue_val = self.parse_numeric_value(revenue_txt)
-                        if units_val is None or avg_price_val is None or revenue_val is None:
-                            continue
-                        breakdown_rows.append({
-                            'item': item_name,
-                            'id': str(item_id),
-                            'units': int(units_val),
-                            'average_price': round(float(avg_price_val), 2),
-                            'revenue': round(float(revenue_val), 2),
-                        })
-                    except Exception:
-                        continue
-                if breakdown_rows:
-                    # Rank by revenue desc
-                    breakdown_rows.sort(key=lambda x: x['revenue'], reverse=True)
-                    for idx, entry in enumerate(breakdown_rows, start=1):
-                        entry['rank'] = idx
-                    data['iap_breakdown_json'] = breakdown_rows
-                    # Compute top3_iap_share
-                    total_rev = sum(e['revenue'] for e in breakdown_rows)
-                    if total_rev > 0:
-                        top3_rev = sum(e['revenue'] for e in breakdown_rows[:3])
-                        data['top3_iap_share'] = round(top3_rev / total_rev, 4)
-                else:
-                    logging.warning("IAP breakdown table not found or empty")
-            except Exception as e:
-                logging.warning(f"Failed to parse IAP breakdown: {str(e)}")
-            
-            return data
-            
-        except Exception as e:
-            logging.error(f"Error extracting data from In-Game Purchases Page: {str(e)}")
-            return None
-    
     def parse_numeric_value(self, text):
         """Parse numeric values from text, handling different formats"""
         if not text:
@@ -1287,18 +1187,8 @@ class SteamWorksCrawler:
                 # Return None if can't parse
                 return None
     
-    def get_game_table_name(self):
-        """Get the game-specific table name based on steam_app_id"""
-        game_tables = {
-            2507950: 'delta_force_daily_metrics',
-            3104410: 'terminull_brigade_daily_metrics', 
-            3478050: 'road_to_empress_daily_metrics',
-            2073620: 'arena_breakout_infinite_daily_metrics'
-        }
-        return game_tables.get(self.steam_app_id)
-
     def save_to_database(self, data):
-        """Save extracted data to both main table and game-specific table"""
+        """Save extracted data to game_daily_metrics."""
         if not data:
             logging.warning("No data to save")
             return False
@@ -1349,52 +1239,6 @@ class SteamWorksCrawler:
                     except Exception:
                         pass
 
-            # Compute d1_retention = (today_dau - today_new_players) / yesterday_dau
-            d1_retention_val = None
-            try:
-                today_dau = data.get('dau')
-                if today_dau is not None and new_players_val is not None:
-                    prev_date = stat_date - timedelta(days=1)
-                    cursor_prev_dau = connection.cursor()
-                    cursor_prev_dau.execute(
-                        "SELECT dau FROM game_daily_metrics WHERE steam_app_id=%s AND stat_date=%s",
-                        (int(self.steam_app_id), prev_date)
-                    )
-                    row = cursor_prev_dau.fetchone()
-                    if row is not None and row[0] is not None and float(row[0]) > 0:
-                        numerator = float(today_dau) - float(new_players_val)
-                        denom = float(row[0])
-                        if denom > 0:
-                            d1_retention_val = round(numerator / denom, 2)
-            except Exception:
-                d1_retention_val = None
-            finally:
-                try:
-                    cursor_prev_dau.close()
-                except Exception:
-                    pass
-
-            # Compute new_vs_returning_ratio = new_players / (dau - new_players)
-            new_vs_returning_ratio_val = None
-            try:
-                today_dau = data.get('dau')
-                if today_dau is not None and new_players_val is not None:
-                    returning = float(today_dau) - float(new_players_val)
-                    if returning > 0:
-                        new_vs_returning_ratio_val = round(float(new_players_val) / returning, 2)
-            except Exception:
-                new_vs_returning_ratio_val = None
-
-            # Compute pcu_over_dau (rounded to 2 decimals) if possible
-            pcu_over_dau_val = None
-            try:
-                dau_val = data.get('dau')
-                pcu_val = data.get('pcu')
-                if dau_val is not None and pcu_val is not None and float(dau_val) > 0:
-                    pcu_over_dau_val = round(float(pcu_val) / float(dau_val), 2)
-            except Exception:
-                pcu_over_dau_val = None
-
             # Compute daily_arpu = daily_total_revenue / dau (round to 6 decimals per schema)
             daily_arpu_val = None
             try:
@@ -1442,7 +1286,7 @@ class SteamWorksCrawler:
             except Exception:
                 pass
 
-            # Prepare insert payload (same for both tables)
+            # Prepare insert payload
             insert_payload = {
                 'steam_app_id': int(self.steam_app_id),
                 'game_name': self.game_name,
@@ -1454,10 +1298,6 @@ class SteamWorksCrawler:
                 'wishlist': data.get('wishlist'),
                 'dau': data.get('dau'),
                 'pcu': data.get('pcu'),
-                'pcu_over_dau': pcu_over_dau_val,
-                'players_20h_plus': data.get('players_20h_plus'),
-                'd1_retention': d1_retention_val,
-                'new_vs_returning_ratio': new_vs_returning_ratio_val,
                 'total_downloads': data.get('total_downloads'),
                 'daily_total_revenue': data.get('daily_total_revenue'),
                 'daily_units': data.get('daily_units'),
@@ -1468,14 +1308,11 @@ class SteamWorksCrawler:
                 'top10_region_downloads': json.dumps(data.get('top10_region_downloads')) if data.get('top10_region_downloads') is not None else None,
                 'top10_country_revenue': json.dumps(data.get('top10_country_revenue')) if data.get('top10_country_revenue') is not None else None,
                 'top10_region_revenue': json.dumps(data.get('top10_region_revenue')) if data.get('top10_region_revenue') is not None else None,
-                'iap_breakdown_json': json.dumps(data.get('iap_breakdown_json')) if data.get('iap_breakdown_json') is not None else None,
-                'top3_iap_share': data.get('top3_iap_share'),
                 'wishlist_additions': data.get('wishlist_additions'),
                 'wishlist_deletions': data.get('wishlist_deletions'),
                 'wishlist_conversions': data.get('wishlist_conversions'),
                 'lifetime_wishlist_conversion_rate': data.get('lifetime_wishlist_conversion_rate'),
                 'median_playtime': data.get('median_playtime'),
-                'avg_playtime': data.get('avg_playtime'),
             }
             # Remove None values to build dynamic column list
             insert_payload = {k: v for k, v in insert_payload.items() if v is not None}
@@ -1502,32 +1339,9 @@ class SteamWorksCrawler:
             logging.info("Saving data to main table (game_daily_metrics)...")
             cursor.execute(main_insert_query, insert_payload)
             
-            # Save to game-specific table
-            game_table_name = self.get_game_table_name()
-            if game_table_name:
-                # For game-specific table, exclude steam_app_id from PK update clauses
-                game_insert_query = f"""
-                INSERT INTO {game_table_name} ({column_names})
-                VALUES ({placeholders})
-                ON DUPLICATE KEY UPDATE
-                """
-                
-                # Add update clauses for game table (exclude stat_date from updates)
-                game_update_clauses = []
-                for col in columns:
-                    if col != 'stat_date':  # Only exclude stat_date (PK for game tables)
-                        game_update_clauses.append(f"{col} = VALUES({col})")
-                
-                game_insert_query += ', '.join(game_update_clauses)
-                
-                logging.info(f"Saving data to game-specific table ({game_table_name})...")
-                cursor.execute(game_insert_query, insert_payload)
-            else:
-                logging.warning(f"No game-specific table found for steam_app_id: {self.steam_app_id}")
-            
             connection.commit()
             
-            logging.info(f"Data saved to database successfully (main table + game-specific table)")
+            logging.info("Data saved to game_daily_metrics successfully")
             return True
             
         except Error as e:
@@ -1597,12 +1411,6 @@ class SteamWorksCrawler:
             if downloads_region_data:
                 all_data.update(downloads_region_data)
             
-            # Extract data from In-Game Purchases Page
-            logging.info("=== Extracting from In-Game Purchases Page ===")
-            in_game_purchases_data = self.extract_in_game_purchases_page_data()
-            if in_game_purchases_data:
-                all_data.update(in_game_purchases_data)
-            
             if all_data:
                 # Save to database
                 success = self.save_to_database(all_data)
@@ -1650,6 +1458,7 @@ def main():
             (2073620, 'Arena Breakout: Infinite'),
             (3478050, 'Road to Empress'),
             (3104410, 'Terminull Brigade'),
+            (4148240, 'Road to Empress II'),
         ]
 
     overall_success = True

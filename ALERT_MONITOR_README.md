@@ -141,7 +141,15 @@ The monitor checks for these 4 games (hardcoded in script):
 
 ### Database Configuration
 
-Uses same database config as crawler (hardcoded in script). If you change database credentials in `steamworks_crawler.py`, update them in `crawler_alert_monitor.py` too.
+Uses the shared `db_config.py` module, which reads database settings from environment variables or the project `.env` file:
+
+- `MYSQL_HOST`
+- `MYSQL_PORT`
+- `MYSQL_DATABASE`
+- `MYSQL_USER`
+- `MYSQL_PASSWORD`
+
+If the database moves again, update `.env`; `crawler_alert_monitor.py` and the crawler will use the same connection settings.
 
 ## Log Files
 
@@ -164,8 +172,8 @@ Uses same database config as crawler (hardcoded in script). If you change databa
 - Check network connectivity
 
 ### Database connection errors
-- Verify MySQL is running
-- Check database credentials in script match your setup
+- Verify the configured MySQL/TencentDB instance is reachable
+- Check database credentials in `.env` match your setup
 - Ensure database `steamworks_crawler` exists
 
 ## Manual Testing
