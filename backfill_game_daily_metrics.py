@@ -43,6 +43,7 @@ GAMES = [
     (2073620, "Arena Breakout: Infinite"),
     (3478050, "Road to Empress"),
     (3104410, "Terminull Brigade"),
+    (4148240, "Road to Empress II"),
 ]
 
 
